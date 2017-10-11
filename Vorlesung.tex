@@ -5,9 +5,15 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{geometry}
+\usepackage{tikz}
+\usepackage{}
 \geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
 	headsep=10mm, footskip=12mm}
 \title{statistisches Lernen\\ \large{Vorlesung Wintersemester 17/18}}
+
+\def\firstcircle{(0,0) circle (1.5cm)}
+\def\secondcircle{(45:2cm) circle (1.5cm)}
+\def\thirdcircle{(0:2cm) circle (1.5cm)}
 
 \date{}
 \begin{document}
@@ -69,6 +75,20 @@ A - Zahl oben\\B - Wappen oben \\ $\Omega$ - Zahl oder Wappen oben \\ $\emptyset
 	\item Identitäten: $A+A = A$; $AA = A$
 \end{itemize}
 *(A+B)(A+C) = AA+AC+BA+BC = A+(BC)
+
+\begin{tikzpicture}
+\begin{scope}[shift={(3cm,-5cm)}, fill opacity=0.5]
+\fill[red] \firstcircle;
+
+\draw \firstcircle node[below] {$A$};
+\draw \secondcircle node [above] {$B$};
+\draw \thirdcircle node [below] {$C$};
+
+\clip \secondcircle;
+\clip \thirdcircle;
+\fill[red]\thirdcircle;
+\end{scope}
+\end{tikzpicture}
 
 \subsubsection{Wahrscheinlichkeitsbegriff}
 Axiom 1: Jedem Ereignis $A$ aus dem Ereignisfeld $F$ ordnet maneine nichtnegative Zahl $P(A)$ zu. Das ist die \textit{Wahrscheinlichkeit}.
