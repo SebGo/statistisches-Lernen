@@ -6,10 +6,10 @@
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{tikz}
-\usepackage{}
+\usepackage{todonotes}
 \geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
 	headsep=10mm, footskip=12mm}
-\title{statistisches Lernen\\ \large{Vorlesung Wintersemester 17/18}}
+\title{Statistisches Lernen\\ \large{Vorlesung Wintersemester 17/18}}
 
 \def\firstcircle{(0,0) circle (1.5cm)}
 \def\secondcircle{(45:2cm) circle (1.5cm)}
@@ -103,6 +103,94 @@ Axiom 3: Sind Ereignisse $A_i$ $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_I 
 	\item  $P(A_1 + A_2+ \ldots +A_n) \leq P(A_1) + P(A_2)+ \ldots+P(A_n)$
 \end{itemize} 
 \subsubsection{Bedingte Wahrscheinlichkeit}
-Eine Wahrscheinlichkeit von A unter der BEdingung dass B eingetrteten ist schreibt man als $PA|B)$
+Eine Wahrscheinlichkeit von A unter der Bedingung dass B eingetreten ist schreibt man als $P(A|B)$
 \[P(A|B) = \frac{P(AB)}{P(B)}\]
+Motivation: Gegeben seien n unvereinbare, gleich wahrscheinliche Ereignisse \\
+\begin{tabular}{ll}
+  $A_1,A_2,...,A_n$ & mit $m$ günstig für A \\
+ & mit $k$ günstig für B \\ 
+ & mit $r$ günstig für AB (r $\leq$ k, r $\leq$ m) \\ 
+\end{tabular}
+\[ P(A|B)=\frac{r}{k}=\frac{\frac{r}{n}}{\frac{k}{n}}=\frac{P(AB)}{P(B)} \]
+Bsp: Zwei Würfel werden geworfen. Wie groß ist die Wahrscheinlichkeit die Summe 8 zu erhalten (A), falls bekannt ist, dass die Summer gerade ist(B)\\
+\[ P(A)=\frac{5}{36}, P(B)=\frac{1}{2}, P(AB)=\frac{5}{36} \]
+\[ P(A|B)=\frac{P(AB)}{P(B)}=\frac{5}{18} \]
+
+\paragraph{Bayes'sche Formel} 
+Seien $A_1,A_2,...,A_n$ unvereinbar 
+\[ P(A_i|B)=\frac{P(B|A_i) P(A_i)}{\sum\limits_{j=1}^n P(B|A_j) P(A_j)} \]
+
+\subsubsection{Diagnostische Verfahren - Anwendung von Wahrscheinlichkeit}
+Es seien $D^+, D^-$ zwei mögliche Krankheitszustände (krank, gesund) und $T^+,T^-$ die zwei möglichen Ergebnisse eines diagnostischen Tests.
+So bezeichnet man:
+\begin{itemize}
+ \item $P(D^+)$ : Prävalenz
+ \item $P(T^+|D^+)$ : Sensitivität
+ \item $P(T^-|D^-)$ : Spezifizität
+ \item $P(D^+|T^+)$ : positiv-prädiktiver Wert (PPV)
+ \item $P(D^-|T^-)$ : negativ-prädiktiver Wert (NPV)
+\end{itemize}
+
+\subsection{Zufallsvariablen und Verteilungsfunktionen}
+Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''
+Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
+$\rightarrow$ Umkehrung: jede solcher Funktionen lässt sich als Verteilungsfunktion deuten
+
+\subsection{Wichtige Vereilungsfunktionen}
+\paragraph{Binomialverteilung}
+\[ P_n(m)=\binom{n}{m}p^m p^{n-m} \] 
+wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \] 
+
+\[ F(x)=
+  \begin{cases}
+    0 & x \leq 0 \\
+    \sum\limits_{k<x}P_k & 0 < x \leq n \\
+    1 & x > n
+  \end{cases}
+\] 
+
+\paragraph{Poissonverteilung}
+\[ P_n=\frac{\lambda e^{\lambda}}{n!}, \lambda > 0 \]
+
+\[ F_{\lambda}(t)=\sum_{k=0}^t \frac{\lambda^k}{k!}e^{-\lambda} \]
+
+\paragraph{Normalverteilung}
+\[ F(x)=\phi(x)=\frac{1}{\sigma\sqrt{2\pi}} \]
+
+\[ \int_{-\infty}^x e^{\frac{-(z-a)^2}{2\sigma^2}} dz , \sigma > 0 \]
+
+\subsection{Erwartungswert, Varianz, weitere Momente}
+\textbf{Erwartungswert} $E(X)$ eine Zufallsgröße:\\
+\underline{diskret} $E(X)=\sum_i x_i p_i$ wobei $x_i$: mögl. Werte, $p_i$: Wahrscheinlichkeiten \\
+
+Bsp: Würfel 
+\[ E(X)=\frac{1}{6} \sum_{i=1}^6 i = \frac{21}{6} = \frac{7}{2} \]
+Bsp: Binomialverteilung: 
+\[ E(X)= \sum_{k=0}^n k P_n(k) = \sum_{k=0}^n k \binom{n}{k} p^k(1-p)^{n-k} \] 
+Nebenrechnung:
+\[ k \binom{n}{k} = \frac{k n!}{k! (n-k)!} = \frac{n!}{(k-1)!(n-k)!} = \frac{n(n-1)!}{(k-1)!(n-k)!} = n \binom{n-1}{k-1} \] 
+\[\rightarrow E(X)= n \sum_{k=1}^{n} \binom{n-1}{k-1} p^k (1-p)^{n-k} = np \sum_{k=1}^n \binom{n-1}{k-1} p^{k-1} (1-p)^{n-k} \] 
+Sei $k'=k-1, n'=n-1$ \\
+\[ \rightarrow E(X)=np \underbrace{\sum_{k=0}^{n'} \binom{n'}{k'} p^{k'}(1-p)^{n'-k'}}_{=1} = np \]
+
+\underline{stetig} 
+\[ E(X)=\int x - p(x) dx , \quad p(x): \text{Wahrscheinlichkeitsdichte} \]
+
+Bsp: Uniformverteilung auf Intervall $[a,b]$
+\[ E(X)= \frac{1}{b-a} \int_{a}^b x dx = \frac{1}{2(b-a)} x^2 \rvert_{a}^{b} = \frac{b^2 - a^2}{2(b-a)} = \frac{1}{2}(b+a) \]
+\todo{Bin mir unsicher was der vertikale Strich soll}
+
+
+Bsp: Normalverteilung
+\[ E(X)= \frac{1}{\sigma \sqrt{2 \pi}} \int_{-\infty}^{\infty} x e^{\frac{-(x-a)^2}{2\sigma^2}} dx \]
+\[ x' = \frac{x-a}{\sigma} \rightarrow x = \sigma x' + a ,\quad dx= \sigma x' \]
+\[ E(X) = \frac{\sigma}{\sigma \sqrt{2 \pi}} \int_{- \infty}^{\infty} (\sigma x' + a) e^{\frac{-x^2}{2}} dx' \]
+ungerade Funktion ergibt 0
+\[ E(X) = \frac{\sigma}{\sqrt{2 \pi}} \underbrace{\int_{- \infty}^{\infty} e^{-x' 2/2} dx'}_{=\sqrt{2 \pi}} = a \]
+\textbf{Varianz} (oder Dispersion)
+\[ V(X) := E \big[ (X-E(X)^2) \big] \]
+\underline{diskret}: 
+\[ V(X) = \sum\limits_{i} \big[ x_i - E(x) \big] ^2 * p_i \]
+\underline{stetig}: 
+\[ V(X) = \int \big[ x_i - E(x) \big] ^2 * p(x)\; dx \]
 \end{document}
