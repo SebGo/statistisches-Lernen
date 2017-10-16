@@ -7,6 +7,8 @@
 \usepackage{geometry}
 \usepackage{tikz}
 \usepackage{todonotes}
+\usepackage{amsthm}
+
 \geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
 	headsep=10mm, footskip=12mm}
 \title{Statistisches Lernen\\ \large{Vorlesung Wintersemester 17/18}}
@@ -14,8 +16,10 @@
 \def\firstcircle{(0,0) circle (1.5cm)}
 \def\secondcircle{(45:2cm) circle (1.5cm)}
 \def\thirdcircle{(0:2cm) circle (1.5cm)}
-
 \date{}
+
+\theoremstyle{definition}
+\newtheorem{exmp}{Beispiel}[section]
 \begin{document}
 	\maketitle
 	\section{Einführung}
@@ -64,8 +68,10 @@
 	
 	\end{itemize}
 \end{itemize}
-\textbf{Beispiel}: Münzwurf Ereignisfeld \{A,B,$\Omega$, $\emptyset$\}\\
-A - Zahl oben\\B - Wappen oben \\ $\Omega$ - Zahl oder Wappen oben \\ $\emptyset$ - weder Zahl noch Wappen oben
+\begin{exmp}
+	Münzwurf Ereignisfeld \{A,B,$\Omega$, $\emptyset$\}\\
+	A - Zahl oben\\B - Wappen oben \\ $\Omega$ - Zahl oder Wappen oben \\ $\emptyset$ - weder Zahl noch Wappen oben
+\end{exmp}
 
 \subsubsection{Gesetze der Ereignisse}
 \begin{itemize}
