@@ -19,6 +19,7 @@
 
 \theoremstyle{definition}
 \newtheorem{exmp}{Beispiel}[section]
+\newtheorem{axiom}{Axiom}
 \begin{document}
 	\maketitle
 	\section{Einführung}
@@ -96,18 +97,26 @@
 \end{tikzpicture}
 
 \subsubsection{Wahrscheinlichkeitsbegriff}
-Axiom 1: Jedem Ereignis $A$ aus dem Ereignisfeld $F$ ordnet maneine nichtnegative Zahl $P(A)$ zu. Das ist die \textit{Wahrscheinlichkeit}.
-Axiom 2: $P(\Omega)=1$
-Axiom 3: Sind Ereignisse $A_i$ $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_I A_J = \emptyset$ mit $i != j $ so gilt $P(A_1+A_2+ \ldots A_n) = P(A_1+P(A_2)+\ldots+P(A_n) ) $ So folgen folgende Eigenschaften für Wahrscheinlichkeiten
-\begin{itemize}
-	\item $P(\emptyset)= 0$
-	\item $P(\neg A) = 1 - P(A)$, $\neg A = \Omega -A$
-	\item $ 0 \leq P(A) \leq 1$
-	\item Für $A \subset B$ (A ist Teilereignis von B) folgt $P(A) \leq P(B)$
-	\item $P(A+B) = P(A)+P(B)-P(AB)$
-	\item  $P(A_1 + A_2+ \ldots +A_n) \leq P(A_1) + P(A_2)+ \ldots+P(A_n)$
-\end{itemize} 
+\begin{axiom}
+	Jedem Ereignis $A$ aus dem Ereignisfeld $F$ ordnet maneine nichtnegative Zahl $P(A)$ zu. Das ist die \textit{Wahrscheinlichkeit}.
+\end{axiom}
+\begin{axiom}
+	 $P(\Omega)=1$
+\end{axiom}
+\begin{axiom}
+	Sind Ereignisse $A_i$; $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_i A_j = \emptyset$ mit $i \neq j $ so gilt $P(A_1+A_2+ \ldots A_n) = P(A_1+P(A_2)+\ldots+P(A_n) )$ Daraus ergeben sich folgende Eigenschaften für Wahrscheinlichkeiten:
+	\begin{itemize}
+		\item $P(\emptyset)= 0$
+		\item $P(\bar{A}) = 1 - P(A)$, $\bar{A} = \Omega -A$
+		\item $ 0 \leq P(A) \leq 1$
+		\item Für $A \subset B$ (A ist Teilereignis von B) folgt $P(A) \leq P(B)$
+		\item $P(A+B) = P(A)+P(B)-P(AB)$
+		\item  $P(A_1 + A_2+ \ldots +A_n) \leq P(A_1) + P(A_2)+ \ldots+P(A_n)$
+	\end{itemize} 	
+\end{axiom}
+
+
 \subsubsection{Bedingte Wahrscheinlichkeit}
-Eine Wahrscheinlichkeit von A unter der BEdingung dass B eingetrteten ist schreibt man als $PA|B)$
+Eine Wahrscheinlichkeit von A, unter der Bedingung dass B eingetreten ist, schreibt man als $P(A|B)$
 \[P(A|B) = \frac{P(AB)}{P(B)}\]
 \end{document}
