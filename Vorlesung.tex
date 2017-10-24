@@ -16,7 +16,7 @@
 \def\firstcircle{(0,0) circle (1.5cm)}
 \def\secondcircle{(45:2cm) circle (1.5cm)}
 \def\thirdcircle{(0:2cm) circle (1.5cm)}
-\date{}
+\date{} 
 
 \theoremstyle{definition}
 \newtheorem{exmp}{Beispiel}[section]
@@ -207,4 +207,68 @@ ungerade Funktion ergibt 0
 \[ V(X) = \sum\limits_{i} \big[ x_i - E(x) \big] ^2 * p_i \]
 \underline{stetig}: 
 \[ V(X) = \int \big[ x_i - E(x) \big] ^2 * p(x)\; dx \]
+
+\subsection*{Vorlesung 3 - statistisches Lernen - 19.10.17}
+\begin{center}
+Bemerkung 1: dienstags, HS13, donnerstags HS19\\
+Bemerkung 2: Login Name: StudentSL, Pwd: DateienSL
+\end{center}
+
+
+\[
+V(X) := E[(EX)-X)^2] = E[E(X)^2 - 2X E(X) + X^2]  = E(X^2) - [E(X)]^2
+\]
+Bsp. Würfel
+\[
+V(X) = \dfrac{1}{3} \left[\left(\dfrac{5}{2}\right)^2 + \left(\dfrac{3}{2}\right)^2 + \left(\dfrac{1}{2}\right)^2\right] = \dfrac{35}{12}
+\]
+Bsp. Uniformverteilung [a,b]
+\begin{align*}
+V(X) &= \dfrac{1}{b-a} \int_a^b \! x^2 \, \mathrm{d}x - \left(\dfrac{b+a}{2}\right)^2\\
+&= \dfrac{b^3 - a^3}{3 (b-a)} - \dfrac{(b+a)^2}{4} \\
+&= \dfrac{(b-a) (b^2+a^2+ab}{3(b-a)} - \dfrac{(b+a)^2}{4}\\
+&= \dfrac{1}{12} (4b^2+4a^2+4ab-3b^2-6 ab-3a^2)\\
+&= \dfrac{1}{12} (b^2-a^2-2ab) \\
+&= \dfrac{(b-a)^2}{12}
+\end{align*}
+\paragraph{Definition}
+Wir bezeichnen $m_k$ als das \underline{gewöhnliche Moment} (oder Anfangsmoment)\\
+ k-ter Ordnung $m_k := E(X^k)$, \\
+diskret also $\sum_i\left(x_i\right)^k p_i$,
+stetig $\int \! x^k (p(x) \, \mathrm{d}x$
+\\
+Das \underline{zentrale Moment} (auf Zentrum Erwartungswert bezogen) k-ter Ordnung \\
+$\mu_k := E\left[(X-m_1)^k\right]$. Die Varianz ist also das zweite Zentralmoment $V(X) = \mu_2 = m_2 - (m_1)^2$.\\
+Man kann immer $\mu_k$ durch $m_l$ $\left( l \leq k\right)$ ausdrücken.
+
+\subsection*{1.6 Korrelation}
+\paragraph{} Eine Erweiterung dieser Momente stellt die \underline{Kovarianz}
+$b(X,Y) := E\left[\left(X-E(X)\right) \left( Y-E(Y) \right)\right]$
+dar (gemischte Zentralmomente zweiter Ordnung).
+
+Es gilt offensichtlich $b(X,X) = V(X)$.\\
+Die normierte Größe $\rho(X,Y) := \rho_{X,Y} = \dfrac{b(X,Y)}{\sqrt{V(X)V(Y)}}$ bezeichnet man als \underline{Korrelationskoeffizient}. \\
+Es gilt: $-1 \leq \rho \leq 1$. Für $X=Y$ gilt $\rho = 1$ und für $X=-Y$ gilt $\rho = -1$. \\
+Falls $X$ und $Y$ unabhängig dann gilt $\rho = 0$ (nicht aber umgekehrt).\\
+Anwendung auf Wahrscheinlichkeiten: \\
+$E(X) = p_X$, $V(X) = p_X(1 - p_X)$ \\
+
+$\rho_{X,Y} = \dfrac{p_{XY} - p_Xp_Y}{\sqrt{p_X(1-p_X) p_Y(1-p_Y)}}$
+$\rightarrow p_{XY} = p_Xp_Y + \rho_{X,Y} \sqrt{p_X(1-p_X)p_Y(1-pY)}$
+
+\paragraph{Grenzfälle}
+$\rho = 0$ : $p_{XY} = p_X p_Y$\\
+$\rho = 1$\footnote{$\rightarrow p_X = p_Y$} : $p_{XY} = (p_X)^2 + p_X(1-p_X) = p_X$\\
+$\rho = -1$\footnote{$\rightarrow p_X = 1 - p_Y$} : $p_{XY} = p_X(1-pX) - p_X(1-p_X) = 0 $\\
+
+\subsection*{1.7 Einige wichtige Gesetze der Wahrscheinlichkeitstheorie}
+
+\subsubsection*{Gesetz der großen Zahlen}
+Bernoulli: Für alle $\epsilon > 0$: $\lim\limits_{n \rightarrow \infty}{P \left\lbrace| \dfrac{\mu}{n} - p | < \epsilon \right\rbrace} = 1$
+\begin{itemize}
+\item $\mu$ - Anzahl der Ereignisse
+\item $n$ - Anzahl der Versuche
+\item $p$ - Wahrscheinlichkeiten der Ereignisse
+\end{itemize}
 \end{document}
+
