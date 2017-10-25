@@ -16,11 +16,76 @@
 
 \begin{document}
 	\maketitle
-	\section{Aufgabe 1}
+	\section*{Aufgabe 1}
 	Vereinfachen Sie folgende Ausdrücke
 	\begin{itemize}
-		\item $ (A+B)(B+C) $
-		\item$  (A+B)(A+\bar{B}) $
-		\item $(A+B)(\bar{A}+B)(A+\bar{B})$
+		\item $(A+B)(B+C) = B + AC $
+		\item$  (A+B)(A+\bar{B}) = A + B \bar{B} = A $
+		\item $(A+B)(\bar{A}+B)(A+\bar{B}) = B+(A \bar{A}) (A + \bar{B}) = B  (A + \bar{B}) = (BA) + (B \bar{B}) = BA $
 	\end{itemize}
+	
+	\section*{Aufgabe 2}
+	Eine faire Münze wird 7 Mal geworfen
+	\begin{itemize}
+		\item[(a)] Wie groß ist die Wahrscheinlichkeit, das Ergebnis ZWZZWWZ zu erhalten
+	\end{itemize}
+	\[P(ZWZZWWZ) = 0.5 ^7 = \frac{1}{128}\] oder
+	\[P(ZWZZWWZ) = \frac{n}{m} \text{ mit } m = V_7^2 = 2^7 = 128 \text{ und } n=1 \]
+	
+	\begin{itemize}
+		\item[(b)] Wie groß ist die Wahrscheinlichkeit, genau 4 mal Z zu erhalten
+	\end{itemize}
+ 	\[ P(Z = 4) = \binom{7}{4} 0.5^4 (1-0.5)^3 = \frac{35}{128}\]
+ 	oder 
+ 	\[ P(Z = 4) = \frac{n}{m} = \frac{35}{128} \text{ mit } n=P_7^{4,3} = \frac{7!}{4! 3!} = 35 \text{ und } n=128\]
+ 	
+ 	\begin{itemize}
+ 		\item[(c)] Wie groß ist die Wahrscheinlichkeit, mindestens 4 mal Z zu erhalten
+ 	\end{itemize}
+ 	 \begin{align*}
+ 	P(Z \geq 4) &= P(Z=4) + P(Z=5) +P(Z=6) +P(Z=7) \\
+ 	&= \binom{7}{4} 0.5^4 (0.5)^3 + \binom{7}{5} 0.5^5 (0.5)^2 +  \binom{7}{6} 0.5^6 0.5 + \binom{7}{7} 0.5^7 = 0.5
+ 	\end{align*} 
+ 	oder 
+ 	\[P(Z \geq 4) = P_7^{4,3} + P_7^{5,2} P_7^{6,1} +P_7^{7} = 0.5\]
+
+
+\section*{Aufgabe 3}
+Leiten Sie die Bayessche Formel her
+\begin{align*}
+	P(A|B) &= \frac{P(AB)}{P(B)} \text{ mit } \bigcup B_i = \Omega; B_i,B_j = \emptyset \text{ für } i \neq j \\\
+	P(B_i|A) &= \frac{P(AB_i)}{P(A)} = \frac{P(AB_i)}{P(A \cup_i B_i)} = \frac{P(AB_i)}{P(\cup AB_i)} & AB_iAB_j = \emptyset\\
+	&\rightarrow \frac{P(AB_i)}{\sum_{j}P( AB_j)} = \frac{P(A|B_i) P(B_i)}{\sum_{j=1}^{n}P( A|B_j) P(B_j)}
+\end{align*}
+
+
+\section*{Aufgabe 4}
+Ab der 21. Schwangerschaftswoche wird unter Umständen die ''short-term variation'' als Teil der Kardiotokographie gemessen. Bei bestimmten Werten wird der Fötus als krank angesehen und die Geburt wird eingeleitet\\
+
+Sowohl Sensitivität als auch Spezifität betragen 98\%. Die Prävalenz liegt bei Patientinnen mit einer solchen Messung bei 1\%  
+\begin{itemize}
+	\item[(a)] Was ist der positiv-prädiktive Wert (engl. PPV)?
+\end{itemize}
+\begin{align*}
+PPV &= \frac{\text{Anzahl der richtig positiven}}{\text{Anzahl der Richtig positiven + Anzahl der falsch positiven}} \\
+&= \frac{\text{Sensitivität} * \text{Prävalenz}}{\text{Sensitivität}*\text{Prävalenz} + (1 - \text{Spezifität})*(1-\text{Prävalenz})}\\
+P(D^+|T^+) &=\frac{P(T^+|D^+) P(D^+)}{P(T^+|D^+)P(D^+) + P(T^+|D^-) P(D^-)}\\ 
+&= \frac{0.98*0.01}{0.98*0.01 + 0.02* 0.99} = 0.331
+\end{align*}
+
+\begin{itemize}
+	\item[(b)] Wie hoch ist der PPV, wenn die Messun zwei Mal durchgeführt wird und zwar unter der Annahme, dass die Messungen unkorreliert sind?
+\end{itemize}
+\todo{Aufgabe 4b}
+
+\section*{Aufgabe 5}
+Berechnen Sie die Varianz für die Binomialverteilung!
+\[\text{Wahrscheinlichkeitsfunktion: } \binom{n}{k}p^k(1-p)^{n-k}\]
+
+\todo{Aufgabe 5}
+
+\section{Aufgabe 6}
+Berechnen Sie die Varianz für die Normalverteilung!
+\[\text{Wahrscheinlichkeitsdichte: } \dfrac{1}{\sigma \sqrt{2 \pi}} \exp(- \frac{(x-a)^2}{2\sigma^2})\]
+\todo{Aufgabe 6}
 \end{document}
