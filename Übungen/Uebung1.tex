@@ -87,5 +87,17 @@ Berechnen Sie die Varianz für die Binomialverteilung!
 \section{Aufgabe 6}
 Berechnen Sie die Varianz für die Normalverteilung!
 \[\text{Wahrscheinlichkeitsdichte: } \dfrac{1}{\sigma \sqrt{2 \pi}} \exp(- \frac{(x-a)^2}{2\sigma^2})\]
-\todo{Aufgabe 6}
+\[ E(X) = \dfrac{1}{\sigma \sqrt{2 \pi}} \exp(- \frac{(x-a)^2}{2\sigma^2}) = a \]
+\[ V(X) = E((X - E(X))^2) \]
+\[ V(X) = \int_{- \infty}^{\infty} (X-a)^2 e^{-\frac{(x-a)^2}{2 \sigma}} \, \partial x \]
+\[ = \frac{1}{\sigma \sqrt{2 \pi}} \int_{-\infty}^{\infty} \sigma^2 y^2 e^{- \frac{y^2}{2}} \sigma \, \partial y \] 
+%(e^{-\frac{y^2}{2})'zye^{-\frac{y^2}{2}}\]
+Nebenrechnung: \[y = \frac{x-a}{\sigma} \, \frac{\partial x}{\partial y} = \frac{1}{\sigma} \]
+\[ \rightarrow dx = \sigma dy \]
+Nebenrechnung: \[ (uv)'=uv' + u'v \] \\
+\[ \int_{a}^{b}uv'=[uv]_{a}^{b} - \int_{a}^{b}u'v \]
+
+\[ V(X) = \frac{a^2}{\sqrt{2 \pi}} \left( \underbrace{ \left[ y \left( y e^{\frac{y^2}{2}}\right) \right]_{- \infty}^{\infty}}_{=0} - \underbrace{\int_{- \infty}^{\infty} 1 \left( -e^{-\frac{y^2}{2}} \right) dy  }_{=\sqrt{2\pi}} \right) = \sigma^2 \]
+
+\todo{Ich hoffe ich hab das alles richtig abgeschrieben, der Typ hat quer über die Tafel tausend Nebenrechnungen hingekritzelt etc.}
 \end{document}
