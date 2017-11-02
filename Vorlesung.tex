@@ -8,6 +8,8 @@
 \usepackage{tikz}
 \usepackage{todonotes}
 \usepackage{amsthm}
+\usepackage{tabularx}
+    \newcolumntype{L}{>{\raggedright\arraybackslash}X}
 
 \geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
 	headsep=10mm, footskip=12mm}
@@ -399,5 +401,61 @@ Grundidee: Effekt in Gesamtgruppe muss nicht ''echt'' sein. Er kann in Subgruppe
 	\hline 
 \end{tabular} 
 
+%Vorlesung 5
+\section{Statistisches Testen}
+\subsection{Die Logik des Testes}
+Die Analogie zum Beweis durch Widerspruch kann hilfreich sein, hier ein Beispiel:\\
+\begin{tabularx}{\linewidth}{|L|L|}  
+\hline
+Statistisches Testen & Beweis durch Widerspruch \\ \hline
+-Annahme: $H_0: \mu_1 = \mu_2$ (Mittelwert d. Gruppe 1 ist MW d. Gruppe 2)  & -Annahme: $\sqrt{2}$ ist rational \\
+-man glaubt nicht an Annahme & -man glaubt nicht an Annahme \\
+-Folge: Wenn Ann. stimmt... & -Folge: Wenn Ann. stimmt... \\
+-Kommt etwas sehr Unwahrscheinliches raus, so ist die Annahme nicht plausibel(Konvention $< 5\%$ dann wird $H_0$ abgelehnt) & -Kommt man auf einen Widerspruch, so muﬂ die Annahme falsch sein \\
+-Kommt etwas Plausibles raus, so weiﬂ man wenig ¸ber die Annahme (KI kann helfen) & -Kommt man nicht auf einen Widerspruch, so weiﬂ man evtl. wenig ¸ber die Annahme \\ \hline
+\end{tabularx}
+\begin{tabularx}{\linewidth}{|L|L|L|}
+\hline
+ & $H_0$ stimmt & $H_0$ stimmt nicht \\ \hline
+ $H_0$ abgelehnt & Typ I Fehler \newline $\alpha$ \newline (Konvention $\alpha = 0.05$) & :) \newline Power: $1-\beta$ \\
+ $H_0$ nicht abgelehnt & :) & Typ II Fehler\newline $\beta$ \newline Planung: $\beta=0.1 ... 0.2$ erstrebt... Sicherheit ¸ber $\beta$ hat man nicht \\ \hline
+\end{tabularx}
+
+\subsection{Der T-Test}
+Vergleich zweier MW, $H_0: \mu_1 = \mu_2$ \\
+Wir sch‰tzen die ``t-Statistik'' (Annahme gleicher Varianz) \\
+\[ T = \frac{\bar{x_1} - \bar{x_2}}{s \sqrt{\frac{1}{n_1^2} \frac{1}{n_2^2}}} \]
+\[ s = \frac{(n_1 - 1) s_1^2 + (n_2 -1) s_2^2}{n_1 + n_2 -2} \]
+n: Stichpunktgrˆﬂe der i-ten Gruppe \\
+$\bar{x_i}$: MW \\
+$s_i^2 = \sum\limits_{j=1}^{n_i} (x_j^{(i)} - \bar{x}^{(i)} )^2 $ \\
+($T = \frac{\Delta}{SE}$ ist die grundlegende Struktur) \\
+Unter $H_0$: T hat ``t-Verteilung'' mit f-Freiheitsgraden
+\[ f= n_1 + n_2 -2 \]
+Welch-Test (keine Annahme zur Varianz) \\
+\[ T = \frac{\bar{x}_1 - \bar{x}_2 }{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_1}}} \]
+t-Verteilung mit f Freiheitsgraden
+\[ f=\frac{(\tilde{s_1}^2 + \tilde{s_2}^2)^2)}{\frac{\tilde{s_1}^4}{n_1 - 1} + \frac{\tilde{s_1}^4}{n_1 - 1}} \]
+\[ \tilde{s_i} = \frac{s_i}{\sqrt{n_i}} \]
+KI f¸r $\Delta \mu$: $\Delta \bar{x} \pm \underbrace{t_{\alpha / 2 , f}}_{\sim 2 \text{ f¸r } \alpha=0.05 \text{ und } f >> 1}  \cdot$ SE \\
+p-Wert: Wahrscheinlichkeit den Wert von T zu beobachten unter $H_0$ \\
+Ist der p-Wert $p_0$, so beinhaltet ein $(1-p_0)$-KI gerade so den Wert Null \\
+z.B. Ist $p_0=0.05 \rightarrow$ das 95\%-KI erreicht die Null gerade so
+
+\subsection{Kontingenztafel: $\chi^2$- und Fischer-Test}
+Gegeben sei:
+\begin{tabular}{c|c|c|c}
+ & A & B \\ \hline
+ I & $n_{11}$ & $n_{12}$ & $n_{1\cdot}$ \\ \hline
+ II & $n_{21}$ & $n_{22}$ & $n_{1\cdot}$ \\ \hline
+  & $n_{\cdot1}$ & $n_{\cdot2}$ & $n_{\cdot\cdot}$
+\end{tabular}
+\newline
+$\frac{n_{11}}{n_{21}}$ sch‰tzt das ``Odds'' (die Chance) von I im Vergleich zu II bei gruppe A. $\widehat{OR}=\frac{\frac{n_{11}}{n_{21}}}{\frac{n_{12}}{n_{22}}}$ sch‰tzt das ``Odds Ratio'' (Chancenverh‰ltnis) KI: $OR \cdot e^{\pm z_{a/2 \cdot SE}}$ \\
+Hier ist die Frage, ob 1 im Intervall liegt (Null auf der log-Skala)\\
+ Fisher-Test $\Leftrightarrow$ KI von OR (mit anderer Sch‰tzmethode allerdings)  \\
+Fischer-Test heiﬂt ``exakt'', da ein strenger Wert aus der Kombinatorik berechnet wird
+\[ p = \frac{\binom{n_{1\cdot}}{n_{11}} \binom{n_{2\cdot}}{n_{22}}}{ \binom{n_{\cdot \cdot}}{n_{\cdot1}}} \]
+\[ \binom{n_{\cdot\cdot}}{n_{\cdot1}} = \frac{n_{12} + n_{22} + n_{12} + n_{21} }{n_{12} + n_{21} } \]
 \end{document}
 
