@@ -424,7 +424,7 @@ Statistisches Testen & Beweis durch Widerspruch \\ \hline
 \subsection{Der T-Test}
 Vergleich zweier MW, $H_0: \mu_1 = \mu_2$ \\
 Wir schätzen die ``t-Statistik'' (Annahme gleicher Varianz) \\
-\[ T = \frac{\bar{x_1} - \bar{x_2}}{s \sqrt{\frac{1}{n_1^2} \frac{1}{n_2^2}}} \]
+\[ T = \frac{\bar{x_1} - \bar{x_2}}{s \sqrt{\frac{1}{n_1} \frac{1}{n_2}}} \]
 \[ s = \frac{(n_1 - 1) s_1^2 + (n_2 -1) s_2^2}{n_1 + n_2 -2} \]
 n: Stichpunktgröße der i-ten Gruppe \\
 $\bar{x_i}$: MW \\
@@ -447,7 +447,7 @@ Gegeben sei:
 \begin{tabular}{c|c|c|c}
  & A & B \\ \hline
  I & $n_{11}$ & $n_{12}$ & $n_{1\cdot}$ \\ \hline
- II & $n_{21}$ & $n_{22}$ & $n_{1\cdot}$ \\ \hline
+ II & $n_{21}$ & $n_{22}$ & $n_{2\cdot}$ \\ \hline
   & $n_{\cdot1}$ & $n_{\cdot2}$ & $n_{\cdot\cdot}$
 \end{tabular}
 \newline
@@ -457,5 +457,14 @@ Hier ist die Frage, ob 1 im Intervall liegt (Null auf der log-Skala)\\
 Fischer-Test heißt ``exakt'', da ein strenger Wert aus der Kombinatorik berechnet wird
 \[ p = \frac{\binom{n_{1\cdot}}{n_{11}} \binom{n_{2\cdot}}{n_{22}}}{ \binom{n_{\cdot \cdot}}{n_{\cdot1}}} \]
 \[ \binom{n_{\cdot\cdot}}{n_{\cdot1}} = \frac{n_{12} + n_{22} + n_{12} + n_{21} }{n_{12} + n_{21} } \]
+
+%Vorlesung 6
+Der Zusammenhang nominaler Merkmale kann mit höherer Power mit dem (asymptotischen) $\chi^2$-Test als mit einem exakten Test überprüft werden.
+\[ \chi^2 = \sum\limits_{i,j} \frac{(n_{ij} - e_{ij})^2}{e_{ij}} \]
+\[ e_{ij}= \frac{n_{i\cdot} \times n_{\cdot j}}{n_{\cdot \cdot}} \]
+$e_{ij}:$ erwartete Anzahl \\
+$\chi^2$ hat $\chi^2$-Verteilung mit $f=(l-1)\cdot(k-1)$ Freiheitsgrade \todo{l= Anzahl an Zeilen, k= Anzahl Spalten der Kontigenztafel}\\
+Faustregel: $n_{ij} \neq 0$ für alle $i,j$ und $< 20 \%$ der Zellen haben $l_{ij} < 5 \rightarrow \chi^2$-Test \\
+%Ende der Vorlesung
 \end{document}
 
