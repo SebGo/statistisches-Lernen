@@ -1,0 +1,121 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{todonotes}
+\usepackage{amsthm}
+\usepackage{array}
+
+%thick lines in tables
+\makeatletter
+\newcommand{\thickhline}{%
+    \noalign {\ifnum 0=`}\fi \hrule height 1pt
+    \futurelet \reserved@a \@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+\geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
+	headsep=10mm, footskip=12mm}
+\title{Uebung 3 - Statistisches Lernen\\ \large{Wintersemester 17/18}}
+\date{}
+
+\begin{document}
+	\maketitle
+\section{Aufgabe 1}
+\subsection{Aufgabe 1a}
+\[ T = \frac{\bar{x_1} - \bar{x_2}}{s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \hspace{0.5cm},\hspace{0.5cm} s^2 = \frac{(n_1 - 1) s_1^2 + (n_2 -1) s_2^2}{n_1 + n_2 -2} \]
+\[ T = \frac{28.7 - 26.2}{\sqrt{\frac{2.6^2 + 3.1^2}{170}}} \approx \frac{2.5}{0.31} \approx 8.06 \]
+\[ \Rightarrow p= 1.4 \cdot 10^{-14} \]
+$(Freiheitsgrade: n_1 + n_2 -2 = 338)$ \\
+
+\subsection{Aufgabe 1b}
+(Parität = Anzahl von Geburten) 
+\[ T = \frac{\bar{x}_1 - \bar{x}_2 }{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_1}}} = \frac{0.1}{\sqrt{\frac{0.8^2 + 0.9^2}{170}}} \approx 1.08 \]
+
+\subsection{Aufgabe 1c}
+Mit Standardnormalverteilung $\rightarrow p=0.28$ (relative Differenz ist $10^{-3}$)\todo{Die t-Verteilung nähert sich mit steigenden FG der Standardnormalverteilung an}
+
+\subsection{Aufgabe 1d}
+Bei randomisierter Studie stimmt die Nullhypothese per Definition (da die Zuordnung zu einer Gruppe zufällig ist). Wir können nicht $H_0$ verwerfen!
+
+\section{Aufgabe 2}
+\subsection{Aufgabe 2a}
+OR early
+\[ \left(\frac{7}{163} \middle/ \frac{15}{155} \right)^{-1} = 2.25  \] \todo{Ohne $^{-1}$ geht auch, dann kriegt man den Kehrwert raus}
+\vspace{1cm}
+\[KI: OR \cdot e^{\pm z_{a/2 \cdot \sqrt{\frac{1}{n_{11}} + \frac{1}{n_{21}} + \frac{1}{n_{12}} + \frac{1}{n_{22}}}}} = [0.89,5.68] \]
+$(Z_{0.025}=1.96)$
+\[ [0.89,5.68] \rightarrow p > 0.05 \] 
+OR late [95\% KI] $= 2.07 \ [0.37,11.2] \rightarrow p > 0.05 $
+
+\subsection{Aufgabe 2b}
+Beobachtet (early)
+\begin{tabular}{c|c"c}
+ 7 & 5 & 12 \\ \hline
+ 163 & 155 & 318 \\ \thickhline
+ 170 & 170 & 340 
+\end{tabular} 
+\newline
+Erwartet 
+\begin{tabular}{c|c"c}
+ 11 & 11 & 22 \\ \hline
+ 159 & 159 & 318 \\ \thickhline
+ 170 & 170 & 340 
+\end{tabular}
+\newline
+$e_{ij}=\frac{n_{i\cdot} n_{\cdot j}}{n_{\cdot \cdot}}$
+\[ \chi^2 = 2 \cdot \left( \frac{4^2}{11} \right) + 2 \cdot \left( \frac{4^2}{159} \right) = 3.11 \]
+$\Rightarrow p=0.078 $
+\subsection{Aufgabe 2c}
+\paragraph{Nebenbemerkung Symmetrie}
+\[ p = \frac{\binom{n_{1\cdot}}{n_{11}} \binom{n_{2\cdot}}{n_{22}}}{ \binom{n_{\cdot \cdot}}{n_{\cdot1}}} 
+\stackrel{?}{=} \frac{\binom{n_{\cdot1}}{n_{11}} \binom{n_{\cdot2}}{n_{22}}}{ \binom{n_{\cdot \cdot}}{n_{1\cdot}}} \]
+\[ \binom{n_{\cdot \cdot}}{n_{\cdot1}} \stackrel{?}{=} \binom{n_{\cdot \cdot}}{n_{\cdot2}} \]
+\[ \binom{n_{\cdot \cdot}}{n_{\cdot1}} = \frac{(n_{11} + n_{12} + n_{21} + n_{22})!}{(n_{11} + n_{21})!(n_{12} + n_{22})!} = \binom{n_{\cdot \cdot}}{n_{\cdot2}} \]
+\[ p = \frac{(n_{11} + n_{12})!(n_{21} + n_{22})!(n_{11} + n_{21})!(n_{12} + n_{22})!}{n_{11}! n_{12}! n_{21}! n_{22}! (n_{11} + n_{12} + n_{21} + n_{22})!}
+= \frac{\binom{n_{\cdot1}}{n_{11}} \binom{n_{\cdot2}}{n_{22}}}{ \binom{n_{\cdot \cdot}}{n_{1\cdot}}} \]
+Man kann also tauschen was Reihe und Spalte ist (Ende Nebenbemerkung) \\
+
+Für 
+\begin{tabular}{c|c"c}
+ 2 &  4 & 6 \\ \hline
+ 168 & 166 &  334 \\ \thickhline
+ 170 & 170 & 340
+\end{tabular}
+\vspace{0.2cm}
+
+\[ p_1 = \frac{\binom{6}{2}\binom{334}{166}}{\binom{340}{170}} = \frac{\frac{6!}{2!4!} \frac{334!}{166!168!}}{\frac{340!}{170!170!}} 
+= \frac{15 \cdot \frac{1}{1}}{\frac{340 \cdot 339 \cdot \dotsc \cdot 335}{170 \cdot 169 \cdot 168 \cdot 167 \cdot 170 \cdot 169}}
+= 0.235 \]
+
+Für 
+\begin{tabular}{c|c"c}
+ 1 &  5 & 6 \\ \hline
+ 169 & 165 &  334 \\ \thickhline
+ 170 & 170 & 340
+\end{tabular}
+\vspace{0.2cm}
+\[ p_2 = \frac{\binom{6}{1}\binom{334}{169}}{\binom{340}{170}} = 0.0923 \]
+
+Für 
+\begin{tabular}{c|c"c}
+ 0 &  6 & 6 \\ \hline
+ 170 & 164 &  334 \\ \thickhline
+ 170 & 170 & 340
+\end{tabular}
+\vspace{0.2cm}
+\[ p_3 =  0.0169 \]
+
+\[p = 2 \cdot (p_1 + p_2 + p_3) = 0.685 \]
+
+\subsection{Aufgabe 2 d}
+OR[95\% KI] : 2.25 [0.98,5.13]\\
+aus dem $\chi^2$-Test $\rightarrow$ p=0.0485
+\end{document}
+
