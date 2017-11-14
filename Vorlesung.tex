@@ -35,13 +35,13 @@
 	\end{center}
 
 %Vorlesung 1
-	\section{Einführung}
+	\section{EinfÃ¼hrung}
 	\subsection{Vorbemerkungen}
 	\begin{itemize}
-		\item Bei statistischem Lernen geht es darum intelligente Schlüsse aus Daten zu ziehen
+		\item Bei statistischem Lernen geht es darum intelligente SchlÃ¼sse aus Daten zu ziehen
 		\begin{itemize}
 			\item Fokus auf Methoden zu Analysen
-			\item wenig/nicht über Design
+			\item wenig/nicht Ã¼ber Design
 			\item viele Bsp. aus dem Bereich der klinischen Studien
 			\item Anwendungen auf ganz anderen Gebieten
 		\end{itemize}
@@ -53,36 +53,36 @@
 	\end{itemize}
 	\end{itemize}
 \subsection{Wahrscheinlichkeit}
-\subsubsection{Zugänge}
+\subsubsection{ZugÃ¤nge}
 \begin{itemize}
-	\item relative Häufigkeit (frequentistisch)
-	\item Maß für eine Überzeugung (Bayes'sche Statistik)
+	\item relative HÃ¤ufigkeit (frequentistisch)
+	\item MaÃŸ fÃ¼r eine Ãœberzeugung (Bayes'sche Statistik)
 \end{itemize}
-\textbf{frequentistisch:} intuitiv, basiert auf wiederholbaren ''Experimenten'' (z.B. Münzwurf, radioaktiver Zerfall, Schwangerschaft bei Kontrazeptionsmethode(Verhütungsmethode) A, 5-Jahre Überleben nach Chemotherapie, Regen am nächsten Tag in Leipzig)
+\textbf{frequentistisch:} intuitiv, basiert auf wiederholbaren ''Experimenten'' (z.B. MÃ¼nzwurf, radioaktiver Zerfall, Schwangerschaft bei Kontrazeptionsmethode(VerhÃ¼tungsmethode) A, 5-Jahre Ãœberleben nach Chemotherapie, Regen am nÃ¤chsten Tag in Leipzig)
 
 \begin{itemize}
 	\item in den ersten Vorlesungen folgen wir einem theoretischen Zugang
 	\begin{itemize}
 		\item dadurch bekommt man ein solides Fundament
-		\item wir werden nicht mathematisch streng sein können, (Stichwort Kolmogorow Axiomatik)
+		\item wir werden nicht mathematisch streng sein kÃ¶nnen, (Stichwort Kolmogorow Axiomatik)
 	\end{itemize}
 \end{itemize}
 \subsubsection{Das Ereignisfeld}
 \begin{itemize}
-	\item als \textit{Ereignis} bezeichnet man einen möglichen Ausgang eines ''Zufallsexperimentes'', z.B. ''Zahl liegt oben''
-	\item Ein System heißt \textit{Ereignisfeld}, wenn:
+	\item als \textit{Ereignis} bezeichnet man einen mÃ¶glichen Ausgang eines ''Zufallsexperimentes'', z.B. ''Zahl liegt oben''
+	\item Ein System heiÃŸt \textit{Ereignisfeld}, wenn:
 	\begin{itemize}
-		\item es das sichere und das unmögliche Ereignis enthält
+		\item es das sichere und das unmÃ¶gliche Ereignis enthÃ¤lt
 
 				\item A und B teil eines Systems sind, dann auch $AB$ ($A\cap B$) ''Produkt'' von A und B, bedeutet $x \in A \text{ und } B$
 			\item $A+B$ ($A \cup B$) ''Summe'', mindestens eines der Ereignisse A und B tritt ein
-			\item $A-B$ ($A\backslash B$) "Differenz'' A tritt ein, während B nicht eintritt
+			\item $A-B$ ($A\backslash B$) "Differenz'' A tritt ein, wÃ¤hrend B nicht eintritt
 
 	
 	\end{itemize}
 \end{itemize}
 \begin{exmp}
-	Münzwurf Ereignisfeld \{A,B,$\Omega$, $\emptyset$\}\\
+	MÃ¼nzwurf Ereignisfeld \{A,B,$\Omega$, $\emptyset$\}\\
 	A - Zahl oben\\B - Wappen oben \\ $\Omega$ - Zahl oder Wappen oben \\ $\emptyset$ - weder Zahl noch Wappen oben
 \end{exmp}
 
@@ -91,7 +91,7 @@
 	\item Kommutativ: $A+B = B+A$, $AB = BA$
 	\item Assoziativ: $A+(B+C)$ = $(A+B)+C$; $A(BC) = (AB)C$
 	\item Distributiv: $A(B+C)$ = $(AB)+(AC)$; $A+(BC) = (A+B)(A+C)$ *
-	\item Identitäten: $A+A = A$; $AA = A$
+	\item IdentitÃ¤ten: $A+A = A$; $AA = A$
 \end{itemize}
 *(A+B)(A+C) = AA+AC+BA+BC = A+(BC)
 
@@ -117,12 +117,12 @@
 	 $P(\Omega)=1$
 \end{axiom}
 \begin{axiom}
-	Sind Ereignisse $A_i$; $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_i A_j = \emptyset$ mit $i \neq j $ so gilt $P(A_1+A_2+ \ldots A_n) = P(A_1+P(A_2)+\ldots+P(A_n) )$ Daraus ergeben sich folgende Eigenschaften für Wahrscheinlichkeiten:
+	Sind Ereignisse $A_i$; $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_i A_j = \emptyset$ mit $i \neq j $ so gilt $P(A_1+A_2+ \ldots A_n) = P(A_1+P(A_2)+\ldots+P(A_n) )$ Daraus ergeben sich folgende Eigenschaften fÃ¼r Wahrscheinlichkeiten:
 	\begin{itemize}
 		\item $P(\emptyset)= 0$
 		\item $P(\bar{A}) = 1 - P(A)$, $\bar{A} = \Omega -A$
 		\item $ 0 \leq P(A) \leq 1$
-		\item Für $A \subset B$ (A ist Teilereignis von B) folgt $P(A) \leq P(B)$
+		\item FÃ¼r $A \subset B$ (A ist Teilereignis von B) folgt $P(A) \leq P(B)$
 		\item $P(A+B) = P(A)+P(B)-P(AB)$
 		\item  $P(A_1 + A_2+ \ldots +A_n) \leq P(A_1) + P(A_2)+ \ldots+P(A_n)$
 	\end{itemize} 	
@@ -134,14 +134,14 @@ Eine Wahrscheinlichkeit von A unter der Bedingung dass B eingetreten ist schreib
 \[P(A|B) = \frac{P(AB)}{P(B)}\]
 Motivation: Gegeben seien $n$ unvereinbare, gleich wahrscheinliche Ereignisse \\
 \begin{tabular}{ll}
-  $A_1,A_2,...,A_n$ & mit $m$ günstig für A \\
- & mit $k$ günstig für B \\ 
- & mit $r$ günstig für AB (r $\leq$ k, r $\leq$ m) \\ 
+  $A_1,A_2,...,A_n$ & mit $m$ gÃ¼nstig fÃ¼r A \\
+ & mit $k$ gÃ¼nstig fÃ¼r B \\ 
+ & mit $r$ gÃ¼nstig fÃ¼r AB (r $\leq$ k, r $\leq$ m) \\ 
 \end{tabular}
 \[ P(A|B)=\frac{r}{k}=\frac{\frac{r}{n}}{\frac{k}{n}}=\frac{P(AB)}{P(B)} \]
 
 \begin{exmp}
-	Zwei Würfel werden geworfen. Wie groß ist die Wahrscheinlichkeit die Summe 8 zu erhalten (A), falls bekannt ist, dass die Summe gerade ist(B)\\
+	Zwei WÃ¼rfel werden geworfen. Wie groÃŸ ist die Wahrscheinlichkeit die Summe 8 zu erhalten (A), falls bekannt ist, dass die Summe gerade ist(B)\\
 	\[ P(A)=\frac{5}{36}, P(B)=\frac{1}{2}, P(AB)=\frac{5}{36} \]
 	\[ P(A|B)=\frac{P(AB)}{P(B)}=\frac{5}{18} \]
 \end{exmp}
@@ -152,20 +152,20 @@ Seien $A_1,A_2,...,A_n$ unvereinbar
 \[ P(A_i|B)=\frac{P(B|A_i) P(A_i)}{\sum\limits_{j=1}^n P(B|A_j) P(A_j)} \]
 
 \subsubsection{Diagnostische Verfahren - Anwendung von Wahrscheinlichkeit}
-Es seien $D^+, D^-$ zwei mögliche Krankheitszustände (krank, gesund) und $T^+,T^-$ die zwei möglichen Ergebnisse eines diagnostischen Tests.
+Es seien $D^+, D^-$ zwei mÃ¶gliche KrankheitszustÃ¤nde (krank, gesund) und $T^+,T^-$ die zwei mÃ¶glichen Ergebnisse eines diagnostischen Tests.
 So bezeichnet man:
 \begin{itemize}
- \item $P(D^+)$ : Prävalenz
- \item $P(T^+|D^+)$ : Sensitivität
- \item $P(T^-|D^-)$ : Spezifizität
- \item $P(D^+|T^+)$ : positiv-prädiktiver Wert (PPV)
- \item $P(D^-|T^-)$ : negativ-prädiktiver Wert (NPV)
+ \item $P(D^+)$ : PrÃ¤valenz
+ \item $P(T^+|D^+)$ : SensitivitÃ¤t
+ \item $P(T^-|D^-)$ : SpezifizitÃ¤t
+ \item $P(D^+|T^+)$ : positiv-prÃ¤diktiver Wert (PPV)
+ \item $P(D^-|T^-)$ : negativ-prÃ¤diktiver Wert (NPV)
 \end{itemize}
 
 \subsection{Zufallsvariablen und Verteilungsfunktionen}
-Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''
-Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
-$\rightarrow$ Umkehrung: jede solcher Funktionen lässt sich als Verteilungsfunktion deuten
+Qualitative Beschreibung aus Gedenko: ``Eine \underline{ZufallsgrÃ¶ÃŸe}(-variable) ist eine GrÃ¶ÃŸe, deren Werte vom Zufall abhÃ¤ngen und fÃ¼r die eine Wahrscheinlichkeitsfunktion existiert''
+Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der ZufallsgrÃ¶ÃŸe $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
+$\rightarrow$ Umkehrung: jede solcher Funktionen lÃ¤sst sich als Verteilungsfunktion deuten
 
 \subsection{Wichtige Vereilungsfunktionen}
 \paragraph{Binomialverteilung}
@@ -191,11 +191,11 @@ wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \]
 \[ \int_{-\infty}^x e^{\frac{-(z-a)^2}{2\sigma^2}} dz , \sigma > 0 \]
 
 \subsection{Erwartungswert, Varianz, weitere Momente}
-\textbf{Erwartungswert} $E(X)$ eine Zufallsgröße:\\
-\underline{diskret} $E(X)=\sum_i x_i p_i$ wobei $x_i$: mögl. Werte, $p_i$: Wahrscheinlichkeiten \\
+\textbf{Erwartungswert} $E(X)$ eine ZufallsgrÃ¶ÃŸe:\\
+\underline{diskret} $E(X)=\sum_i x_i p_i$ wobei $x_i$: mÃ¶gl. Werte, $p_i$: Wahrscheinlichkeiten \\
 
 \begin{exmp}
-	Würfel 
+	WÃ¼rfel 
 	\[ E(X)=\frac{1}{6} \sum_{i=1}^6 i = \frac{21}{6} = \frac{7}{2} \]
 \end{exmp}
 \begin{exmp}
@@ -238,7 +238,7 @@ ungerade Funktion ergibt 0
 \[
 V(X) := E[(EX)-X)^2] = E[E(X)^2 - 2X E(X) + X^2]  = E(X^2) - [E(X)]^2
 \]
-Bsp. Würfel
+Bsp. WÃ¼rfel
 \[
 V(X) = \dfrac{1}{3} \left[\left(\dfrac{5}{2}\right)^2 + \left(\dfrac{3}{2}\right)^2 + \left(\dfrac{1}{2}\right)^2\right] = \dfrac{35}{12}
 \]
@@ -252,14 +252,14 @@ V(X) &= \dfrac{1}{b-a} \int_a^b \! x^2 \, \mathrm{d}x - \left(\dfrac{b+a}{2}\rig
 &= \dfrac{(b-a)^2}{12}
 \end{align*}
 \paragraph{Definition}
-Wir bezeichnen $m_k$ als das \underline{gewöhnliche Moment} (oder Anfangsmoment)\\
+Wir bezeichnen $m_k$ als das \underline{gewÃ¶hnliche Moment} (oder Anfangsmoment)\\
 k-ter Ordnung $m_k := E(X^k)$, \\
 diskret also $\sum_i\left(x_i\right)^k p_i$,
 stetig $\int \! x^k (p(x) \, \mathrm{d}x$
 \\
 Das \underline{zentrale Moment} (auf Zentrum Erwartungswert bezogen) k-ter Ordnung \\
 $\mu_k := E\left[(X-m_1)^k\right]$. Die Varianz ist also das zweite Zentralmoment $V(X) = \mu_2 = m_2 - (m_1)^2$.\\
-Man kann immer $\mu_k$ durch $m_l$ $\left( l \leq k\right)$ ausdrücken.
+Man kann immer $\mu_k$ durch $m_l$ $\left( l \leq k\right)$ ausdrÃ¼cken.
 
 \subsection*{1.6 Korrelation}
 \paragraph{} Eine Erweiterung dieser Momente stellt die \underline{Kovarianz}
@@ -267,34 +267,34 @@ $b(X,Y) := E\left[\left(X-E(X)\right) \left( Y-E(Y) \right)\right]$
 dar (gemischte Zentralmomente zweiter Ordnung).
 
 Es gilt offensichtlich $b(X,X) = V(X)$.\\
-Die normierte Größe $\rho(X,Y) := \rho_{X,Y} = \dfrac{b(X,Y)}{\sqrt{V(X)V(Y)}}$ bezeichnet man als \underline{Korrelationskoeffizient}. \\
-Es gilt: $-1 \leq \rho \leq 1$. Für $X=Y$ gilt $\rho = 1$ und für $X=-Y$ gilt $\rho = -1$. \\
-Falls $X$ und $Y$ unabhängig dann gilt $\rho = 0$ (nicht aber umgekehrt).\\
+Die normierte GrÃ¶ÃŸe $\rho(X,Y) := \rho_{X,Y} = \dfrac{b(X,Y)}{\sqrt{V(X)V(Y)}}$ bezeichnet man als \underline{Korrelationskoeffizient}. \\
+Es gilt: $-1 \leq \rho \leq 1$. FÃ¼r $X=Y$ gilt $\rho = 1$ und fÃ¼r $X=-Y$ gilt $\rho = -1$. \\
+Falls $X$ und $Y$ unabhÃ¤ngig dann gilt $\rho = 0$ (nicht aber umgekehrt).\\
 Anwendung auf Wahrscheinlichkeiten: \\
 $E(X) = p_X$, $V(X) = p_X(1 - p_X)$ \\
 
 $\rho_{X,Y} = \dfrac{p_{XY} - p_Xp_Y}{\sqrt{p_X(1-p_X) p_Y(1-p_Y)}}$
 $\rightarrow p_{XY} = p_Xp_Y + \rho_{X,Y} \sqrt{p_X(1-p_X)p_Y(1-pY)}$
 
-\paragraph{Grenzfälle}
+\paragraph{GrenzfÃ¤lle}
 $\rho = 0$ : $p_{XY} = p_X p_Y$\\
 $\rho = 1$\footnote{$\rightarrow p_X = p_Y$} : $p_{XY} = (p_X)^2 + p_X(1-p_X) = p_X$\\
 $\rho = -1$\footnote{$\rightarrow p_X = 1 - p_Y$} : $p_{XY} = p_X(1-pX) - p_X(1-p_X) = 0 $\\
 
 \subsection*{1.7 Einige wichtige Gesetze der Wahrscheinlichkeitstheorie}
 
-\subsubsection*{Gesetz der großen Zahlen}
-Bernoulli: Für alle $\epsilon > 0$: $\lim\limits_{n \rightarrow \infty}{P \left\lbrace| \dfrac{\mu}{n} - p | < \epsilon \right\rbrace} = 1$
+\subsubsection*{Gesetz der groÃŸen Zahlen}
+Bernoulli: FÃ¼r alle $\epsilon > 0$: $\lim\limits_{n \rightarrow \infty}{P \left\lbrace| \dfrac{\mu}{n} - p | < \epsilon \right\rbrace} = 1$
 \begin{itemize}
 	\item $\mu$ - Anzahl der Ereignisse
 	\item $n$ - Anzahl der Versuche
 	\item $p$ - Wahrscheinlichkeiten der Ereignisse
 \end{itemize}
 %Vorlesung 4
-Tschebyshew: Für ein $\epsilon >0$:
-\[\lim\limits_{n \to \infty} P\{\frac{1}{n} \sum_{i=1}^{n} X_i - \frac{1}{n} \sum_{i=1}^{n} E(X_i)| < \epsilon \} = 1\] für eine Folge paarweise unabhängiger Zufallsgrößen.\\
+Tschebyshew: FÃ¼r ein $\epsilon >0$:
+\[\lim\limits_{n \to \infty} P\{\frac{1}{n} \sum_{i=1}^{n} X_i - \frac{1}{n} \sum_{i=1}^{n} E(X_i)| < \epsilon \} = 1\] fÃ¼r eine Folge paarweise unabhÃ¤ngiger ZufallsgrÃ¶ÃŸen.\\
 
-$\{X_i\}_{i=1,2, \ldots n}$ mit gleichmäßiger beschränkter Varianz  $V(X_i) \leq C$
+$\{X_i\}_{i=1,2, \ldots n}$ mit gleichmÃ¤ÃŸiger beschrÃ¤nkter Varianz  $V(X_i) \leq C$
 
 
 \subsubsection*{lokaler Grenzwertsatz von Mavre-Laplace}
@@ -306,60 +306,60 @@ In n-Versuchen gilt
 
 Sei $S_n =  \sum_{i=1}^{n} X_i$ mit $E(X_i)<\infty$, $V(X_i) = \sigma ^2 < \infty$
 
-So gilt für jedes t
+So gilt fÃ¼r jedes t
 \[ \lim\limits_{n \rightarrow \infty} P(\frac{S_n - n E(X_i)}{\sqrt{n} \sigma}< t) = \frac{1}{\sqrt{2\pi} }\int_{-\infty}^{t} e^{\frac{-x^2}{2}} dx
 \]
 
-also: die Folge der Verteilungen der standardisierten Zufallsgröße konvergiert gegen die Standartnormalverteilung (d.h. a = 0, $\sigma$ = 1)
+also: die Folge der Verteilungen der standardisierten ZufallsgrÃ¶ÃŸe konvergiert gegen die Standartnormalverteilung (d.h. a = 0, $\sigma$ = 1)
 
 
 \section{Deskriptive Statistik}
 
 \begin{itemize}
-	\item Beschreibung von Daten und Kohorten ist zentral für das Verständnis einer Arbeit
-	\item Ziel ist mit wenigen Kenngrößen das wesentliche zu charakterisieren 
-	\item man gibt ''Punktschätzer''  für Erwartungswerte und ''Konfidenzintervalle'' (KI; engl. CI) als Maß für die Genauigkeit der Schätzung:\\
+	\item Beschreibung von Daten und Kohorten ist zentral fÃ¼r das VerstÃ¤ndnis einer Arbeit
+	\item Ziel ist mit wenigen KenngrÃ¶ÃŸen das wesentliche zu charakterisieren 
+	\item man gibt ''PunktschÃ¤tzer''  fÃ¼r Erwartungswerte und ''Konfidenzintervalle'' (KI; engl. CI) als MaÃŸ fÃ¼r die Genauigkeit der SchÃ¤tzung:\\
 	$(1- \alpha) \text{ KI} [a,b] : P(a \leq \theta \leq b) = 1-\alpha$
 \end{itemize}
 
-\todo{Übersichtsbild Konfidenzintervall}
+\todo{Ãœbersichtsbild Konfidenzintervall}
 
 \subsection{Ein Merkmal}
-\subsection{nominale und Ordinale Größen}
+\subsection{nominale und Ordinale GrÃ¶ÃŸen}
 %nominal -- Kann man nur kategorisieren aber nicht ordnen
-%ordinal -- kann man ist eine Kategoriale Größe die man in eine Reihenfolge bringen kann
+%ordinal -- kann man ist eine Kategoriale GrÃ¶ÃŸe die man in eine Reihenfolge bringen kann
 
 \begin{itemize}
-	\item absolute und relative Häufigkeiten (z.B Häufigkeitstabellen)
+	\item absolute und relative HÃ¤ufigkeiten (z.B HÃ¤ufigkeitstabellen)
 	\item grafisch: Balkendiagramme (mit Konfidenzintervall KI oder Standardfehler SE)
-	\item Kreisdiagramm (verpönt)
+	\item Kreisdiagramm (verpÃ¶nt)
 \end{itemize}
 
-\todo{Bespiel Balkendiagramm einfügen}
+\todo{Bespiel Balkendiagramm einfÃ¼gen}
 	
 	$\hat{p} = \frac{r}{n}$ , $\hat{SE} = \frac{\hat{sd}}{\sqrt{n}}= \frac{\sqrt{\hat{V}}}{\sqrt{n}} = \sqrt{\frac{\hat{p} (1- \hat{p})}{n}}
 KI \approx \hat{p} \pm 2 SE$, r= \#Fehlgeburten, n = \#Beobachtungen 
 
 
 \subsubsection*{Metrische Daten}
-\textbf{Lagemaß}
+\textbf{LagemaÃŸ}
 \begin{itemize}
 	\item Mittelwert (arithmetisch oder geometrisch, d.h. log-Skala)
 	\begin{itemize}
-		\item übliche und ''robuste'' Methoden
+		\item Ã¼bliche und ''robuste'' Methoden
 		\item arithmetisch  = $\frac{1}{n}\sum_{i=1}^{n} X_i$
 		\item geometrisch  = $[ \prod_{i=1}^{n} X_i]^{1/n}$
 	\end{itemize}
--Median und andere Qunatile (verschiedene Schätzverfahren)
+-Median und andere Qunatile (verschiedene SchÃ¤tzverfahren)
 \end{itemize}
-\textbf{Streumaß}
+\textbf{StreumaÃŸ}
 \begin{itemize}
 	\item Standardabweichung (''sample'' - Methode) $sd^2 = \frac{1}{n-1} \sum_{i=1}^{n}(x_i - \bar{x})^2$
 	\item Interquartilabstand (engl. interquartile range (IQR) z.B. 25. und 75. Perzentil)
 	\item Spannweite
 	\item grafisch: Histogramm, Boxplot	
 \end{itemize}
-\todo{Grafik Boxplot einfügen}
+\todo{Grafik Boxplot einfÃ¼gen}
 
 \subsection{Zusammenhang 2er Merkmale}
 Nominal
@@ -392,7 +392,7 @@ Grundidee: Effekt in Gesamtgruppe muss nicht ''echt'' sein. Er kann in Subgruppe
 	\hline 
 	&   & A & B \\ 
 	\hline 
-	Männer & E & 7 (20\%) & 45(21\%) \\ 
+	MÃ¤nner & E & 7 (20\%) & 45(21\%) \\ 
 	\hline 
 	& M & 28 & 175 \\ 
 	\hline 
@@ -412,22 +412,22 @@ Statistisches Testen & Beweis durch Widerspruch \\ \hline
 -Annahme: $H_0: \mu_1 = \mu_2$ (Mittelwert d. Gruppe 1 ist MW d. Gruppe 2)  & -Annahme: $\sqrt{2}$ ist rational \\
 -man glaubt nicht an Annahme & -man glaubt nicht an Annahme \\
 -Folge: Wenn Ann. stimmt... & -Folge: Wenn Ann. stimmt... \\
--Kommt etwas sehr Unwahrscheinliches raus, so ist die Annahme nicht plausibel(Konvention $< 5\%$ dann wird $H_0$ abgelehnt) & -Kommt man auf einen Widerspruch, so muß die Annahme falsch sein \\
--Kommt etwas Plausibles raus, so weiß man wenig über die Annahme (KI kann helfen) & -Kommt man nicht auf einen Widerspruch, so weiß man evtl. wenig über die Annahme \\ \hline
+-Kommt etwas sehr Unwahrscheinliches raus, so ist die Annahme nicht plausibel(Konvention $< 5\%$ dann wird $H_0$ abgelehnt) & -Kommt man auf einen Widerspruch, so muÃŸ die Annahme falsch sein \\
+-Kommt etwas Plausibles raus, so weiÃŸ man wenig Ã¼ber die Annahme (KI kann helfen) & -Kommt man nicht auf einen Widerspruch, so weiÃŸ man evtl. wenig Ã¼ber die Annahme \\ \hline
 \end{tabularx}
 \begin{tabularx}{\linewidth}{|L|L|L|}
 \hline
  & $H_0$ stimmt & $H_0$ stimmt nicht \\ \hline
  $H_0$ abgelehnt & Typ I Fehler \newline $\alpha$ \newline (Konvention $\alpha = 0.05$) & :) \newline Power: $1-\beta$ \\
- $H_0$ nicht abgelehnt & :) & Typ II Fehler\newline $\beta$ \newline Planung: $\beta=0.1 ... 0.2$ erstrebt... Sicherheit über $\beta$ hat man nicht \\ \hline
+ $H_0$ nicht abgelehnt & :) & Typ II Fehler\newline $\beta$ \newline Planung: $\beta=0.1 ... 0.2$ erstrebt... Sicherheit Ã¼ber $\beta$ hat man nicht \\ \hline
 \end{tabularx}
 
 \subsection{Der T-Test}
 Vergleich zweier MW, $H_0: \mu_1 = \mu_2$ \\
-Wir schätzen die ``t-Statistik'' (Annahme gleicher Varianz) \\
+Wir schÃ¤tzen die ``t-Statistik'' (Annahme gleicher Varianz) \\
 \[ T = \frac{\bar{x_1} - \bar{x_2}}{s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \]
 \[ s^2 = \frac{(n_1 - 1) s_1^2 + (n_2 -1) s_2^2}{n_1 + n_2 -2} \]
-n: Stichpunktgröße der i-ten Gruppe \\
+n: StichpunktgrÃ¶ÃŸe der i-ten Gruppe \\
 $\bar{x_i}$: MW \\
 $s_i^2 = \sum\limits_{j=1}^{n_i} (x_j^{(i)} - \bar{x}^{(i)} )^2 $ \\
 ($T = \frac{\Delta}{SE}$ ist die grundlegende Struktur) \\
@@ -438,7 +438,7 @@ Welch-Test (keine Annahme zur Varianz) \\
 t-Verteilung mit f Freiheitsgraden
 \[ f=\frac{(\tilde{s_1}^2 + \tilde{s_2}^2)^2)}{\frac{\tilde{s_1}^4}{n_1 - 1} + \frac{\tilde{s_1}^4}{n_1 - 1}} \]
 \[ \tilde{s_i} = \frac{s_i}{\sqrt{n_i}} \]
-KI für $\Delta \mu$: $\Delta \bar{x} \pm \underbrace{t_{\alpha / 2 , f}}_{\sim 2 \text{ für } \alpha=0.05 \text{ und } f >> 1}  \cdot$ SE \\
+KI fÃ¼r $\Delta \mu$: $\Delta \bar{x} \pm \underbrace{t_{\alpha / 2 , f}}_{\sim 2 \text{ fÃ¼r } \alpha=0.05 \text{ und } f >> 1}  \cdot$ SE \\
 p-Wert: Wahrscheinlichkeit den Wert von T zu beobachten unter $H_0$ \\
 Ist der p-Wert $p_0$, so beinhaltet ein $(1-p_0)$-KI gerade so den Wert Null \\
 z.B. Ist $p_0=0.05 \rightarrow$ das 95\%-KI erreicht die Null gerade so
@@ -452,15 +452,15 @@ Gegeben sei:
   & $n_{\cdot1}$ & $n_{\cdot2}$ & $n_{\cdot\cdot}$
 \end{tabular}
 \newline
-$\frac{n_{11}}{n_{21}}$ schätzt das ``Odds'' (die Chance) von I im Vergleich zu II bei gruppe A. $\widehat{OR}=\frac{\frac{n_{11}}{n_{21}}}{\frac{n_{12}}{n_{22}}}$ schätzt das ``Odds Ratio'' (Chancenverhältnis) KI: $OR \cdot e^{\pm z_{a/2 \cdot SE}}$ \\
+$\frac{n_{11}}{n_{21}}$ schÃ¤tzt das ``Odds'' (die Chance) von I im Vergleich zu II bei gruppe A. $\widehat{OR}=\frac{\frac{n_{11}}{n_{21}}}{\frac{n_{12}}{n_{22}}}$ schÃ¤tzt das ``Odds Ratio'' (ChancenverhÃ¤ltnis) KI: $OR \cdot e^{\pm z_{a/2 \cdot SE}}$ \\
 Hier ist die Frage, ob 1 im Intervall liegt (Null auf der log-Skala)\\
- Fisher-Test $\Leftrightarrow$ KI von OR (mit anderer Schätzmethode allerdings)  \\
-Fischer-Test heißt ``exakt'', da ein strenger Wert aus der Kombinatorik berechnet wird
+ Fisher-Test $\Leftrightarrow$ KI von OR (mit anderer SchÃ¤tzmethode allerdings)  \\
+Fischer-Test heiÃŸt ``exakt'', da ein strenger Wert aus der Kombinatorik berechnet wird
 \[ p = \frac{\binom{n_{1\cdot}}{n_{11}} \binom{n_{2\cdot}}{n_{22}}}{ \binom{n_{\cdot \cdot}}{n_{\cdot1}}} \]
 \[ \binom{n_{\cdot\cdot}}{n_{\cdot1}} = \frac{n_{12} + n_{22} + n_{12} + n_{21} }{n_{12} + n_{21} } \]
 
 %Vorlesung 6
-Der Zusammenhang nominaler Merkmale kann mit höherer Power mit dem (asymptotischen) $\chi^2$-Test als mit einem exakten Test überprüft werden.
+Der Zusammenhang nominaler Merkmale kann mit hÃ¶herer Power mit dem (asymptotischen) $\chi^2$-Test als mit einem exakten Test Ã¼berprÃ¼ft werden.
 \[ \chi^2 = \sum\limits_{i,j} \frac{(n_{ij} - e_{ij})^2}{e_{ij}} \]
 \[ e_{ij}= \frac{n_{i\cdot} \times n_{\cdot j}}{n_{\cdot \cdot}} \]
 $e_{ij}:$ erwartete Anzahl \\
