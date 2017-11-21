@@ -66,6 +66,8 @@ table[meta=label] {
 \[Y_i = \underbrace{h}_{\text{Funktion i.A. nichtlinear}} \left(\underbrace{x_i^{(1)},...,x_i^{(k)}}_{\text{Kovariablen}};
 \underbrace{\theta_1,...,\theta_p}_{\text{(unbekannte Parameter)}} \right) + \epsilon_i, \; i \in \{1,...,n\} \]
 
+$\epsilon_i \sim N(0,\sigma^2) , \sigma^2 >0$, unabhängig
+
 \subsubsection{Beispiele}
 Biochemischer Sauerstoffverbrauch von Mikroorganismen
 \[h(x;\theta_1,\theta_2) = \theta_1(1-exp(-\theta_2 x)) \]
@@ -120,7 +122,7 @@ $\Rightarrow$ Residuenanalyse
 
 \[Y_i = \underbrace{
 \sum_{j=1}^{p} \theta_j h_j (x^{(1)},...,x^{(k)} )}
-_{\mathrel{\widehat{=}}  h (x_i^{(1)},...,x_i^{(k)}; theta_1,...,\theta_p) }
+_{\mathrel{\widehat{=}}  h (x_i^{(1)},...,x_i^{(k)}; \theta_1,..., \theta_p) }
 + \epsilon_i , \; i \in \{1,...,n\} \]
 
 \underline{Beispiele:}
