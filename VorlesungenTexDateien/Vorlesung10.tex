@@ -79,7 +79,29 @@ Zerlegung vom $ \Theta $ in $ \Theta_0 $ und $ \Theta_A $, sodass gilt
 \end{enumerate}
 
 \subsection{Multiples Testproblem}
-\todo{Grafik multiples Testsystem einfügen}
+
+\begin{tikzpicture}
+\begin{axis}[%
+xlabel={x},
+ylabel={y},
+xtick={0.2,0.4,0.6,0.8,1.0},
+ytick={0.2,0.4,0.6,0.8,1.0},
+xmin=0.0, xmax=1.0,
+ymin=0.0, ymax=1.0,
+xticklabels={$\alpha_1$,$\alpha_2$,$\alpha_3$,$\alpha_4$,$\alpha_5$,$\alpha_6$,$\alpha_7$},
+yticklabels={}
+]
+\addplot [thick,blue] coordinates {
+(0.0, 0.0) (0.2,0.0)
+(0.2, 0.0) (0.4,0.2)
+};
+\addplot [dashed,red] coordinates {
+(0.0, 0.0) (0.4,0.0)
+(0.4, 0.0) (0.6,0.2)
+};
+\end{axis}
+\end{tikzpicture}
+
 \begin{exmp}
 	Genetik, SWAS
 	\begin{itemize}
