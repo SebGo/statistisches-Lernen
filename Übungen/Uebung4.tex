@@ -1,0 +1,179 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{todonotes}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{ wasysym }
+
+%thick lines in tables
+\makeatletter
+\newcommand{\thickhline}{%
+\noalign{\ifnum0=`}\fi \hrule height 1pt
+\futurelet\reserved@a\@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+\geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
+headsep=10mm, footskip=12mm}
+\title{Uebung 4-Statistisches Lernen\\ \large{Wintersemester 17/18}}
+\date{}
+
+\begin{document}
+\maketitle
+\section*{Aufgabe 1}
+Quadratisches Modell:
+\[
+  Y_i = ax_i^2 + bx_i + c + \epsilon_i \text{   mit   } i\in \{1,\ldots, n\}
+\]
+Wie könnte man die unbekannten Parameter a, und c schätzen?\\
+Kann man die jeweiligen Schätzer explizit angeben\\
+\begin{align*}
+  Y_i &= h (x_i^{(1)}, \ldots, x_i^{(k)}, \theta_1, \ldots, \theta_p)+ \epsilon_i\\
+  Y_i &= ax_i^2 + bx_i + c + \epsilon_i\\
+  KQ &:= \sum_{i=1}^{n}{(Y_i - (ax_i^2 + bx_i + c))}^2 \rightarrow_{a,b,c \in \mathbb{R}} \min
+\end{align*}
+
+\begin{align*}
+  \frac{\partial KQ}{\partial a} &= 2 \sum_{i=1}^{n}(y_i - ax_i^2 - bx_i - c) (-x_i^2) = 0\\
+  \frac{\partial KQ}{\partial b} &= 2 \sum_{i=1}^{n}(y_i - ax_i^2 - bx_i - c) (-x_i)= 0\\
+  \frac{\partial KQ}{\partial c} &= 2 \sum_{i=1}^{n}(y_i - ax_i^2 - bx_i - c) (-1)= 0
+\end{align*}
+\begin{align*}
+  \rightarrow_{(1)} \sum_{i=1}^{n} x_i^2y_i &=
+  a \sum_{i=1}^{n} x_i^4 + b \sum_{i=1}^{n}x_i^3 + c\sum_{i=1}^{n}x_i^2 = 0\\
+  \rightarrow_{(2)} \sum_{i=1}^{n} x_{iy} &=
+  a \sum_{i=1}^{n} x_i^3 + b \sum_{i=1}^{n}x_i^2 - c + \sum_{i=1}^{n}x_i = 0\\
+  \rightarrow_{(3)} \sum_{i=1}^{n}y_i &=
+  a \sum_{i=1}^{n} x_i^2 + b \sum_{i=1}^{n}x_i + n  = 0\\
+  \ldots\\
+  \rightarrow_{(3)} \hat{c} &= \underbrace{\frac{1}{n}\sum_{i=1}^{n} y_i}_{=: \overline{y_n}} - \hat{a} \underbrace{\frac{1}{n} \sum_{i=1}^{n} x_i^2}_{=:\overline{x^2_n}}  - \underbrace{\hat{b} \frac{1}{n} \sum_{i=1}^{n}x_i}_{=:\overline{x_n}}
+\end{align*}
+\begin{align*}
+  \hat{a} &= \frac{
+    (\overline{y_n x_n^2} - \overline{y_n} \overline{x_n^2}) \cdot
+    (\overline{x_n^2} - {(\overline{x_n})}^2) -
+    (\overline{y_n x_n} - \overline{y_n} \overline{x_n}) \cdot
+    (\overline{x_n^3} - \overline{x_n} \cdot \overline{x_n^2})
+  }{
+    (\overline{x_n^4} - {(\overline{x_n^2})}^2)
+    (\overline{x_n^2} -{(\overline{x_n})}^2)-
+    {(\overline{x_n^3} - \overline{x_n} \cdot \overline{x_n^2})}^2
+  }\\
+  \hat{b} &= \frac{
+    \overline{xy_n} -
+    \hat{a}(\overline{x^3_n} -\overline{x^2_n} \overline{x_n} -
+    \overline{x_n} \overline{y_n})
+  }{ \overline{x^2_n} - \overline{x_n}^2
+  }\\
+  \hat{c} &= \overline{y_n} - \hat{a} \overline{x^2_n} - \hat{b}\overline{x_n}\\
+\end{align*}
+
+\newpage
+\section*{Aufgabe 2}
+Welche der folgenden funktionalen Zusammenhänge lassen sich linearisieren?
+
+Schätzen der unbekannten Parameter:
+KQM
+\[
+\sum_{i = 1}^{n}(y_i - h (x_i^{(1)}, \ldots, x_i^{(k)}, \theta_1, \ldots, \theta_p)+ \epsilon_i) \rightarrow_{\theta_1,\ldots \theta_p \in \mathbb{R}} \min
+\]
+
+Linearisierung
+\begin{itemize}
+  \item h in linearen Ausdruck transformieren
+  \item[\( \rightarrow \)] KQM aus der linearen Regression
+  \item[\( \rightarrow \)] Rücktransformation des linearen Modell
+  \item[ABER] \( \epsilon_i \) unter Umständen nicht mehr normalverteilt und nicht mehr additiv
+  \item [\( \rightarrow \)] Residualanalyse
+
+\end{itemize}
+I Reziproke
+II loglog\ldots
+III exp\ldots \\\\
+
+(a)
+\[
+y = \frac{\theta_1 x}{\theta_2 + x}\]
+\[
+\underbrace{\frac{1}{y}}_{:=\tilde{y}}	= \frac{\theta_2 + x}{\theta_1 x}
+=\underbrace{ \frac{\theta_2}{\theta_1}}_{:=\tilde{\theta_2}}  \underbrace{\frac{1}{x}}_{:=\tilde{x}} + \underbrace{\frac{1}{\theta_1}}_{:=\tilde{\theta_1}}
+\]
+
+(b)
+
+\begin{align*}
+	y &= \exp(
+	  -\theta_1(x^{(1)}))^
+	  {\theta_2 \exp(-\frac{\theta_3}{x^{(2)}})}\\
+	\log(y) &= {-\theta_1( x^{(1)} ) }^{\theta_2 \exp(-\frac{\theta_3}{x^{(2)}})}\\
+	\log(\log(y)) &=
+	\log((-\theta_1) + {(x^{(1)})}^{\theta_2} \exp(- \frac{\theta_3}{x^{(2)}}))\\
+	\underbrace{\log(\log(y))}_{\tilde{y}} &=
+		\underbrace{\log(-\theta_1)}_
+			{\underbrace{:= \tilde{\theta_1}}_
+				{(\theta_1>0)}} +
+		\underbrace{:= \log((x^{(1)})^{\theta_2})}_
+			{\underbrace{\theta_2}_
+			 	{:= \tilde{\theta_2}}
+			\underbrace{\log(x^{(1)}))}_
+				{\underbrace{:= \tilde{x^{(1)}}}_
+					{(x^{(1)}>0)}
+				}
+			}
+		\underbrace{-\frac{\theta_3}{x^{(3)}}}_
+			{\underbrace{-\theta_3}_
+				{:= \tilde{\theta_3}}
+			\underbrace{\frac{1}{x^{(2)}}}_
+				{:= \underbrace{\tilde{x^{(2)}}}_
+					{(x^{(2)} \neq 0)}
+				}
+		}\\
+	\tilde{y} &= \tilde{\theta_1} +  \tilde{\theta_2}  \tilde{x^{(1)}} + \tilde{\theta_3} \tilde{x^{(2)}}
+\end{align*}
+
+\newpage
+\section*{Aufgabe 3}
+\[
+  Y_i = \theta_0 + \theta_1 x_i + \theta_2 x_i^2 + \theta_3 x_i^3 + \theta_4 {(x_i - \alpha)}_+^3 +\epsilon_i
+  \text{ mit } i \in \{1, \ldots , n\}
+\]
+Polynom der Ordnung \(M = 3\)
+\[
+  f(x):= \theta_0 + \theta_1 x_i + \theta_2 x_i^2 + \theta_3 x_i^3 + \theta_4 {(x_i - \alpha)}_+^3 +\epsilon_i
+\]
+\[
+  Z_4=\begin{cases}
+    Z, Z \geq 0 \\
+   	0  \text{ sonst}
+\end{cases}
+\]
+\( \rightarrow \) bis zu welcher Ableitung stetig??\\
+1.Fall \( x< \alpha \)
+\begin{align*}
+    {f(x)}_{<} &:= \theta_0 + \theta_1 x + \theta_2 x^2 + \theta_3 x^3\\
+    {f(x)}_{<}^{\prime} &:= \theta_1 + 2\theta_2 x + 3\theta_3 x^2\\
+    {f(x)}_{<}^{\prime \prime} &:= 2\theta_2 + 6 \theta_3 x\\
+    {f(x)}_{<}^{\prime \prime \prime} &:= 6 \theta_3\\
+\end{align*}
+2.Fall \( x \geq \alpha \)
+\begin{align*}
+    {f(x)}_{\geq} &:= \theta_0 + \theta_1 x + \theta_2 x^2 + \theta_3 x^3 + \theta_4 {(x - \alpha)}^3\\
+    {f(x)}_{\geq}^{\prime} &:= \theta_1 + 2\theta_2 x + 3\theta_3 x^2 + 3 \theta_4 {(x-\alpha)}^2\\
+    {f(x)}_{\geq}^{\prime \prime} &:= 2\theta_2 + 6 \theta_3 x + 6 \theta_4 (x-\alpha)\\
+    {f(x)}_{\geq}^{\prime \prime \prime} &:= 6 \theta_3 + 6 \theta_4\\
+\end{align*}
+\begin{align*}
+  {f(x)}_{<} &= {f(x)}_{\geq} \text{ } \checked \\
+  {f(x)}_{<}^{\prime} &=   {f(x)}_{\geq}^{\prime} \text{ } \checked \\
+  {f(x)}_{<}^{\prime \prime} &= {f(x)}_{\geq}^{\prime \prime}  \text{ } \checked \\
+  {f(x)}_{<}^{\prime \prime \prime} &\neq {f(x)}_{\geq}^{\prime \prime \prime} \text{ } \times \\
+\end{align*}
+\end{document}
