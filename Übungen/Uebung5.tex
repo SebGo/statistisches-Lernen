@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{todonotes}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{ wasysym }
+
+%thick lines in tables
+\makeatletter
+\newcommand{\thickhline}{%
+\noalign{\ifnum0=`}\fi \hrule height 1pt
+\futurelet\reserved@a\@xhline
+}
+\newcolumntype{"}{@{\hskip\tabcolsep\vrule width 1pt\hskip\tabcolsep}}
+\makeatother
+
+\geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
+headsep=10mm, footskip=12mm}
+\title{Übung 5 - Statistisches Lernen\\ \large{Wintersemester 17/18}}
+\date{}
+
+\begin{document}
+\maketitle
+\section*{Aufgabe 1}
+
+\begin{tabbing}
+	\hspace{90pt}\=\hspace{30pt}\=\hspace{130pt}\=\kill
+	\(p_{nn}\)\> \(\leq / >\)   \> \(\tilde{\alpha}_{m-j+1}\)  \> Aussage\\	
+	\(p_{1} = 0,001 = p_{6}\)\> \(\leq\) \> \(\tilde{\alpha} _{m-1+1} = \frac{\alpha}{10} = 0,005\)  \> \(H_0\) ablehnen \\	
+	\(p_{2} = 0,003 = p_{1}\)\> \(\leq\)  \>\(\tilde{\alpha} _{m-2+1} = \frac{\alpha}{9} = 0,005\)  \>  \(H_0\) ablehnen\\	
+	\(p_{3} = 0,004 = p_{9}\)\> \(\leq\)  \> \(\tilde{\alpha} _{m-3+1} = \frac{\alpha}{8} = 0,00625\) \> \(H_0\) ablehnen \\	
+	\(p_{4} = 0,005 = p_{2}\)\> \(\leq\)  \> \(\tilde{\alpha} _{m-4+1} = \frac{\alpha}{7} = 0,007\) \> \(H_0\) ablehnen \\	
+	\(j^* \text{ } p_{5} = 0,008 = p_{4}\)\>  \(\leq\) \> \(\tilde{\alpha} _{m-5+1} = \frac{\alpha}{6} = 0,008\bar{3}\)  \> \(H_0\) ablehnen\\	
+	\(p_{6} = 0,011 = p_{7}\)\> \(>\)  \> \(\tilde{\alpha} _{m-6+1} = \frac{\alpha}{5} = 0,01\) \> \(H_0\) \underline{nicht} ablehnen\\	
+	\(p_{7} = 0,036 = p_{5}\)\> \(>\) \>\(\tilde{\alpha}_{m-7+1} = \frac{\alpha}{4} = 0,0125\)  \>  \(H_0\) \underline{nicht} ablehnen\\	
+	\(p_{8} = 0,040 = p_{10}\)\>\(>\)  \>\(\tilde{\alpha} _{m-8+1} = \frac{\alpha}{3} = 0,01\bar{6}\)  \> \(H_0\) \underline{nicht} ablehnen \\	
+	\(p_{9} = 0,049 = p_{3}\)\> \(>\) \>  \(\tilde{\alpha} _{m-9+1} = \frac{\alpha}{2} = 0,025\)\> \(H_0\) \underline{nicht} ablehnen \\	
+	\(p_{10} = 0,059 = p_{}\)\> \(>\) \>  \(\tilde{\alpha} _{m-10+1} = \frac{\alpha}{1} = 0,05\)\>  \(H_0\) \underline{nicht} ablehnen\\		
+\end{tabbing} 
+\[j^* = \max\{ \max\{ j \in\{1,\ldots,m\} : p(k)\leq \tilde{\alpha}_{m-j+1} \text{für alle} k \in\{1, \ldots, j\} \}, 0 \} \]
+
+
+\section*{Aufgabe 2}
+\begin{tabbing}
+	\hspace{90pt}\=\hspace{30pt}\=\hspace{130pt}\=\kill
+	\(p_{nn}\)\> \(\leq / >\)   \> \(\title{\alpha}_{j}\)  \> Aussage\\	
+	\(p_{1} = 0,001 = p_{6}\)	\> \(\leq\)	\> \(j\frac{\alpha}{m} = 1 *\frac{0.05}{10} = 0,005\)  \> \(H_0\) ablehnen \\	
+	\(p_{2} = 0,003 = p_{1}\)	\> \(\leq\)	\> \(2 \frac{0,05}{9} = 0,01\)  \>  \(H_0\) ablehnen\\	
+	\(p_{3} = 0,004 = p_{9}\)	\> \(\leq\)	\> 0,015	\> \(H_0\) ablehnen \\	
+	\(p_{4} = 0,005 = p_{2}\)	\> \(\leq\)	\> 0,020	\> \(H_0\) ablehnen \\	
+	\(p_{5} = 0,008 = p_{4}\)	\> \(\leq\)	\> 0,025	\> \(H_0\) ablehnen\\	
+	\(p_{6} = 0,011 = p_{7}\)	\> \(\leq\) \> 0,030	\> \(H_0\) ablehnen\\	
+	\(p_{7} = 0,036 = p_{5}\)	\> \(\leq\) \> 0,035	\>  \(H_0\) ablehnen\\	
+	\(p_{8} = 0,040 = p_{10}\)	\>\(\geq\)  \> 0,040	\>\(H_0\) ablehnen\\	
+	\(p_{9} = 0,049 = p_{3}\)	\> \(>\) 	\>  0,045 \(j^* = 9\)	\> \(H_0\) \underline{nicht} ablehnen \\	
+	\(p_{10} = 0,059 = p_{}\)	\> \(>\) 	\>  0,050	\>  \(H_0\) \underline{nicht} ablehnen\\		
+\end{tabbing} 	
+\[j^* = \min\{ \min\{ j \in \{1, \ldots, m\} : p(k) > \tilde{\alpha}_k \text{für alle } k \in \{j, \ldots,m\} \}, m+1\}\]
+
+
+\section*{Aufgabe 3}
+\begin{itemize}
+	\item \( m \in \mathbb{N} \setminus \{1\} \)
+	\item \(\alpha \in (0,1)\)
+\end{itemize}
+zu zeigen:
+\[
+	\frac{\alpha}{m} < 1-(1-\alpha)^{\frac{1}{m}} \text{Taylor - Entwicklung}
+\]
+Beweis:
+\begin{align*}
+	f(\alpha) &= 1-(1-\alpha)^{\frac{1}{m}} &\text{für } m \in \mathbb{N}\\
+	\text{Taylor } f(\alpha) &= f(0) + f^\prime(0) \alpha + 
+	\dfrac{f^\prime(\xi) (\alpha - \xi)^2}{2} \alpha &\text{für ein } \xi \in (0,\alpha)\\
+	\rightarrow 1-(1-\alpha)^\frac{1}{m}  &= f(\alpha) \\
+	&= 0 + \frac{1}{m}(1-\alpha)^{\frac{1}{m}-1} |_{\alpha=0} \alpha - 
+	\frac{1}{m} (\frac{1}{m} -1) (1- \alpha)^{\frac{1}{m} - 2} |_{\alpha= \xi} (\alpha - \xi)^2 \alpha \\
+	&=\frac{1}{m}\alpha - \frac{1}{2}\frac{1}{m}(\frac{1}{m} -1) (1-\xi)^{\frac{1}{m} - 2 (\alpha-\xi)^2 \alpha}\\
+	&> \frac{\alpha}{m}
+\end{align*}
+
+
+
+\end{document}
