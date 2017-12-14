@@ -1,22 +1,4 @@
 %Vorlesung vom 30.11.17
-\documentclass[10pt,a4paper]{article}
-\usepackage[table]{xcolor}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{geometry}
-\usepackage{tikz}
-\usepackage{todonotes}
-\usepackage{amsthm}
-\usepackage{tabularx}
-\usepackage{subfiles}
-\usepackage{pgfplots}
-\usepackage{bbm}
-\usepackage{graphicx}
-
-\begin{document}
 \todo[inline]{gehört alles hier zu modellbewertung}
 \section{Mallow's Cp}
 \[ \text{Cp}= \frac{1}{n}(\text{RSS} + 2k \hat{\sigma}^{2} \]
@@ -42,7 +24,7 @@ $\Rightarrow$ ``Je größer desto besser''
 \[ 0 \leq \text{RSS} \leq \text{TSS} \]
 
 \section{Korrigiertes Bestimmtheitsmaß ($R^{2}_{adj}$)}
-\[ R_{adj}^{2} := 1 - \frac{\frac{\text{RSS}}{n-k-1}\frac{\text{TSS}}{n-1}} \]
+\[ R_{adj}^{2} := 1 - \frac{\frac{\text{RSS}}{n-k-1}}{\frac{\text{TSS}}{n-1}} \]
 $\Rightarrow$ ``Je größer desto besser'' \\
 \underline{Bemerkung:} RSS und $R^{2}$ hängen stark von der Anzahl der Einflussgrößen (k) ab\\
 $\Rightarrow$ RSS und $R^{2}$ nur zum Vergleich von Modellen mit gleicher Anzahl von Einflussgrößen geeignet
@@ -126,7 +108,7 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden
 	\begin{itemize}
 		\item $\lambda=0$ übliche Regression mit KQM
 		\item $\lambda >>0$: Bestrafung betragsmäßig großer $\beta_j$ bekommt ``Übergewicht'', das heißt $||\hat{\beta}||_2 \rightarrow 0 $ für $\lambda \rightarrow \infty $
-			\[ ||\beta ||_2 := \sqrt{\sum\limits_{j=1}^{k}\beta_j^{2} \]
+			\[ ||\beta ||_2 := \sqrt{\sum\limits_{j=1}^{k}\beta_j^{2}} \]
 	\end{itemize}
 	\underline{Beobachtung:}
 	\begin{itemize}
@@ -134,9 +116,7 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden
 		\item bei Ridge-Regression gilt das nichtmerh!
 	\end{itemize}
 $\Rightarrow$ Ausweg: Standardisierung vor der Modellberechnung gemäß:
-\[ \tilde{X}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x^{(j)}_n}) \]
+\[ \tilde{X}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x^{(j)}_n})}} \]
 $\Rightarrow $ alle $\tilde{x^{(j)}}$ haben Varianz 1 und sind unabhängig der Skalierung der $x^{(j)}$
 $\Rightarrow$ ``Schrumpfen'' der Parameter $\hat{\beta_j}$ aber nicht ``0''
 $\Rightarrow$ Reduktion der Varianz der SChätzer (``Glättung'')
-
-\end{document}
