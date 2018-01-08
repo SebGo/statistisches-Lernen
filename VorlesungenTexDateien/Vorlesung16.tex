@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 \newcommand\tab[1][1cm]{\hspace*{#1}}
 
 
@@ -139,55 +139,3 @@ $\hat{\theta}_{ML}$ ist der Wert unter dem die Likelihoodfunktion ihr Maximum er
 
 \[\mu = \frac{1}{n} \sum_{i = 1}^{n} x_i \]
 \[\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n}(x_i - \bar{x})^2\]
-=======
-%Vorlesung vom 04.01.18
-\section{Schätzen der Kovariablen mittels MLE (GLMs)}
-Die log-likelihood für n unabhängige Beobachtungen $y_1,\cdots,y_n$ direkt aus der generalisierenden Form der Exponentioalverteilung erstellen:
-\[ l(y|\theta, \phi) = \exp \left( \frac{y \theta - b(\theta)}{a(\phi)} + c(y,\phi) \right) \]
-\[ log l (\theta, \phi, y) = \sum\limits_{i=1}^{n} log l (y_i | \theta, \phi) = \sum\limits_{i=1}^{n} \left( \frac{y \theta - b(\theta)}{a(\phi)} + c(y,\phi) \right) \]
-\[theta_i = g(\mu_i)=\beta_0 + \beta_1 X_1,\dots,\beta_n X_n \]
-$\Rightarrow$ Partielle Ableitungen der likelihood Funktion für einzelnen Regressionskoeffizienten berechnet
-\section{Test auf signifikanten Effekt}
-\begin{enumerate}
-	\item Wald-Test
-	\item Likelihood-Ratio-Test
-\end{enumerate}
-
-\subsection{Wald-Test}
-Der Wald-Test ist eine generalisierte Form des t-tests. Hier ist der Wert der Teststatistik standardnormalverteilt $(\sim N(0,1))$.
-\[Z_n = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \]
-Ein Maximum-likelihood-Schätzer kann als Mittelwert aus einer Summe einer großen Anzahl von Zufalsvariablen interpretiert werden.
-Bei großen n die Summe von identisch verteilten und unabhängigen Zufallsvariablen asymptotisch normalverteilt ist (zentraler Grenzwertsatz).
-\[\sum\limits_{i=1}^{n} X_i \sim N(n \cdot \mu, n \cdot \sigma^{2}) \]
-Aus dem zentralen Grenzwertsatz folgt, dass die Mittelwerte von beliebig verteilten Zufallsvariablen standardnormalverteilt sind. \\
-$\Rightarrow$ Kann für einen Ml-Schätzer der Wald-Test genommen werde, um den Wert des Schätzers mit dem Wert aus einer Grundgesamtheit abzugleichen
-
-\[ H_0: \beta_i = 0 \]
-\[ H_1: \beta_i \neq 0 \]
-\[ w = \frac{\hat{\beta_{iML}-0}}{\sigma / \sqrt{n}} \sim N(0,1) \]
-\[ w = \frac{\hat{\beta_{iML}^{2}-0}}{Var(\sigma / \sqrt{n})} \sim \chi_{df,1-\alpha}^{2} \]
-\todo{ML im Index heißt der Koeffizient wurde mit Maximum Likelihood geschätzt. df im Index heißt degrees of freedom}
-$\Rightarrow$ Da ML-Schätzer nur bei großen n standardnormalverteilt sind, ist der Wald-Test nur bei großen n zulässig
-$\Rightarrow$ Wald-Test approximiert einen Likelihood-Ratio Test
-$\Rightarrow$ Im Vergleich zum LR-Test muß nur ein Modell (mit allen Koeffizienten) gefittet werden
-\section{LR-Test}
-Vergleicht die likelihood des gesamten Modells mit der Likelihood des reduzierten Modells. Das reduzierte enthält den Koeffizienten, der getestet werden soll nicht.
-\[ H_0 : \beta_i = 0 \Leftrightarrow g(\mu) = \beta_0 \]
-\[ H_0 : \beta_i \neq 0 \Leftrightarrow g(\mu) = \beta_0 + \beta_1 X \]
-
-\[LR = \frac{l(H_0 | x_1,\cdots,x_n}{l(H_1 | x_1,\cdots,x_n}\]
-\[ -2 ln LR \sim  \chi_{df,1-\alpha}^{2} \]
-$\Rightarrow$ LR-Test erfordert, dass beide Modelle $g(\mu)=\beta_0$ und $\g(\mu)=\beta_0 + \beta_1 X$ gefittet werden müssen.
-$\Rightarrow$ LR-Test st allerdings auch für geringe Stichprobengrößen geeignet. (Im Vergleich zum Wald-Test)
-
-\section{Grundlagen der Versuchsplanung}
-Alle gewonnen Beobachtungen für Y unterliegen einer Vielzahl von unterschiedlichen Einflußfaktoren. Einige davon sind bekannt (und können quantifiziert werden), andere dagegen sind unbekannt oder wirken zufällig auf die Beobachtungen $y_1,\cdots,y_n$
-\todo[inline]{Stichprobenbild}
-$\Rightarrow$ alle systematischen Effekte sollten bei der Versuchsplanung mit berücksichtigt werden 
-Es müssen 3 Bedingungen erfüllt sein:
-\begin{enumerate}
-	\item Randomisierung von Proben/Individuen zwischen den Kategorien einer kategorialen Variable
-	\item Es muß auf eine ausreichende Anzahl von Replikaten geachtet werden
-	\item Falls systematische Effekte bei der Versuchsdurchführung auftreten können, müssen diese bei der Verteilung der Proben auf die Prozessierungsblöcke berücksichtgt werden (\underline{Blocking})
-\end{enumerate}
->>>>>>> 3f803fd2feb363c5c64800bede448b0271abb69b
