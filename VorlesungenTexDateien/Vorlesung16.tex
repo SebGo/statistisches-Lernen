@@ -1,0 +1,140 @@
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+
+b) Schätzen der Koeffizienten \(\beta\); mittels gewichteter Methode der kleinsten Quadrate
+\[
+RSS := \sum_{i=1}^{n}(y_i - \hat{y_i})^2 \rightarrow \min
+\]
+Bei klassischen Methode der kleinsten Quadrate erhält jede Beobachtung das gleiche Gewicht.
+Gewichtete Methode der kleinsten Quadrate:
+
+\[
+RSS = \sum_{i = 1}^{n}\omega_i (y_i - \hat{y_i})^2
+\]
+\[
+\omega_i = \dfrac{1}{\hat{Var}(y_i)}
+\]
+das bedeutet Alle Beobachtungen \(y_i\) mit einer höheren Varianz erhalten ein geringeres Gewicht \(\omega_i\) als Beobachtungen mit einer geringeren Varianz.
+
+\subsection{c) Verwendung von Generalisierten linearen Modellen (GLM)}
+Verallgemeinerung der Theorie für lineare Modelle
+
+Herleitung anhand linearer Regressionsmodelle
+unter der Annahme, dass bei linearen Regressionsmodellen dder Fehler \( \epsilon_i\) normalverteilt sind \((\epsilon_i \approx N(0, \sigma^2))\) kann die lineare Regression für
+
+\[
+Y = \beta_0 + \beta_1 X + \epsilon
+\]
+auch wie folgt dargestellt werden
+
+\begin{align*}
+E(Y|X) &= E(\beta_0 + \beta_1 X + \epsilon)\\
+&=  E(\beta_0) + E(\beta_1) X + E(\epsilon)\\
+&= \beta_0 + \beta_1 X + 0\\
+E(Y|X) &= g^{-1} (\beta_o + \beta_1 + X)
+\end{align*}
+
+Die beliebige Funktion \(g^{-1}\) modelliert die Streuung der Beobachtungen \( y_i\) um die geschätzten Werte \(\hat{y_i}\). \\
+Daher muss für GLMs keine Konstante Varianz für Fehler \(\epsilon_i\) vorausgesetzt werden
+\[
+g(E(y|X)) = \beta_0 + \beta_1 X
+\]
+\(g(E(y|X))\) wird als Link-Funktion bezeichnet.
+Die Link-Funktion definiert die Bezeichnung zwischen dem linearen Term \(\beta_0+ \beta_1 X\) und der bedingten Erwartung von \(Y\) gegeben \(X E(Y|X)\)
+
+\subsubsection*{Definition für GLMs}
+Sie bestehe aus 3 Komponenten 
+\begin{enumerate}
+	\item Zufallskomponente: Definiert die Verteilung von Y. 
+	Die Verteilung kommt aus der Familie der Exponentialverteilungen	
+	\[
+	\underbrace{f(y | \theta, \phi)}_{g()} = \exp\{\frac{y\theta- b\theta}{a(\phi)} + c(y, \phi)\}
+	\]
+	\begin{itemize}
+		\item [] \(\theta\) bzw. g(): Transformation des Erwartungswertes für Y
+		\item [] \(\phi\): Streuungsparamter, Dispersion
+		\item [] \(a(),b(), c()\): Spezifische Funktion je nach Typ der gewählten Exponentialverteilung
+		
+	\end{itemize}
+
+	\item linearer Term Y:
+	Linearer Term, welcher die Kovariablen im GLM definiert
+	\begin{align*}
+		&\beta_0 +\beta_1 X \\
+		&\beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p
+	\end{align*}
+	
+	\item Link Funktion:
+	Die Link-Funktion \(\theta\)(oder g()) definiert die Beziehung zwischen dem linearen Term und der bedingten Erwartung E(Y|X)
+\end{enumerate}
+
+Beispiel:
+\begin{tabbing}
+	\hspace{0.25\linewidth}\=\hspace{0.25\linewidth}\=\hspace{0.25\linewidth}\=\kill
+	\textbf{Modell}	\>  \textbf{abhängige Variable}\>  \textbf{Verteilung d. Residuen}\> \textbf{Link Funktion}\\ 
+	lineare Regression\>  qualitativ, stetig\>  normal verteilt\> \(g(E(Y|X)) = E(Y)\)\\ 
+	logistische Regression\>  binär\>  binomial verteilt\> \(g(E(Y|X)) = \log(\frac{E(Y)}{1-E(Y)}) \)\\ 
+	log.-lin. Regression\>  diskret \>  poisson verteilt\> \(g(E(Y|X)) = \log(E(Y))\)\\
+\end{tabbing} 
+
+Dichtefunktion der Normalverteilung in die generalisierte Form der Exponentialverteilungen übertragbar\\
+
+generalisierte Form für Exponentialverteilungen :
+\[
+f(y| \theta, \phi) = \exp(\frac{y\theta - b(\theta)}{a(\phi)} + c(y,\phi))
+\]
+Dichtefunktion für die Normalverteilung
+
+\begin{align*}
+	f(y| \mu , \sigma^2) &= \frac{1}{\sqrt{2\pi \sigma^2}} \exp(- \frac{(y-\mu)^2}{2\sigma^2}) = \frac{1}{a} e^b = a^{-1} e^b = e^{-ln a} e^b = e^{-\ln a + b}\\
+	&= \exp (-ln \sqrt{2\pi \sigma^2} - \frac{(y-\mu)^2}{1\sigma^2})\\
+	&= \exp (-\frac{y^2 - 2y\mu + \mu^2}{2 \sigma^2})
+	- \ln(\sqrt{2\pi \sigma^2}) \\
+	&= \exp\frac{- y^2 + 2y\mu - \mu^2}{2 \sigma^2} - ln(\sqrt{2\pi \sigma^2})\\
+	&= \exp\frac{ 2y\mu - \mu^2}{2 \sigma^2}- \frac{y^2}{2\sigma^2} - ln(\sqrt{2\pi \sigma^2})\\
+	&= \exp \underbrace{\frac{ y \mu - \frac{\mu^2}{2}}{\sigma^2}}_{c(\phi)} - 
+	\underbrace{\frac{y^2}{2\sigma^2} - ln(\sqrt{2\pi \sigma^2})}_{c(y, \phi)}
+\end{align*}
+
+mit \\
+\tab  $\theta= g() = \mu = E(Y|X)$\\
+\tab $b(\theta) = \frac{\mu^2}{2}$\\
+\tab $a(\phi) = \sigma^2$ = Streuungsparamter für Normalverteilung \\
+
+
+
+
+\subsection{Schätzen der Parameter für GLMs}
+Neben den Koeffizienten $\beta_i$ der linearen Link Funktion muss auch der Dispensionsparameter $\phi$ geschätzt werden. 
+Dafür werden oft Maximum likelihood Methoden verwendet
+
+\subsubsection*{Maximum likelihood Methoden (MLE)}
+Schätzwert $\hat{\theta}$ für einen beliebigen Parameter $\theta$ wird so gewählt, dass die  likelihood Funktion $L(\theta|x_1, \ldots, x_n)$ für $ n $ Beobachtungen ihr Maximum erreicht.
+Sind die Beobachtungen $x_i$ unabhängig, wird die Likelihoodfunktion wie folgt definiert:
+
+\[
+L(\theta|x_1, \ldots, x_n)  = \prod_{i=1}^{n} f(x_i|\theta)
+\]
+$f(x_i|\theta)$: Dichtefunktion für Zufallsvariable X mit Beobachtungen $x_1$, $\ldots$ , $x_n$\\
+
+Daher ist die likelihood Funktion  $L(\theta|x_1, \ldots, x_n)$ eine Funktion des unbekannten Parameter $\theta$ gegeben der Beobachtungen $x_1, \ldots, x_n$. Sie gibt die Werte für den Parameter $\theta$ an, die gegeben der Beobachtungen $x_1,\ldots, x_n$ am wahrscheinlichsten sind.
+
+\[
+\log (L(\theta|x_1, \ldots, x_n))  = \sum_{i=1}^{n} \log(f(x_i|\theta))
+\]
+Als Schätzer für $\theta$ rechnet man den sogenannten Maximun Likelihood Schätzer aus: $\hat{\theta}_{ML}$
+
+$\hat{\theta}_{ML}$ ist der Wert unter dem die Likelihoodfunktion ihr Maximum erreicht.
+\[
+\frac{\partial L}{\partial \theta} = 0 \text{\tab z.B durch Newton-Verfahren}
+\]
+
+
+\begin{itemize}
+	\item[$\rightarrow$] Methode der kleinsten Quadrate ist eine Sonderform für ML-Methoden
+	\item[$\rightarrow$] ML Schätzer für Parameter der Normalverteilung sind 
+\end{itemize}
+
+
+\[\mu = \frac{1}{n} \sum_{i = 1}^{n} x_i \]
+\[\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n}(x_i - \bar{x})^2\]
