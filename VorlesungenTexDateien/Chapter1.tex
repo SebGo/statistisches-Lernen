@@ -1,0 +1,277 @@
+\chapter{Einführung}
+	\section{Vorbemerkungen}
+	\begin{itemize}
+		\item Bei statistischem Lernen geht es darum intelligente Schlüsse aus Daten zu ziehen
+		\begin{itemize}
+			\item Fokus auf Methoden zu Analysen
+			\item wenig/nicht über Design
+			\item viele Bsp. aus dem Bereich der klinischen Studien
+			\item Anwendungen auf ganz anderen Gebieten
+		\end{itemize}
+	\item Beispielhafte Anwendungen
+	\begin{itemize}
+		\item Unterscheiden sich Behandlungen A und B
+		\item Was sind die Eigenschaften eines diagnostischen Test
+		\item Gibt es einen Zusammenhang zwischen Krankheiten A und B
+	\end{itemize}
+	\end{itemize}
+\section{Wahrscheinlichkeit}
+\subsection{Zugänge}
+\begin{itemize}
+	\item relative Häufigkeit (frequentistisch)
+	\item Maß für eine Überzeugung (Bayes'sche Statistik)
+\end{itemize}
+\textbf{frequentistisch:} intuitiv, basiert auf wiederholbaren ''Experimenten'' (z.B. Münzwurf, radioaktiver Zerfall, Schwangerschaft bei Kontrazeptionsmethode(Verhütungsmethode) A, 5-Jahre Überleben nach Chemotherapie, Regen am nächsten Tag in Leipzig)
+
+\begin{itemize}
+	\item in den ersten Vorlesungen folgen wir einem theoretischen Zugang
+	\begin{itemize}
+		\item dadurch bekommt man ein solides Fundament
+		\item wir werden nicht mathematisch streng sein können, (Stichwort Kolmogorow Axiomatik)
+	\end{itemize}
+\end{itemize}
+\subsection{Das Ereignisfeld}
+\begin{itemize}
+	\item als \textit{Ereignis} bezeichnet man einen möglichen Ausgang eines ''Zufallsexperimentes'', z.B. ''Zahl liegt oben''
+	\item Ein System heißt \textit{Ereignisfeld}, wenn:
+	\begin{itemize}
+		\item es das sichere und das unmögliche Ereignis enthält
+
+				\item A und B Teil eines Systems sind, dann auch $AB$ ($A\cap B$) ''Produkt'' von A und B, bedeutet $x \in A \text{ und } B$
+			\item $A+B$ ($A \cup B$) ''Summe'', mindestens eines der Ereignisse A und B tritt ein
+			\item $A-B$ ($A\backslash B$) "Differenz'' A tritt ein, während B nicht eintritt
+
+	
+	\end{itemize}
+\end{itemize}
+\begin{exmp}
+	Münzwurf Ereignisfeld \{A,B,$\Omega$, $\emptyset$\}\\
+	A - Zahl oben\\B - Wappen oben \\ $\Omega$ - Zahl oder Wappen oben \\ $\emptyset$ - weder Zahl noch Wappen oben
+\end{exmp}
+
+\subsection{Gesetze der Ereignisse}
+\begin{itemize}
+	\item Kommutativ: $A+B = B+A$, $AB = BA$
+	\item Assoziativ: $A+(B+C)$ = $(A+B)+C$; $A(BC) = (AB)C$
+	\item Distributiv: $A(B+C)$ = $(AB)+(AC)$; $A+(BC) = (A+B)(A+C)$ *
+	\item Identitäten: $A+A = A$; $AA = A$
+\end{itemize}
+*(A+B)(A+C) = AA+AC+BA+BC = A+(BC)
+
+\begin{tikzpicture}
+\begin{scope}[shift={(3cm,-5cm)}, fill opacity=0.5]
+\fill[red] \firstcircle;
+
+\draw \firstcircle node[below] {$A$};
+\draw \secondcircle node [above] {$B$};
+\draw \thirdcircle node [below] {$C$};
+
+\clip \secondcircle;
+\clip \thirdcircle;
+\fill[red]\thirdcircle;
+\end{scope}
+\end{tikzpicture}
+
+\subsection{Wahrscheinlichkeitsbegriff}
+\begin{axiom}
+	Jedem Ereignis $A$ aus dem Ereignisfeld $F$ ordnet man eine nichtnegative Zahl $P(A)$ zu. Das ist die \textit{Wahrscheinlichkeit}.
+\end{axiom}
+\begin{axiom}
+	 $P(\Omega)=1$
+\end{axiom}
+\begin{axiom}
+	Sind Ereignisse $A_i$; $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_i A_j = \emptyset$ mit $i \neq j $ so gilt $P(A_1+A_2+ \ldots + A_n) = P(A_1+P(A_2)+\ldots+P(A_n) )$ Daraus ergeben sich folgende Eigenschaften für Wahrscheinlichkeiten:
+	\begin{itemize}
+		\item $P(\emptyset)= 0$
+		\item $P(\bar{A}) = 1 - P(A)$, $\bar{A} = \Omega -A$
+		\item $ 0 \leq P(A) \leq 1$
+		\item Für $A \subset B$ (A ist Teilereignis von B) folgt $P(A) \leq P(B)$
+		\item $P(A+B) = P(A)+P(B)-P(AB)$
+		\item  $P(A_1 + A_2+ \ldots +A_n) \leq P(A_1) + P(A_2)+ \ldots+P(A_n)$
+	\end{itemize} 	
+\end{axiom}
+
+%Vorlesung 2
+\subsection{Bedingte Wahrscheinlichkeit}
+Eine Wahrscheinlichkeit von A unter der Bedingung dass B eingetreten ist schreibt man als $P(A|B)$
+\[P(A|B) = \frac{P(AB)}{P(B)}\]
+Motivation: Gegeben seien $n$ unvereinbare, gleich wahrscheinliche Ereignisse \\
+\begin{tabular}{ll}
+  $A_1,A_2,...,A_n$ & mit $m$ günstig für A \\
+ & mit $k$ günstig für B \\ 
+ & mit $r$ günstig für AB (r $\leq$ k, r $\leq$ m) \\ 
+\end{tabular}
+\[ P(A|B)=\frac{r}{k}=\frac{\frac{r}{n}}{\frac{k}{n}}=\frac{P(AB)}{P(B)} \]
+
+\begin{exmp}
+	Zwei Würfel werden geworfen. Wie groß ist die Wahrscheinlichkeit die Summe 8 zu erhalten (A), falls bekannt ist, dass die Summe gerade ist(B)\\
+	\[ P(A)=\frac{5}{36}, P(B)=\frac{1}{2}, P(AB)=\frac{5}{36} \]
+	\[ P(A|B)=\frac{P(AB)}{P(B)}=\frac{5}{18} \]
+\end{exmp}
+
+
+\subsubsection{Bayes'sche Formel} 
+Seien $A_1,A_2,...,A_n$ unvereinbar 
+\[ P(A_i|B)=\frac{P(B|A_i) P(A_i)}{\sum\limits_{j=1}^n P(B|A_j) P(A_j)} \]
+
+\section{Diagnostische Verfahren - Anwendung von Wahrscheinlichkeit}
+Es seien $D^+, D^-$ zwei mögliche Krankheitszustände (krank, gesund) und $T^+,T^-$ die zwei möglichen Ergebnisse eines diagnostischen Tests.
+So bezeichnet man:
+\begin{itemize}
+ \item $P(D^+)$ : Prävalenz
+ \item $P(T^+|D^+)$ : Sensitivität
+ \item $P(T^-|D^-)$ : Spezifizität
+ \item $P(D^+|T^+)$ : positiv-prädiktiver Wert (PPV)
+ \item $P(D^-|T^-)$ : negativ-prädiktiver Wert (NPV)
+\end{itemize}
+
+\section{Zufallsvariablen und Verteilungsfunktionen}
+Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''
+Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
+$\rightarrow$ Umkehrung: jede solcher Funktionen lässt sich als Verteilungsfunktion deuten
+
+\section{Wichtige Verteilungsfunktionen}
+\textbf{Binomialverteilung}
+\[ P_n(m)=\binom{n}{m}p^m q^{n-m} \] 
+wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \] 
+
+\[ F(x)=
+  \begin{cases}
+    0 & x \leq 0 \\
+    \sum\limits_{k<x}P_k & 0 < x \leq n \\
+    1 & x > n
+  \end{cases}
+\] 
+
+\textbf{Poissonverteilung}
+\[ P_n=\frac{\lambda e^{\lambda}}{n!}, \lambda > 0 \]
+
+\[ F_{\lambda}(t)=\sum_{k=0}^t \frac{\lambda^k}{k!}e^{-\lambda} \]
+
+\textbf{Normalverteilung}
+\[ F(x)=\phi(x)=\frac{1}{\sigma\sqrt{2\pi}} \]
+
+\[ \int_{-\infty}^x e^{\frac{-(z-a)^2}{2\sigma^2}} dz , \sigma > 0 \]
+
+\section{Erwartungswert, Varianz, weitere Momente}
+\subsection{Erwartungswert} $E(X)$ eine Zufallsgröße:\\
+\subsubsection{diskret}
+$E(X)=\sum_i x_i p_i$ wobei $x_i$: mögl. Werte, $p_i$: Wahrscheinlichkeiten \\
+
+\begin{exmp}
+	Würfel 
+	\[ E(X)=\frac{1}{6} \sum_{i=1}^6 i = \frac{21}{6} = \frac{7}{2} \]
+\end{exmp}
+\begin{exmp}
+	Binomialverteilung: 
+	\[ E(X)= \sum_{k=0}^n k P_n(k) = \sum_{k=0}^n k \binom{n}{k} p^k(1-p)^{n-k} \] 
+	Nebenrechnung:
+	\[ k \binom{n}{k} = \frac{k n!}{k! (n-k)!} = \frac{n!}{(k-1)!(n-k)!} = \frac{n(n-1)!}{(k-1)!(n-k)!} = n \binom{n-1}{k-1} \] 
+	\[\rightarrow E(X)= n \sum_{k=1}^{n} \binom{n-1}{k-1} p^k (1-p)^{n-k} = np \sum_{k=1}^n \binom{n-1}{k-1} p^{k-1} (1-p)^{n-k} \] 
+	Sei $k'=k-1, n'=n-1$ \\
+	\[ \rightarrow E(X)=np \underbrace{\sum_{k=0}^{n'} \binom{n'}{k'} p^{k'}(1-p)^{n'-k'}}_{=1} = np \]
+	
+\subsubsection{stetig} 
+	\[ E(X)=\int x - p(x) dx , \quad p(x): \text{Wahrscheinlichkeitsdichte} \]
+\end{exmp} 
+
+\begin{exmp}
+	Uniformverteilung auf Intervall $[a,b]$
+	\[ E(X)= \frac{1}{b-a} \int_{a}^b x dx =  \frac{b^2 - a^2}{2(b-a)} = \frac{1}{2}(b+a) \]
+\end{exmp}
+
+
+\begin{exmp}
+	Normalverteilung
+\[ E(X)= \frac{1}{\sigma \sqrt{2 \pi}} \int_{-\infty}^{\infty} x e^{\frac{-(x-a)^2}{2\sigma^2}} dx \]
+\[ x' = \frac{x-a}{\sigma} \rightarrow x = \sigma x' + a ,\quad dx= \sigma x' \]
+\[ E(X) = \frac{\sigma}{\sigma \sqrt{2 \pi}} \int_{- \infty}^{\infty} (\sigma x' + a) e^{\frac{-x^2}{2}} dx' \]
+ungerade Funktion ergibt 0
+\[ E(X) = \frac{\sigma}{\sqrt{2 \pi}} \underbrace{\int_{- \infty}^{\infty} e^{-x' 2/2} dx'}_{=\sqrt{2 \pi}} = a \]
+\end{exmp}
+
+\subsection{Varianz} (oder Dispersion)
+\[ V(X) := E \big[ (X-E(X)^2) \big] \]
+\underline{diskret}: 
+\[ V(X) = \sum\limits_{i} \big[ x_i - E(x) \big] ^2 * p_i \]
+\underline{stetig}: 
+\[ V(X) = \int \big[ x_i - E(x) \big] ^2 * p(x)\; dx \]
+
+
+%Vorlesung 3
+\[
+V(X) := E[(EX)-X)^2] = E[E(X)^2 - 2X E(X) + X^2]  = E(X^2) - [E(X)]^2
+\]
+Bsp. Würfel
+\[
+V(X) = \dfrac{1}{3} \left[\left(\dfrac{5}{2}\right)^2 + \left(\dfrac{3}{2}\right)^2 + \left(\dfrac{1}{2}\right)^2\right] = \dfrac{35}{12}
+\]
+Bsp. Uniformverteilung [a,b]
+\begin{align*}
+V(X) &= \dfrac{1}{b-a} \int_a^b \! x^2 \, \mathrm{d}x - \left(\dfrac{b+a}{2}\right)^2\\
+&= \dfrac{b^3 - a^3}{3 (b-a)} - \dfrac{(b+a)^2}{4} \\
+&= \dfrac{(b-a) (b^2+a^2+ab}{3(b-a)} - \dfrac{(b+a)^2}{4}\\
+&= \dfrac{1}{12} (4b^2+4a^2+4ab-3b^2-6 ab-3a^2)\\
+&= \dfrac{1}{12} (b^2-a^2-2ab) \\
+&= \dfrac{(b-a)^2}{12}
+\end{align*}
+\paragraph{Definition}
+Wir bezeichnen $m_k$ als das \underline{gewöhnliche Moment} (oder Anfangsmoment)\\
+k-ter Ordnung $m_k := E(X^k)$, \\
+diskret also $\sum_i\left(x_i\right)^k p_i$,
+stetig $\int \! x^k p(x) \, \mathrm{d}x$
+\\
+Das \underline{zentrale Moment} (auf Zentrum Erwartungswert bezogen) k-ter Ordnung \\
+$\mu_k := E\left[(X-m_1)^k\right]$. Die Varianz ist also das zweite Zentralmoment $V(X) = \mu_2 = m_2 - (m_1)^2$.\\
+Man kann immer $\mu_k$ durch $m_l$ $\left( l \leq k\right)$ ausdrücken.
+
+\subsection{Korrelation}
+Eine Erweiterung dieser Momente stellt die \underline{Kovarianz}
+$b(X,Y) := E\left[\left(X-E(X)\right) \left( Y-E(Y) \right)\right]$
+dar (gemischte Zentralmomente zweiter Ordnung).
+
+Es gilt offensichtlich $b(X,X) = V(X)$.\\
+Die normierte größe $\rho(X,Y) := \rho_{X,Y} = \dfrac{b(X,Y)}{\sqrt{V(X)V(Y)}}$ bezeichnet man als \underline{Korrelationskoeffizient}. \\
+Es gilt: $-1 \leq \rho \leq 1$. Für $X=Y$ gilt $\rho = 1$ und für $X=-Y$ gilt $\rho = -1$. \\
+Falls $X$ und $Y$ unabhängig dann gilt $\rho = 0$ (nicht aber umgekehrt).\\
+Anwendung auf Wahrscheinlichkeiten: \\
+$E(X) = p_X$, $V(X) = p_X(1 - p_X)$ \\
+
+\[\rho_{X,Y} = \dfrac{p_{XY} - p_Xp_Y}{\sqrt{p_X(1-p_X) p_Y(1-p_Y)}}\]
+\[ \rightarrow p_{XY} = p_Xp_Y + \rho_{X,Y} \sqrt{p_X(1-p_X)p_Y(1-pY)}\]
+
+\textbf{Grenzfälle} 
+$\rho = 0$ : $p_{XY} = p_X p_Y$\\
+$\rho = 1$\footnote{$\rightarrow p_X = p_Y$} : $p_{XY} = (p_X)^2 + p_X(1-p_X) = p_X$\\
+$\rho = -1$\footnote{$\rightarrow p_X = 1 - p_Y$} : $p_{XY} = p_X(1-pX) - p_X(1-p_X) = 0 $\\
+
+\section{Einige wichtige Gesetze der Wahrscheinlichkeitstheorie}
+
+\subsection{Gesetz der großen Zahlen}
+Bernoulli: Für alle $\epsilon > 0$: $\lim\limits_{n \rightarrow \infty}{P \left\lbrace| \dfrac{\mu}{n} - p | < \epsilon \right\rbrace} = 1$
+\begin{itemize}
+	\item $\mu$ - Anzahl der Ereignisse
+	\item $n$ - Anzahl der Versuche
+	\item $p$ - Wahrscheinlichkeiten der Ereignisse
+\end{itemize}
+%Vorlesung 4
+Tschebyshew: Für ein $\epsilon >0$:
+\[\lim\limits_{n \to \infty} P \left\{\frac{1}{n} \sum_{i=1}^{n} X_i - \frac{1}{n} \sum_{i=1}^{n} E(X_i)| < \epsilon \right\} = 1\] für eine Folge paarweise unabhängiger Zufallsgrößen.\\
+
+$\{X_i\}_{i=1,2, \ldots n}$ mit gleichmäßiger beschränkter Varianz  $V(X_i) \leq C$
+
+
+\subsection{lokaler Grenzwertsatz von Moivre-Laplace}
+Sei $0<p<1$ die Wahrscheinlichkeit eines Ereignisses.
+In n-Versuchen gilt
+\[P_n (m) = \binom{n}{m} p^m(1-p)^{n-m}\] So gilt \[\lim\limits_{n \to \infty} \frac{\sqrt{np(1-p)} P_n(m)}{\frac{1}{\sqrt{2 \pi}} e ^{-\frac{x^2}{2}}} \rightarrow  1 \text{ mit } x=\frac{m-np}{\sqrt{np(1-p)}}\]
+
+\subsection{zentraler Grenzwertsatz}
+
+Sei $S_n =  \sum_{i=1}^{n} X_i$ mit $E(X_i)<\infty$, $V(X_i) = \sigma ^2 < \infty$
+
+So gilt für jedes t
+\[ \lim\limits_{n \rightarrow \infty} P \left(\frac{S_n - n \cdot E(X_i)}{\sigma \sqrt{n} }< t\right) = \frac{1}{\sqrt{2\pi} }\int_{-\infty}^{t} e^{\frac{-x^2}{2}} dx
+\]
+
+also: die Folge der Verteilungen der standardisierten Zufallsgröße konvergiert gegen die Standartnormalverteilung (d.h. a = 0, $\sigma$ = 1)

@@ -1,0 +1,313 @@
+\chapter{Modellwahl und Regularisierung}
+\underline{Hier:} Multiple lineare Regression 
+\[ Y_{i} = \beta_{0} + \beta_{1} x_{i}^{(1)} + ... \beta_{k} x_{i}^{(k)} + \epsilon_{i} i \in \{ 1,...,n \} \]
+Schätzer für $\beta_{j}$ über kleinste-Quadrate-Methode\\
+\underline{Problem:}
+\begin{itemize}
+ \item $n \approx k$
+ \item $k > n$
+\end{itemize}
+$\rightarrow$ 
+\begin{itemize}
+ \item $k > n$: keine eindeutige Lösung
+ \item hohe Varianz bei den Schätzern $\widehat{\beta_j}$
+ \item schlechte Qualität bei Vorhersagen
+\end{itemize}
+
+\underline{Lösung:}
+\begin{itemize}
+ \item eliminieren irrelevanter Variablen
+ \item zusätzliche Bedingungen in das Modell einfügen
+\end{itemize}
+
+\section{Modellwahl}
+\subsection{Modellbewertung}
+\paragraph{Residual Sum of Squares(RSS)}
+\[ \text{RSS}:= \sum\limits_{i=1}^{n} (y_i \hat{y_i})^2 \text{ mit} \]
+\[ \hat{y}_i =  \hat{\beta_{0}} + \hat{\beta_{1}} x_{i}^{(1)} + ... \hat{\beta_{k}} x_{i}^{(k)} + \epsilon_{i} i \in \{ 1,...,n \} \]
+$\rightarrow$ ``je kleiner desto besser''
+
+%Vorlesung vom 30.11.17
+\paragraph{Mallow's Cp}
+\[ \text{Cp}= \frac{1}{n}(\text{RSS} + 2k \hat{\sigma}^{2} \]
+mit $\hat{\sigma}^{2}$ als Varianzschätzer für $\epsilon_i , i \in \{1,\dots,n\}$ \\
+(Voraussetzung ``Homoskedastizität'')\\
+$\Rightarrow$ ``Je kleiner desto besser''
+\paragraph{Akarkas Informationskriterium (AIC) }
+\[ \text{AIC} := n log (\hat{b}^2) + 2k \]
+$\Rightarrow$ ``Je kleiner desto besser''
+
+\paragraph{Bayes'sche Informationskriterium (BIC)}
+\[ \text{BIC} := n log (\hat{b}^2) + k \cdot log(n) \]
+$\Rightarrow$ ``Je kleiner desto besser''
+
+\paragraph{Bestimmtheitsmaß ($R^2$)}
+\[ R^2 := 1 - \frac{RSS}{TSS} \]
+mit 
+\[ TSS := \sum\limits_{i=1}^n (y_i - \bar{y_n} )^2 \]
+mit
+\[ \bar{y}_n = \frac{1}{n} \sum\limits_{i=1}^{n}y_i \]
+$\Rightarrow$ ``Je größer desto besser'' \\
+\underline{Bemerkung:} Man kann zeigen:
+\[ 0 \leq \text{RSS} \leq \text{TSS} \]
+
+\paragraph{Korrigiertes Bestimmtheitsmaß ($R^{2}_{adj}$)}
+\[ R_{adj}^{2} := 1 - \frac{\frac{\text{RSS}}{n-k-1}}{\frac{\text{TSS}}{n-1}} \]
+$\Rightarrow$ ``Je größer desto besser'' \\
+\underline{Bemerkung:} RSS und $R^{2}$ hängen stark von der Anzahl der Einflussgrößen (k) ab\\
+$\Rightarrow$ RSS und $R^{2}$ nur zum Vergleich von Modellen mit gleicher Anzahl von Einflussgrößen geeignet
+
+\section{Modellwahlverfahren}
+\subsection{Best Subset Selection}
+vergleiche alle möglichen (Sub-)Modelle miteinander
+\[ \{ x^{(j_1)},\dots, x^{(j_l)}\} \subseteq \{x^{(1)}, \dots, x^{k} \} \]
+mit 
+$l \in \{1, \dots, k \} $
+\[ \Rightarrow Y_i = \beta_0 + \beta_1 x_i^{(j_1)} + \dots + \beta_l x_i^{(j_l)} + \epsilon_i , i \in \{1,..n\} \]
+$\Rightarrow 2^{k} $ Möglichkeiten der Modellbildung
+\underline{Vorgehen}
+\begin{enumerate}
+	\item Berechne Null-Modell $\mathcal{M}_0 $:
+		$Y_i= \beta_0 + \epsilon_i , i \in \{1,\dots,n\} $
+	\item Für $l=1,\dots,k$:
+		\begin{enumerate}
+			\item Berechne alle $\binom{k}{l}$ Modell mit (genau) $l$ Einflussgrößen
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_0)$
+		\end{enumerate}
+	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß
+		\begin{itemize}
+			\item kreuzvalidierter Vorhersagefehle (später)
+			\item AIC
+			\item BIC
+			\item $R^2$
+		\end{itemize}
+\end{enumerate}
+\underline{ABER:} Falls $k$ zu groß ist, wird Best Subset Selection zu teuer \\
+Beispiel: $k=20 \Rightarrow 1.048.576$ Modelle müssen berechnet werden
+
+\subsection{Vorwärtsselektion}
+\underline{Vorgehen:} 
+\begin{enumerate}
+	\item Berechne das Null-Modell $\mathcal{M}_0$
+	\item Für $l=0,\dots,(k-1)$
+		\begin{enumerate}
+			\item Berechne alle $(k-l)$ Modelle, welche das Modell $\mathcal{M}_i$ mit einem zusätzlichen Parameter bzw. Einflussgrößen betrachten
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l+1})$
+		\end{enumerate}
+	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß:
+		\begin{itemize}
+			\item kreuzvalidierter Vorhersagefehler
+			\item AIC
+			\item BIC
+			\item \dots
+		\end{itemize}
+\end{enumerate}
+\underline{Vorteil:} weniger rechenintensiv:
+\[ 1 + \sum\limits_{l=0}^{k-1} (k-l)=1+ \frac{k(k+1)}{2} \text{ Modelle}\]
+Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden \\ \\
+\underline{Nachteil:} Vorwärtsselektion ``übersieht'' viele Modelle  \\
+\underline{Beachte:} Falls $k > n$, ist der Algorithmus bei $l=n-1$ abzubrechen, da sonst keine eindeutigen Lösungen mehr entstehen
+
+\subsection{Rückwärtsselektion}
+\underline{Vorgehen:}
+\begin{enumerate}
+	\item Berechne das ``volle'' Modelle $(\mathcal{M}_k)$
+	\item Für $l=k,\dots,1:$
+		\begin{enumerate}
+			\item Berechne alle $l$ Modelle, welche alle Einflussgrößen aus $\mathcal{M}_l$ außer einem enthalten
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l+1})$
+		\end{enumerate}
+	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß:
+		\begin{itemize}
+			\item kreuzvalidierter Vorhersagefehler
+			\item AIC
+			\item BIC
+			\item \dots
+		\end{itemize}
+\end{enumerate}
+\underline{Beachte:} Hier muss $k < n$ gelten!
+
+\section{Regularisierung (Shrinkage)}
+\subsection{Ridge-Regression}
+\[ \lambda > 0 \]
+\[ \sum\limits_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i^{(1)} - \dots - \beta_i x_i^{(k)})^2 + \underbrace{\lambda \sum\limits_{j=1}^{k} \beta_j^{2}}_{``Strafterm''} \rightarrow min \]
+	Zusatzterm sorgt dafür, dass (betragsmäßig) große $\beta_i$ vermieden werden \\
+	$\lambda$ heißt \underline{Tuning-Parameter} und sterut die Stärke der Bestrafung betragsmäßig große $\beta_0 \beta_j$
+	\begin{itemize}
+		\item $\lambda=0$ übliche Regression mit KQM
+		\item $\lambda >>0$: Bestrafung betragsmäßig großer $\beta_j$ bekommt ``Übergewicht'', das heißt $||\hat{\beta}||_2 \rightarrow 0 $ für $\lambda \rightarrow \infty $
+			\[ ||\beta ||_2 := \sqrt{\sum\limits_{j=1}^{k}\beta_j^{2}} \]
+	\end{itemize}
+	\underline{Beobachtung:}
+	\begin{itemize}
+		\item bei linearer Regression hängt der Wert $\hat{beta}_j x^{(j)}$ nicht von der Skalierung der Einflussgröße $x^{(j)}$ ab
+		\item bei Ridge-Regression gilt das nichtmerh!
+	\end{itemize}
+$\Rightarrow$ Ausweg: Standardisierung vor der Modellberechnung gemäß:
+\[ \tilde{X}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x^{(j)}_n})}} \]
+$\Rightarrow $ alle $\tilde{x}^{(j)}$ haben Varianz 1 und sind unabhängig der Skalierung der $x^{(j)}$ \\
+$\Rightarrow$ ``Schrumpfen'' der Parameter $\hat{\beta_j}$ aber nicht ``0'' \\
+$\Rightarrow$ Reduktion der Varianz der SChätzer (``Glättung'')
+
+\subsection{Lasso (Least Absolute Shrinkage and Selection Operator)}
+Ähnlich wie Ridge Regression 
+\begin{itemize}
+	\item \(\lambda > 0 \)
+	\item \(\sum_{i = 1}^{n}(y_i -\beta_0 - \beta_1 x_i^{(1)} - \ldots - \beta_k x_i^{(k)})^2 + \underbrace{\lambda \sum_{j = 1}^{k}|\beta_j|}_{Strafterm}
+	\rightarrow_{\beta_0, \ldots, \beta_k \in \mathbb{R}} \min \)
+	\item Bestrafungsterm in L$^1$-Norm (Ridge Regression L$^2$ Norm)
+	\item Hauptunterschied zur Ridge Regression: $L^1$-Norm führt dazu, dass viele Koeffizienten "`=0"' geschätzt werden (Ridge-Regression "'$\approx$ 0"')
+	\item einfachere Interpretierbarkeit des Modells
+	\item [\(\rightarrow\)] Variablenselektion
+	\item [ABER]
+	\begin{itemize}
+		\item Varianz der $ \hat{\beta_j} $ ist bei Lasso größer als bei Ridge
+	\end{itemize}
+\end{itemize}
+
+%L^1 Norm von \beta := (\beta_1, \ldots,\beta_i)
+%Allgemein: L$^P$-Norm von $\beta$\\
+%\(\rightarrow ||\beta||_p = ||\beta||_{L^p} = \sqrt{\sum_{j = 1}^{k} |\beta_j|^p}\)\\
+%\(\Leftrightarrow ||\beta||_p^p = \sum_{j=1}^{k}|\beta_j|^P\)
+
+\subsection{Wahl des Tuningparameters $\lambda$}
+\textbf{Kreuzvalidierung:}
+\begin{enumerate}
+	\item Wähle ein Gitter von möglichen $\lambda$-Werten
+	\item Berechne für jeden dieser Werte den Kreuzvalidierten Fehler
+	\item Wähle das \(\lambda\) mit dem kleinsten Fehler
+	\item Berechne mit dem "`finalen"' \( \lambda \) das Modell erneut (mit kompletten Datensatz)
+\end{enumerate}
+
+
+\section{Kreuzvalidierung}
+\textbf{\underline{Beispiel:}}
+	\begin{itemize}
+		\item ($X_i$, $Y_i$)$_{i=1}^n$ - Stichprobe
+		\item $X_i$ Körpergröße
+		\item $Y_i$ -Körpergewiche
+		\item Modell: 
+	\end{itemize}
+		\[Y_I = \beta_0 + \beta_1 x_i\epsilon_i \text{ ; } i \in \{1, \ldots,n\}\]
+\begin{itemize}
+\item bestimmen $\hat{\beta_0}$ und $\hat{\beta_1}$ über KQM
+\item [\(\rightarrow\)] Wie gut sind die schätzungen
+\end{itemize}
+
+
+\[ MSE := \frac{1}{n} \sum_{i = 1}^{n} (y_i - \hat{y_i})^2 \text{  (Mean Squared Error)}\]
+
+\begin{itemize}
+	\item[\( \rightarrow \)] gilt nur für vorliegende Stichprobe
+	\item[\( \rightarrow \)] Wie gut sind diese Schätzungen für zukünftige Daten?
+\end{itemize}
+
+\subsection{Vorgehen}
+\begin{itemize}
+	\item Man verwendet einen Teil der Stichprobe als \underline{Trainingssatz} und den anderen Teil als \underline{Validierungsdatensatz}
+	\item[\( \rightarrow \)] Den Trainingsdatensatz zum Schätzen der Parameter
+	\item[\( \rightarrow \)] Den Validierungsdatensatz zum Überprüfen der Vorhersagegüte
+\end{itemize}
+
+\textbf{\underline{Beispiel}(Fortsetzung):}
+\begin{itemize}
+	\item $(x_i, y_i)_i \in I_T$ - Trainingsdaten
+	\item $(x_i,y_i)_i \in I_T$ -Validierungsdaten
+\end{itemize}
+mit $ I_T $, $ I_V $   $\{1,\ldots,n\}$   und $I_T \cap I_V = \emptyset$
+	
+\begin{itemize}
+	\item $ \hat{\beta_0}^T $, $ \hat{\beta_1}^T $ - Schätzer für $\beta_0$ und  $\beta_1$ unter Verwendung von $ (x_i $, $ Y_i $$ )_{i \in I_T} $
+	\item mittlerer quadratischer Fehler über Validierungsdaten
+\end{itemize}
+
+\[MSE_V := \frac{1}{|I_V|} \sum_{i \in I_V}(Y_i - \underbrace{(  \hat{\beta_0}^T +  \hat{\beta_1}^T x_i)}_{:= \hat{y_i}^{(T)}})^2\]
+
+\textbf{Problem:} Bias durch "`ungünstige"' Aufteilung in Trainings und Validierungsdaten $\rightarrow$
+unter bzw. Überschätzen des MSE
+
+\textbf{Lösung:} m-maliges Aufteilen der gesamten Stichprobe in Trainings und Validierungsdaten
+
+für \(L=1,\ldots, m\) jeweils Parameter schätzen und mittleren quadratischen Fehler berechnen. Anschließend mittleren quadratischen Fehler (MSE) bestimmen
+
+$\rightarrow$ Aufteilung jeweils möglichst zufällig wählen
+
+\textbf{\underline{Beispiel}(Fortsetzung):}
+\begin{itemize}
+	\item m mal in trainings und Validierungsdaten aufteilen
+	\item $ (x_i, y_i)_{i \in I_T^{(1)}} , (x_i,y_i)_{i \in I_V^{(1)}} $ $ \ldots $
+	\item $ (x_i, y_i)_{i \in I_T^{(m)} }, (x_i,y_i)_{i \in I_V^{(m)}} $
+	\item bestimmen jeweils  $\hat{\beta_0}^{T,L}$, $\hat{\beta_1}^{T,L}$ und 
+	\[ MSE_V^{(l)} := \frac{1}{|I_V^{(l)}} \sum_{i \in I_V^{(1)}}(y_i - (\hat{\beta_0}^{(T,l)} + \hat{\beta_1}^{(T,l)} x_i))^2  \]
+	\item für $l = 1, \ldots, m$
+	\item bestimme den gemittelten MSE
+	\[MSE_V^m := \frac{1}{m} \sum_{1}^{m} MSE_V^{(l)}\]
+\end{itemize}
+
+\subsection{Mögliche Aufteilungen}
+\subsubsection{Leave one out Cross Validation}
+\textbf{\underline{Beispiel}(Fortsetzung):}
+\begin{itemize}
+	\item für \(l = 1,\ldots,n\) 
+	\item $(x_i, y_i)_i \in \{1, \ldots, n \} \setminus \{l\}$ Trainingsdatensatz
+	\item $(x_i, y_i)_i = l$ Validierungsdatensatz
+	\[MSE_V^{(l)} = (y_l - (\hat{\beta_0}^{(T, \{l\})} + \hat{\beta_1}^{(T, \{l\})} x_i)) \text{ für } l = 1,\ldots ,n\]	
+	\[MSE_v^n := \frac{1}{n}\sum_{l = 1}^{n} MSE_V^{(l)}\]
+\end{itemize}
+
+\subsubsection{k-fache Kreusvalidierung}
+\textbf{\underline{Beispiel} (Fortsetzung):}
+
+Aufteilung in K Blöcke:
+\[(x_i, y_i)_{i \in I^{(k)}} \text{ für }  k = 1, .., K \] 
+\[\text{mit } I^{(k_1)} \cup I^{(k_2)} = \emptyset \text{ für } k_1, k_2 \in {1, \ldots ,K} \text{ mit } k_1 \neq k_2 \]
+\[ \text{und } |I^{(K)}| = \begin{cases}
+\frac{n}{m} &, n \mod K= 0\\
+n \mod K &, n \mod K \neq 0
+\end{cases}
+\]
+\[\text{und } |I^{(k)}| = \frac{n - |I^{(k)}|}{K-1} \text{ für } k = \{1, \ldots ,K\} \]
+
+möglichst \(|I^{(K)}| \approx |I^{(k)}|\)für \(k = \{1, \ldots ,K-1\}\)\\
+
+
+Für \(k = 1, \ldots, K\) 
+\begin{itemize}
+	\item[] \((x_i, y_i)_{ i \in I^{(l)}}, l \in \{1, \ldots, K\}\setminus \{k\}\) - Trainingsdaten
+	\item[] \((x_i, y_i)_{ i \in I^{(k)}} \) - Validierungsdatensatz
+	\item Bemerkung \(K=n \rightarrow LOOCV\) 	
+	\item[\(\rightarrow\)]\(MSE_V^{(k)} = \frac{1}{|I^{(k)}|} \sum_{i \in I^{(k)}} ( y_i -( \hat{\beta_0}^{(T,k)} + \hat{\beta_1}^{(T,k)}  x_i))^2\) 
+	\item [\(\rightarrow\)]
+	\(MSE_V^K = \frac{1}{K} \sum_{k=1}^{K} MSE_V^{(k)}\) 
+	\item üblich K=5 oder K=10
+\end{itemize}
+
+\section{Kurzzusammenfassung}
+Multiple Lineare Regression
+\[Y_I = \beta_0 + \beta_1 x_i^{(1)} + \ldots + \beta_k x_i^{(k)} + \epsilon_i \text{ ; } i \in \{1, \ldots,n\}\]
+
+\textbf{Problemfälle}
+\begin{itemize}
+	\item \(n \approx k\)
+	\item \(n < k\)
+\end{itemize}
+\textbf{Auswege:} \\
+Variablenselektion
+\begin{itemize}
+	\item[\(\rightarrow\)] BSS
+	\item[\(\rightarrow\)] VS (Vorwärtsselektion)
+	\item[\(\rightarrow\)] RS (Rückwärtsselektion)
+\end{itemize}
+Regularisierung
+\begin{itemize}
+	\item RR (Tuning Parameter (\(\lambda > 0\) für die Stärke der Bestrafung)
+	\item Lasso
+\end{itemize}
+\todo{\(AIC = AC + f(k^2)\)}
+\todo{\(Cp: K:= {0, \ldots, k}\)\\
+\(P<= K\) \\
+\(|P| = p C_p\) \(\approx p \rightarrow\) dieses Modell "`am besten"' geeignet}
+
+Modellbewertung:RSS, Mallows Cp, AIC, BIC, $R^2$ $R_adj^2$
+
+

@@ -1,0 +1,88 @@
+\chapter{Deskriptive Statistik}
+
+\begin{itemize}
+	\item Beschreibung von Daten und Kohorten ist zentral für das Verständnis einer Arbeit
+	\item Ziel ist mit wenigen Kenngrößen das wesentliche zu charakterisieren 
+	\item man gibt ''Punktschätzer''  für Erwartungswerte und ''Konfidenzintervalle'' (KI; engl. CI) als Maß für die Genauigkeit der Schätzung:\\
+	$(1- \alpha) \text{ KI} [a,b] : P(a \leq \theta \leq b) = 1-\alpha$
+\end{itemize}
+
+\todo{Üersichtsbild Konfidenzintervall}
+
+\section{Nominale und Ordinale Größen}
+%nominal -- Kann man nur kategorisieren aber nicht ordnen
+%ordinal -- kann man ist eine Kategoriale größe die man in eine Reihenfolge bringen kann
+
+\begin{itemize}
+	\item absolute und relative Häufigkeiten (z.B Häufigkeitstabellen)
+	\item grafisch: Balkendiagramme (mit Konfidenzintervall KI oder Standardfehler SE)
+	\item Kreisdiagramm (verpönt)
+\end{itemize}
+
+\todo{Bespiel Balkendiagramm einfügen}
+
+$\hat{p} = \frac{r}{n}$ , $\hat{SE} = \frac{\hat{sd}}{\sqrt{n}}= \frac{\sqrt{\hat{V}}}{\sqrt{n}} = \sqrt{\frac{\hat{p} (1- \hat{p})}{n}}
+KI \approx \hat{p} \pm 2 SE$, r= \#Fehlgeburten, n = \#Beobachtungen 
+
+
+\section{Metrische Daten}
+\textbf{Lagemaß}
+\begin{itemize}
+	\item Mittelwert (arithmetisch oder geometrisch, d.h. log-Skala)
+	\begin{itemize}
+		\item übliche und ''robuste'' Methoden
+		\item arithmetisch  = $\frac{1}{n}\sum_{i=1}^{n} X_i$
+		\item geometrisch  = $[ \prod_{i=1}^{n} X_i]^{1/n}$
+	\end{itemize}
+	-Median und andere Quantile (verschiedene Schätzverfahren)
+\end{itemize}
+\textbf{Streumaß}
+\begin{itemize}
+	\item Standardabweichung (''sample'' - Methode) $sd^2 = \frac{1}{n-1} \sum_{i=1}^{n}(x_i - \bar{x})^2$
+	\item Interquartilabstand (engl. interquartile range (IQR) z.B. 25. und 75. Perzentil)
+	\item Spannweite
+	\item grafisch: Histogramm, Boxplot	
+\end{itemize}
+\todo{Grafik Boxplot einfügen}
+
+\section{Zusammenhang 2er Merkmale}
+Nominal
+\begin{itemize}
+	\item Kontigenztafel: odds ration, relatives Risiko
+	\item grafisch: forest plots
+\end{itemize}
+metrisch
+\begin{itemize}
+	\item Korrelationskoeffizient (mit KI)
+	\item Streudiagramm
+\end{itemize}
+
+\paragraph{Simpsons Paradoxon}
+Grundidee: Effekt in Gesamtgruppe muss nicht ''echt'' sein. Er kann in Subgruppen anders ausfallen.
+
+\begin{tabular}{|c|c|c|}
+	\hline 
+	& A & B \\ 
+	\hline 
+	Erfolg & 70 (30\%) &  50(22\%) \\ 
+	\hline 
+	Misserfolg & 160 & 182 \\ 
+	\hline 
+	Summe & 230 & 232 \\ 
+	\hline 
+\end{tabular} 
+
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	&   & A & B \\ 
+	\hline 
+	Männer & E & 7 (20\%) & 45(21\%) \\ 
+	\hline 
+	& M & 28 & 175 \\ 
+	\hline 
+	Frauen & E & 63(32\%) & 5(33\%) \\ 
+	\hline 
+	& M  & 132 & 10 \\ 
+	\hline 
+\end{tabular} 
+
