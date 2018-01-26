@@ -36,10 +36,10 @@ So bezeichnet man:
 
 \subsection{Zufallsvariablen und Verteilungsfunktionen}
 Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''
-Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
+Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega \rightarrow \mathbb{R}$ und $F_x(t):=P(X \leq t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton steigend, rechtsseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
 $\rightarrow$ Umkehrung: jede solcher Funktionen lässt sich als Verteilungsfunktion deuten
 
-\subsection{Wichtige Vereilungsfunktionen}
+\subsection{Wichtige Verteilungsfunktionen}
 \paragraph{Binomialverteilung}
 \[ P_n(m)=\binom{n}{m}p^m q^{n-m} \] 
 wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \] 
@@ -58,9 +58,7 @@ wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \]
 \[ F_{\lambda}(t)=\sum_{k=0}^t \frac{\lambda^k}{k!}e^{-\lambda} \]
 
 \paragraph{Normalverteilung}
-\[ F(x)=\phi(x)=\frac{1}{\sigma\sqrt{2\pi}} \]
-
-\[ \int_{-\infty}^x e^{\frac{-(z-a)^2}{2\sigma^2}} dz , \sigma > 0 \]
+\[ F(x)=\Phi(x)=\frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^x e^{\frac{-(z-\mu)^2}{2\sigma^2}} dz , \sigma > 0\]
 
 \subsection{Erwartungswert, Varianz, weitere Momente}
 \textbf{Erwartungswert} $E(X)$ eine Zufallsgröße:\\
