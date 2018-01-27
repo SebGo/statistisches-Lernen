@@ -34,11 +34,11 @@ mit $\hat{\sigma}^{2}$ als Varianzschätzer für $\epsilon_i , i \in \{1,\dots,n
 (Voraussetzung ``Homoskedastizität'')\\
 $\Rightarrow$ ``Je kleiner desto besser''
 \paragraph{Akarkas Informationskriterium (AIC) }
-\[ \text{AIC} := n log (\hat{b}^2) + 2k \]
+\[ \text{AIC} := n \log (\hat{b}^2) + 2k \]
 $\Rightarrow$ ``Je kleiner desto besser''
 
 \paragraph{Bayes'sche Informationskriterium (BIC)}
-\[ \text{BIC} := n log (\hat{b}^2) + k \cdot log(n) \]
+\[ \text{BIC} := n \log (\hat{b}^2) + k \cdot \log(n) \]
 $\Rightarrow$ ``Je kleiner desto besser''
 
 \paragraph{Bestimmtheitsmaß ($R^2$)}
@@ -132,7 +132,7 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden \\ \\
 \[ \lambda > 0 \]
 \[ \sum\limits_{i=1}^{n} (y_i - \beta_0 - \beta_1 x_i^{(1)} - \dots - \beta_i x_i^{(k)})^2 + \underbrace{\lambda \sum\limits_{j=1}^{k} \beta_j^{2}}_{``Strafterm''} \rightarrow min \]
 	Zusatzterm sorgt dafür, dass (betragsmäßig) große $\beta_i$ vermieden werden \\
-	$\lambda$ heißt \underline{Tuning-Parameter} und sterut die Stärke der Bestrafung betragsmäßig große $\beta_0 \beta_j$
+	$\lambda$ heißt \underline{Tuning-Parameter} und steuert die Stärke der Bestrafung für betragsmäßig große $\beta_0 \beta_j$
 	\begin{itemize}
 		\item $\lambda=0$ übliche Regression mit KQM
 		\item $\lambda >>0$: Bestrafung betragsmäßig großer $\beta_j$ bekommt ``Übergewicht'', das heißt $||\hat{\beta}||_2 \rightarrow 0 $ für $\lambda \rightarrow \infty $
@@ -140,14 +140,14 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden \\ \\
 	\end{itemize}
 	\underline{Beobachtung:}
 	\begin{itemize}
-		\item bei linearer Regression hängt der Wert $\hat{beta}_j x^{(j)}$ nicht von der Skalierung der Einflussgröße $x^{(j)}$ ab
-		\item bei Ridge-Regression gilt das nichtmerh!
+		\item bei linearer Regression hängt der Wert $\hat{\beta}_j x^{(j)}$ nicht von der Skalierung der Einflussgröße $x^{(j)}$ ab
+		\item bei Ridge-Regression gilt das nicht mehr!
 	\end{itemize}
 $\Rightarrow$ Ausweg: Standardisierung vor der Modellberechnung gemäß:
-\[ \tilde{X}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x^{(j)}_n})}} \]
+\[ \tilde{X}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x}^{(j)}_n})} \]
 $\Rightarrow $ alle $\tilde{x}^{(j)}$ haben Varianz 1 und sind unabhängig der Skalierung der $x^{(j)}$ \\
 $\Rightarrow$ ``Schrumpfen'' der Parameter $\hat{\beta_j}$ aber nicht ``0'' \\
-$\Rightarrow$ Reduktion der Varianz der SChätzer (``Glättung'')
+$\Rightarrow$ Reduktion der Varianz der Schätzer (``Glättung'')
 
 \subsection{Lasso (Least Absolute Shrinkage and Selection Operator)}
 Ähnlich wie Ridge Regression 
@@ -191,7 +191,7 @@ $\Rightarrow$ Reduktion der Varianz der SChätzer (``Glättung'')
 		\[Y_I = \beta_0 + \beta_1 x_i\epsilon_i \text{ ; } i \in \{1, \ldots,n\}\]
 \begin{itemize}
 \item bestimmen $\hat{\beta_0}$ und $\hat{\beta_1}$ über KQM
-\item [\(\rightarrow\)] Wie gut sind die schätzungen
+\item [\(\rightarrow\)] Wie gut sind die Schätzungen
 \end{itemize}
 
 
@@ -212,7 +212,7 @@ $\Rightarrow$ Reduktion der Varianz der SChätzer (``Glättung'')
 \textbf{\underline{Beispiel}(Fortsetzung):}
 \begin{itemize}
 	\item $(x_i, y_i)_i \in I_T$ - Trainingsdaten
-	\item $(x_i,y_i)_i \in I_T$ -Validierungsdaten
+	\item $(x_i,y_i)_i \in I_V$ -Validierungsdaten
 \end{itemize}
 mit $ I_T $, $ I_V $   $\{1,\ldots,n\}$   und $I_T \cap I_V = \emptyset$
 	
@@ -238,7 +238,7 @@ $\rightarrow$ Aufteilung jeweils möglichst zufällig wählen
 	\item $ (x_i, y_i)_{i \in I_T^{(1)}} , (x_i,y_i)_{i \in I_V^{(1)}} $ $ \ldots $
 	\item $ (x_i, y_i)_{i \in I_T^{(m)} }, (x_i,y_i)_{i \in I_V^{(m)}} $
 	\item bestimmen jeweils  $\hat{\beta_0}^{T,L}$, $\hat{\beta_1}^{T,L}$ und 
-	\[ MSE_V^{(l)} := \frac{1}{|I_V^{(l)}} \sum_{i \in I_V^{(1)}}(y_i - (\hat{\beta_0}^{(T,l)} + \hat{\beta_1}^{(T,l)} x_i))^2  \]
+	\[ MSE_V^{(l)} := \frac{1}{|I_V^{(l)}|} \sum_{i \in I_V^{(1)}}(y_i - (\hat{\beta_0}^{(T,l)} + \hat{\beta_1}^{(T,l)} x_i))^2  \]
 	\item für $l = 1, \ldots, m$
 	\item bestimme den gemittelten MSE
 	\[MSE_V^m := \frac{1}{m} \sum_{1}^{m} MSE_V^{(l)}\]

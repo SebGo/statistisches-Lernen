@@ -60,7 +60,8 @@ Der Zusammenhang nominaler Merkmale kann mit höherer Power mit dem (asymptotisc
 \[ \chi^2 = \sum\limits_{i,j} \frac{(n_{ij} - e_{ij})^2}{e_{ij}} \]
 \[ e_{ij}= \frac{n_{i\cdot} \times n_{\cdot j}}{n_{\cdot \cdot}} \]
 $e_{ij}:$ erwartete Anzahl \\
-$\chi^2$ hat $\chi^2$-Verteilung mit $f=(l-1)\cdot(k-1)$ Freiheitsgrade \todo{l= Anzahl an Zeilen, k= Anzahl Spalten der Kontigenztafel}\\
+$\chi^2$ hat $\chi^2$-Verteilung mit $f=(l-1)\cdot(k-1)$ Freiheitsgrade  \\
+(wobei l= Anzahl an Zeilen, k= Anzahl Spalten der Kontigenztafel) \\
 Faustregel: $n_{ij} \neq 0$ für alle $i,j$ und $< 20 \%$ der Zellen haben $l_{ij} < 5 \rightarrow \chi^2$-Test \\
 %Ende der Vorlesung
 
@@ -228,13 +229,17 @@ Bonferroni-Holm ist beser als Bonferroni bzw. \v Sid\'ak bzgl. Typ-II-Fehlern\\
 $\rightarrow$ ''step-down''-Verfahren
 
 \section{False Discover Rate (FDR) }
+\begin{minipage} [t] {0.6\textwidth}
 \begin{tabular}{c|c|c|c}
 0-Hyp\ Test & nicht ablehnen & ablehnen & \\ \hline
 wahr & \cellcolor{yellow!25} $m_0 (\theta) - V(\theta)$ & \cellcolor{yellow!25}$V(\theta)$ & \cellcolor{yellow!25}$m_0(\theta)$\\ \hline
 falsch &\cellcolor{yellow!25}$m_A (\theta) - S(\theta)$  &\cellcolor{yellow!25} $S(\theta)$ &\cellcolor{yellow!25} $m_A(\theta)$\\ \hline
 & \cellcolor{red!25}$m-R(\theta)$ & \cellcolor{red!25}$R(\theta)$ & m\\
 \end{tabular}
-\todo[inline]{yellow=unbekannt\\ red=bekannt}
+\end{minipage}
+\begin{minipage} [t] {0.3\textwidth}
+gelb=unbekannt\\ rot=bekannt
+\end{minipage}
 
 \begin{itemize}
  \item $m$ - Anzahl der Tests \\
