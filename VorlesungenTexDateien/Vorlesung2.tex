@@ -78,7 +78,7 @@ wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \]
 	\[ \rightarrow E(X)=np \underbrace{\sum_{k=0}^{n'} \binom{n'}{k'} p^{k'}(1-p)^{n'-k'}}_{=1} = np \]
 	
 	\underline{stetig} 
-	\[ E(X)=\int x - p(x) dx , \quad p(x): \text{Wahrscheinlichkeitsdichte} \]
+	\[ E(X)=\int x \cdot p(x) dx , \quad p(x): \text{Wahrscheinlichkeitsdichte} \]
 \end{exmp} 
 
 \begin{exmp}
@@ -97,7 +97,7 @@ ungerade Funktion ergibt 0
 \end{exmp}
 
 \textbf{Varianz} (oder Dispersion)
-\[ V(X) := E \big[ (X-E(X)^2) \big] \]
+\[ V(X) := E \big[ (X-E(X))^2 \big] \]
 \underline{diskret}: 
 \[ V(X) = \sum\limits_{i} \big[ x_i - E(x) \big] ^2 * p_i \]
 \underline{stetig}: 

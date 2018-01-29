@@ -1,19 +1,21 @@
 %Vorlesung vom 30.11.17
-\todo[inline]{gehört alles hier zu modellbewertung}
-\section{Mallow's Cp}
-\[ \text{Cp}= \frac{1}{n}(\text{RSS} + 2k \hat{\sigma}^{2} \]
+
+\paragraph{Mallows's $C_p$}
+\[ C_p = \frac{1}{n}(\text{RSS} + 2k \hat{\sigma}^{2}) \]
 mit $\hat{\sigma}^{2}$ als Varianzschätzer für $\epsilon_i , i \in \{1,\dots,n\}$ \\
 (Voraussetzung ``Homoskedastizität'')\\
 $\Rightarrow$ ``Je kleiner desto besser''
-\section{Akarkas Informationskriterium (AIC) }
-\[ text{AIC} := n log (\hat{b}^2) + 2k \]
+\paragraph{Akaikes Informationskriterium (AIC) }
+\[
+AIC := n \log (\hat{\sigma^2}) + 2k
+\]
 $\Rightarrow$ ``Je kleiner desto besser''
 
-\section{Bayes'sche Informationskriterium (BIC}
-\[ text{BIC} := n log (\hat{b}^2) + k \cdot log(n) \]
+\paragraph{Bayes'sche Informationskriterium (BIC)}
+\[ BIC := n log (\hat{\sigma^2}) + k \cdot log(n) \]
 $\Rightarrow$ ``Je kleiner desto besser''
 
-\section{Bestimmtheitsmaß ($R^2$)}
+\paragraph{Bestimmtheitsmaß ($R^2$)}
 \[ R^2 := 1 - \frac{RSS}{TSS} \]
 mit 
 \[ TSS := \sum\limits_{i=1}^n (y_i - \bar{y_n} )^2 \]
@@ -23,7 +25,7 @@ $\Rightarrow$ ``Je größer desto besser''
 \underline{Bemerkung:} Man kann zeigen:
 \[ 0 \leq \text{RSS} \leq \text{TSS} \]
 
-\section{Korrigiertes Bestimmtheitsmaß ($R^{2}_{adj}$)}
+\paragraph{Korrigiertes Bestimmtheitsmaß ($R^{2}_{adj}$)}
 \[ R_{adj}^{2} := 1 - \frac{\frac{\text{RSS}}{n-k-1}}{\frac{\text{TSS}}{n-1}} \]
 $\Rightarrow$ ``Je größer desto besser'' \\
 \underline{Bemerkung:} RSS und $R^{2}$ hängen stark von der Anzahl der Einflussgrößen (k) ab\\
@@ -33,7 +35,7 @@ $\Rightarrow$ RSS und $R^{2}$ nur zum Vergleich von Modellen mit gleicher Anzahl
 \todo[inline]{Punkt 1.2 ist Modellwahlverfahren. Evtl im Nachhinein anpassen}
 \subsection{Best Subset Selection}
 vergleiche alle möglichen (Sub-)Modelle miteinander
-\[ \{ x^{(j_1)},\dots, x^{(j_l)}\} \subseteq \{x^{(1)}, \dots, x^{k} \} \]
+\[ \{ x^{(j_1)},\dots, x^{(j_l)}\} \subseteq \{x^{(1)}, \dots, x^{(k)} \} \]
 mit 
 $l \in \{1, \dots, k \} $
 \[ \Rightarrow Y_i = \beta_0 + \beta_1 x_i^{(j_1)} + \dots + \beta_l x_i^{(j_l)} + \epsilon_i , i \in \{1,..n\} \]
@@ -45,11 +47,11 @@ $\Rightarrow 2^{k} $ Möglichkeiten der Modellbildung
 	\item Für $l=1,\dots,k$:
 		\begin{enumerate}
 			\item Berechne alle $\binom{k}{l}$ Modell mit (genau) $l$ Einflussgrößen
-			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_0)$
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_l)$
 		\end{enumerate}
 	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß
 		\begin{itemize}
-			\item kreuzvalidierter Vorhersagefehle (später)
+			\item kreuzvalidierter Vorhersagefehler (später)
 			\item AIC
 			\item BIC
 			\item $R^2$
@@ -65,7 +67,7 @@ Beispiel: $k=20 \Rightarrow 1.048.576$ Modelle müssen berechnet werden
 	\item Für $l=0,\dots,(k-1)$
 		\begin{enumerate}
 			\item Berechne alle $(k-l)$ Modelle, welche das Modell $\mathcal{M}_i$ mit einem zusätzlichen Parameter bzw. Einflussgrößen betrachten
-			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l+1})$
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{i+1})$
 		\end{enumerate}
 	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß:
 		\begin{itemize}
@@ -88,7 +90,7 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden
 	\item Für $l=k,\dots,1:$
 		\begin{enumerate}
 			\item Berechne alle $l$ Modelle, welche alle Einflussgrößen aus $\mathcal{M}_l$ außer einem enthalten
-			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l+1})$
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l-1})$
 		\end{enumerate}
 	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß:
 		\begin{itemize}
@@ -112,11 +114,11 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden
 	\end{itemize}
 	\underline{Beobachtung:}
 	\begin{itemize}
-		\item bei linearer Regression hängt der Wert $\hat{beta}_j x^{(j)}$ nicht von der Skalierung der Einflussgröße $x^{(j)}$ ab
-		\item bei Ridge-Regression gilt das nichtmerh!
+		\item bei linearer Regression hängt der Wert $\hat{\beta}_j x^{(j)}$ nicht von der Skalierung der Einflussgröße $x^{(j)}$ ab
+		\item bei Ridge-Regression gilt das nicht mehr!
 	\end{itemize}
 $\Rightarrow$ Ausweg: Standardisierung vor der Modellberechnung gemäß:
-\[ \tilde{X}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x^{(j)}_n})}} \]
-$\Rightarrow $ alle $\tilde{x^{(j)}}$ haben Varianz 1 und sind unabhängig der Skalierung der $x^{(j)}$
+\[ \tilde{x}_i^{(j)} := \frac{x_i^{(j)}}{\sqrt{\frac{1}{n}\sum\limits_{i=1}^{n}(x_i^{(j)} - \bar{x^{(j)}_n})}} \]
+$\Rightarrow $ alle $\tilde{x^{(j)}}$ haben Varianz 1 und sind unabhängig von der Skalierung der $x^{(j)}$
 $\Rightarrow$ ``Schrumpfen'' der Parameter $\hat{\beta_j}$ aber nicht ``0''
-$\Rightarrow$ Reduktion der Varianz der SChätzer (``Glättung'')
+$\Rightarrow$ Reduktion der Varianz der Schätzer (``Glättung'')
