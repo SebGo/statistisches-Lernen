@@ -1,0 +1,49 @@
+\documentclass[10pt]{report}
+\usepackage[table]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{tikzsymbols}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{todonotes}
+\usepackage{amsthm}
+\usepackage{tabularx}
+\usepackage{subfiles}
+\usepackage{pgfplots}
+\usepackage{bbm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\graphicspath{ {VorlesungenTexDateien/images/} }
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+    \newcolumntype{L}{>{\raggedright\arraybackslash}X}
+
+		\geometry{a4paper, top=25mm, left=40mm, right=25mm, bottom=30mm,
+				headsep=10mm, footskip=12mm}
+				\title{Statistisches Lernen\\ \large{Vorlesung Wintersemester 17/18}\\
+			}
+
+			\def\firstcircle{(0,0) circle (1.5cm)}
+			\def\secondcircle{(45:2cm) circle (1.5cm)}
+			\def\thirdcircle{(0:2cm) circle (1.5cm)}
+			\date{}
+			\author{}
+			
+				\theoremstyle{definition}
+				\newtheorem{exmp}{Beispiel}
+				\newtheorem{axiom}{Axiom}
+\begin{document}
+\maketitle
+\tableofcontents
+
+\input{VorlesungenTexDateien/Chapter1.tex}
+\input{VorlesungenTexDateien/Chapter2.tex}
+\input{VorlesungenTexDateien/Chapter3.tex}
+\input{VorlesungenTexDateien/Chapter4.tex}
+\input{VorlesungenTexDateien/Chapter5.tex}
+\input{VorlesungenTexDateien/Chapter6.tex}
+
+\end{document}
