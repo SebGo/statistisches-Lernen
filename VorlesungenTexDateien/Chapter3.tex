@@ -17,13 +17,13 @@ Die Analogie zum Beweis durch Widerspruch kann hilfreich sein, hier ein Beispiel
 	$H_0$ nicht abgelehnt & \dSmiley & Typ II Fehler\newline $\beta$ \newline Planung: $\beta=0.1 ... 0.2$ erstrebt... \newline Sicherheit über $\beta$ hat man nicht \\ \hline
 \end{tabularx}
 
-\section{Der T-Test}
-Vergleich zweier MW, $H_0: \mu_1 = \mu_2$ \\
+\section{Der t-Test}
+Vergleich zweier Mittelwerte, $H_0: \mu_1 = \mu_2$ \\
 Wir schätzen die ``t-Statistik'' (Annahme gleicher Varianz) \\
 \[ T = \frac{\bar{x}_1 - \bar{x}_2}{s \sqrt{\frac{1}{n_1} + \frac{1}{n_2}}} \]
 \[ s^2 = \frac{(n_1 - 1) s_1^2 + (n_2 -1) s_2^2}{n_1 + n_2 -2} \]
 n: Stichpunktgröße der i-ten Gruppe \\
-$\bar{x}_i$: MW \\
+$\bar{x}_i$: Mittelwert \\
 $s_i^2 = \sum\limits_{j=1}^{n_i} (x_j^{(i)} - \bar{x}^{(i)} )^2 $ \\
 ($T = \frac{\Delta}{SE}$ ist die grundlegende Struktur) \\
 Unter $H_0$: T hat ``t-Verteilung'' mit f-Freiheitsgraden
@@ -62,7 +62,7 @@ Der Zusammenhang nominaler Merkmale kann mit höherer Power mit dem (asymptotisc
 $e_{ij}:$ erwartete Anzahl \\
 $\chi^2$ hat $\chi^2$-Verteilung mit $f=(l-1)\cdot(k-1)$ Freiheitsgrade  \\
 (wobei l= Anzahl an Zeilen, k= Anzahl Spalten der Kontigenztafel) \\
-Faustregel: $n_{ij} \neq 0$ für alle $i,j$ und $< 20 \%$ der Zellen haben $l_{ij} < 5 \rightarrow \chi^2$-Test \\
+Faustregel: $n_{ij} \neq 0$ für alle $i,j$ und $< 20 \%$ der Zellen haben $l_{ij} < 5 \rightarrow \chi^2$-Test (wenn erwartete Werte in 80\% der Fälle größer 5 sind)\\
 %Ende der Vorlesung
 
 \section{Multiples Testen}
@@ -225,7 +225,7 @@ Der p-Wert ist die Wahrscheinlichkeit dafür, dass unter der Nullhypothese die P
 \[ p_{(5)} \leq \frac{\alpha}{m-4} = \tilde{\alpha}_1 \]
 $\Rightarrow \phi^{BH}$ ist multipler Test zum multiplen Niveau $\alpha$  \\
 \textbf{Info:} \\
-Bonferroni-Holm ist beser als Bonferroni bzw. \v Sid\'ak bzgl. Typ-II-Fehlern\\
+Bonferroni-Holm ist besser als Bonferroni bzw. \v Sid\'ak bzgl. Typ-II-Fehlern\\
 $\rightarrow$ ''step-down''-Verfahren
 
 \section{False Discover Rate (FDR) }
