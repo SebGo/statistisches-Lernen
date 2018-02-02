@@ -80,7 +80,9 @@
 	 $P(\Omega)=1$
 \end{axiom}
 \begin{axiom}
-	Sind Ereignisse $A_i$; $i\in {1,..,n}$ paarweise unvereinbar, d.h: $A_i A_j = \emptyset$ mit $i \neq j $ so gilt $P(A_1+A_2+ \ldots + A_n) = P(A_1+P(A_2)+\ldots+P(A_n) )$ Daraus ergeben sich folgende Eigenschaften für Wahrscheinlichkeiten:
+	Sind Ereignisse $A_i$ mit $i\in {1,..,n}$ paarweise unvereinbar (d.h: $A_i A_j = \emptyset$ mit $i \neq j $), so gilt $P(A_1+A_2+ \ldots + A_n) = P(A_1) + P(A_2) + \ldots + P(A_n)$\\
+
+	Daraus ergeben sich folgende Eigenschaften für Wahrscheinlichkeiten:
 	\begin{itemize}
 		\item $P(\emptyset)= 0$
 		\item $P(\bar{A}) = 1 - P(A)$, $\bar{A} = \Omega -A$
@@ -126,7 +128,7 @@ So bezeichnet man:
 \end{itemize}
 
 \section{Zufallsvariablen und Verteilungsfunktionen}
-Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''
+Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''\\
 Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
 $\rightarrow$ Umkehrung: jede solcher Funktionen lässt sich als Verteilungsfunktion deuten
 
@@ -154,7 +156,7 @@ wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \]
 \[ \int_{-\infty}^x e^{\frac{-(z-a)^2}{2\sigma^2}} dz , \sigma > 0 \]
 
 \section{Erwartungswert, Varianz, weitere Momente}
-\subsection{Erwartungswert} $E(X)$ eine Zufallsgröße:\\
+\subsection{Erwartungswert} Sei $E(X)$ eine Zufallsgröße:
 \subsubsection{diskret}
 $E(X)=\sum_i x_i p_i$ wobei $x_i$: mögl. Werte, $p_i$: Wahrscheinlichkeiten \\
 
@@ -215,48 +217,56 @@ V(X) &= \dfrac{1}{b-a} \int_a^b \! x^2 \, \mathrm{d}x - \left(\dfrac{b+a}{2}\rig
 &= \dfrac{1}{12} (b^2-a^2-2ab) \\
 &= \dfrac{(b-a)^2}{12}
 \end{align*}
-\paragraph{Definition}
+\paragraph{Definition:}
 Wir bezeichnen $m_k$ als das \underline{gewöhnliche Moment} (oder Anfangsmoment)\\
-k-ter Ordnung $m_k := E(X^k)$, \\
-diskret also $\sum_i\left(x_i\right)^k p_i$,
-stetig $\int \! x^k p(x) \, \mathrm{d}x$
-\\
-Das \underline{zentrale Moment} (auf Zentrum Erwartungswert bezogen) k-ter Ordnung \\
-$\mu_k := E\left[(X-m_1)^k\right]$. Die Varianz ist also das zweite Zentralmoment $V(X) = \mu_2 = m_2 - (m_1)^2$.\\
+k-ter Ordnung \[m_k := E(X^k),\] \\
+diskret \[\sum_i\left(x_i\right)^k p_i,\]
+stetig \[\int \! x^k p(x) \, \mathrm{d}x\]
+
+\paragraph{Definition:}
+Das \underline{zentrale Moment} (auf Zentrum Erwartungswert bezogen) k-ter Ordnung \[\mu_k := E\left[(X-m_1)^k\right]\]. \\
+Die Varianz ist also das zweite Zentralmoment \[V(X) = \mu_2 = m_2 - (m_1)^2\].\\
 Man kann immer $\mu_k$ durch $m_l$ $\left( l \leq k\right)$ ausdrücken.
 
 \subsection{Korrelation}
-Eine Erweiterung dieser Momente stellt die \underline{Kovarianz}
-$b(X,Y) := E\left[\left(X-E(X)\right) \left( Y-E(Y) \right)\right]$
-dar (gemischte Zentralmomente zweiter Ordnung).
+Eine Erweiterung dieser Momente stellt die \underline{Kovarianz} dar (gemischte Zentralmomente zweiter Ordnung).
+\[
+b(X,Y) := E\left[\left(X-E(X)\right) \left( Y-E(Y) \right)\right]
+\]
 
 Es gilt offensichtlich $b(X,X) = V(X)$.\\
-Die normierte größe $\rho(X,Y) := \rho_{X,Y} = \dfrac{b(X,Y)}{\sqrt{V(X)V(Y)}}$ bezeichnet man als \underline{Korrelationskoeffizient}. \\
-Es gilt: $-1 \leq \rho \leq 1$. Für $X=Y$ gilt $\rho = 1$ und für $X=-Y$ gilt $\rho = -1$. \\
-Falls $X$ und $Y$ unabhängig dann gilt $\rho = 0$ (nicht aber umgekehrt).\\
-Anwendung auf Wahrscheinlichkeiten: \\
-$E(X) = p_X$, $V(X) = p_X(1 - p_X)$ \\
-
-\[\rho_{X,Y} = \dfrac{p_{XY} - p_Xp_Y}{\sqrt{p_X(1-p_X) p_Y(1-p_Y)}}\]
-\[ \rightarrow p_{XY} = p_Xp_Y + \rho_{X,Y} \sqrt{p_X(1-p_X)p_Y(1-pY)}\]
-
+Die normierte Größe $\rho(X,Y)$ mit 
+\[\rho(X,Y) := \rho_{X,Y} = \dfrac{b(X,Y)}{\sqrt{V(X)V(Y)}}\]
+bezeichnet man als \underline{Korrelationskoeffizient}. \\
+Es gilt: $-1 \leq \rho \leq 1$.\\ Für $X=Y$ gilt $\rho = 1$ und für $X=-Y$ gilt $\rho = -1$. \\
+Falls $X$ und $Y$ unabhängig dann gilt $\rho = 0$ (nicht aber umgekehrt).
+\subsubsection*{Anwendung auf Wahrscheinlichkeiten:} 
+\begin{align*}
+E(X) &= p_X\\
+V(X) &= p_X(1 - p_X)\\
+\rho_{X,Y} &= \dfrac{p_{XY} - p_Xp_Y}{\sqrt{p_X(1-p_X) p_Y(1-p_Y)}}\\
+\rightarrow p_{XY} &= p_Xp_Y + \rho_{X,Y} \sqrt{p_X(1-p_X)p_Y(1-pY)}
+\end{align*}
 \textbf{Grenzfälle} 
-$\rho = 0$ : $p_{XY} = p_X p_Y$\\
-$\rho = 1$\footnote{$\rightarrow p_X = p_Y$} : $p_{XY} = (p_X)^2 + p_X(1-p_X) = p_X$\\
-$\rho = -1$\footnote{$\rightarrow p_X = 1 - p_Y$} : $p_{XY} = p_X(1-pX) - p_X(1-p_X) = 0 $\\
+\begin{align*}
+\rho &= 0 : p_{XY} = p_X p_Y\\
+\rho &= 1 \footnote{$\rightarrow p_X = p_Y$} : p_{XY} = (p_X)^2 + p_X(1-p_X) = p_X\\
+\rho &= -1 \footnote{$\rightarrow p_X = 1 - p_Y$} : p_{XY} = p_X(1-pX) - p_X(1-p_X) = 0 \\
+\end{align*}
 
 \section{Einige wichtige Gesetze der Wahrscheinlichkeitstheorie}
-
 \subsection{Gesetz der großen Zahlen}
-Bernoulli: Für alle $\epsilon > 0$: $\lim\limits_{n \rightarrow \infty}{P \left\lbrace| \dfrac{\mu}{n} - p | < \epsilon \right\rbrace} = 1$
+\textbf{Bernoulli:} Für alle $\epsilon > 0$ :
+\[ \lim\limits_{n \rightarrow \infty}{P \left\lbrace| \dfrac{\mu}{n} - p | < \epsilon \right\rbrace} = 1\]
 \begin{itemize}
 	\item $\mu$ - Anzahl der Ereignisse
 	\item $n$ - Anzahl der Versuche
 	\item $p$ - Wahrscheinlichkeiten der Ereignisse
 \end{itemize}
 %Vorlesung 4
-Tschebyshew: Für ein $\epsilon >0$:
-\[\lim\limits_{n \to \infty} P \left\{\frac{1}{n} \sum_{i=1}^{n} X_i - \frac{1}{n} \sum_{i=1}^{n} E(X_i)| < \epsilon \right\} = 1\] für eine Folge paarweise unabhängiger Zufallsgrößen.\\
+\textbf{Tschebyshew:} Für ein $\epsilon > 0$:
+\[\lim\limits_{n \to \infty} P \left\{\frac{1}{n} \sum_{i=1}^{n} X_i - \frac{1}{n} \sum_{i=1}^{n} E(X_i)| < \epsilon \right\} = 1\] 
+für eine Folge paarweise unabhängiger Zufallsgrößen.\\
 
 $\{X_i\}_{i=1,2, \ldots n}$ mit gleichmäßiger beschränkter Varianz  $V(X_i) \leq C$
 
@@ -268,9 +278,8 @@ In n-Versuchen gilt
 
 \subsection{zentraler Grenzwertsatz}
 
-Sei $S_n =  \sum_{i=1}^{n} X_i$ mit $E(X_i)<\infty$, $V(X_i) = \sigma ^2 < \infty$
-
-So gilt für jedes t
+Sei \[S_n =  \sum_{i=1}^{n} X_i\]
+mit $E(X_i)<\infty$, $V(X_i) = \sigma ^2 < \infty$. So gilt für jedes t
 \[ \lim\limits_{n \rightarrow \infty} P \left(\frac{S_n - n \cdot E(X_i)}{\sigma \sqrt{n} }< t\right) = \frac{1}{\sqrt{2\pi} }\int_{-\infty}^{t} e^{\frac{-x^2}{2}} dx
 \]
 

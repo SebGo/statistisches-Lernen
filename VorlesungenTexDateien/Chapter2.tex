@@ -1,28 +1,26 @@
 \chapter{Deskriptive Statistik}
-
 \begin{itemize}
 	\item Beschreibung von Daten und Kohorten ist zentral für das Verständnis einer Arbeit
 	\item Ziel ist mit wenigen Kenngrößen das wesentliche zu charakterisieren 
-	\item man gibt ''Punktschätzer''  für Erwartungswerte und ''Konfidenzintervalle'' (KI; engl. CI) als Maß für die Genauigkeit der Schätzung:\\
-	$(1- \alpha) \text{ KI} [a,b] : P(a \leq \theta \leq b) = 1-\alpha$
+	\item man gibt ''Punktschätzer''  für Erwartungswerte und ''Konfidenzintervalle'' (KI; engl. CI) als Maß für die Genauigkeit der Schätzung:
+	\[(1- \alpha) \text{ KI} [a,b] : P(a \leq \theta \leq b) = 1-\alpha\]
 \end{itemize}
-
-\todo{Üersichtsbild Konfidenzintervall}
-
 \section{Nominale und Ordinale Größen}
 %nominal -- Kann man nur kategorisieren aber nicht ordnen
-%ordinal -- kann man ist eine Kategoriale größe die man in eine Reihenfolge bringen kann
+%ordinal -- ist eine Kategoriale Größe die man in eine Reihenfolge bringen kann
 
 \begin{itemize}
 	\item absolute und relative Häufigkeiten (z.B Häufigkeitstabellen)
 	\item grafisch: Balkendiagramme (mit Konfidenzintervall KI oder Standardfehler SE)
 	\item Kreisdiagramm (verpönt)
 \end{itemize}
+\begin{align*}	
+	\hat{p} &= \frac{r}{n}\\
+	\hat{SE} &= \frac{\hat{sd}}{\sqrt{n}}= \frac{\sqrt{\hat{V}}}{\sqrt{n}} = \sqrt{\frac{\hat{p} (1- \hat{p})}{n}}
+	KI \approx \hat{p} \pm 2 SE,
+\end{align*}
+r= \#Fehlgeburten, n = \#Beobachtungen 
 
-\todo{Bespiel Balkendiagramm einfügen}
-
-$\hat{p} = \frac{r}{n}$ , $\hat{SE} = \frac{\hat{sd}}{\sqrt{n}}= \frac{\sqrt{\hat{V}}}{\sqrt{n}} = \sqrt{\frac{\hat{p} (1- \hat{p})}{n}}
-KI \approx \hat{p} \pm 2 SE$, r= \#Fehlgeburten, n = \#Beobachtungen 
 
 
 \section{Metrische Daten}
@@ -43,7 +41,6 @@ KI \approx \hat{p} \pm 2 SE$, r= \#Fehlgeburten, n = \#Beobachtungen
 	\item Spannweite
 	\item grafisch: Histogramm, Boxplot	
 \end{itemize}
-\todo{Grafik Boxplot einfügen}
 
 \section{Zusammenhang 2er Merkmale}
 Nominal
