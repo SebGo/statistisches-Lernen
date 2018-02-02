@@ -1,22 +1,792 @@
-\documentclass[../VorlesungMaster.tex]{subfiles}
-\begin{document}
+\chapter{Statistische Modelle}
+\section{Einführung}
+Lineare Regressionsmodelle:
+\begin{itemize}
+	\item Einfache lineare Regressionsmodelle
+	\item Multivariate lineare Regressionsmodelle
+	\item Voraussetzungen für lineare Regressionsmodelle
+	\item Generalisierte lineare Regressionsmodelle (GLM)
+	\item Auswertung von Expressionsdaten
+\end{itemize}
+Molekularbiologische Hochdurchsatzdaten:\\
+\begin{center}
+	\begin{tikzpicture}
+	\node[fill=white,
+	thick,
+	draw,
+	minimum height=3.5cm,
+	minimum width=1.5cm
+	](n1){};
+	\node[left=0cm of n1](t1){\# Elemente $\downarrow$};
+	\node[above=0cm of n1](t2){$\rightarrow$ \# Sample};
+	\end{tikzpicture}
+\end{center}
+
+\#Elemente $>>$ \#samples\\
+\begin{itemize}
+	\item Genom $\rightarrow$ SNP
+	\item Epigenom
+	\item \underline{Transkriptom} $\rightarrow$ RNA Content einer Zelle
+\end{itemize}
+
+\begin{center}
+	\begin{tikzpicture}
+	\node[fill=white,
+	thick,
+	draw,
+	minimum height=0.5cm,
+	minimum width=1.0cm,
+	](n1){};
+	\node[fill=white,
+	right=1cm of n1,
+	thick,
+	draw,
+	minimum height=0.5cm,
+	minimum width=1.0cm,
+	](n2){};
+	\node[fill=white,
+	right=1cm of n2,
+	thick,
+	draw,
+	minimum height=0.5cm,
+	minimum width=1.0cm,
+	](n3){};
+	\node[fill=white,
+	right=1cm of n3,
+	thick,
+	draw,
+	minimum height=0.5cm,
+	minimum width=1.0cm,
+	](n4){};
+	
+	\node[below=1cm of n1,xshift=5cm](text1){pre-m-RNA $\rightarrow$ ncRNA $\rightarrow$ mRNA $\rightarrow$ Protein};
+	\node[below=0.1cm of n4](text2){Exons};
+	\node[right=0.5cm of n4](text3){DNA};
+	
+	\draw [] (-1,0) edge (n1);
+	\draw [] (n1) edge (n2);
+	\draw [] (n2) edge (n3);
+	\draw [] (n3) edge (n4);
+	\draw [] (7,0) edge (n4);
+	
+	\draw [->,thick] (n1) edge (text1.west);
+	
+	
+	\end{tikzpicture}
+\end{center}
+
+
+\underline{Ziel}: Messen der Werte einer Zielvariablen in Abhängigkeit von unabhängigen Variablen (sog. Kovariaten) \\
+\underline{Def}: Ein statistisches Model stellt eine Zielvariable $Y$ in Beziehung zu \underline{einer} oder mehreren Kovariaten (Kovariablen). \\
+Zielvariable = Modell(Kovariate) + Fehler \\
+\[ Y = f(X) + \epsilon \]
+$Y$: Zielvariable oder auch abhängige Variable \\
+$X$: Kovariaten oder auch unabhängige Variable \\
+$f(X)$: Unbekannte Funktion, die den systematischen Effekt von $X$ auf $Y$ modelliert \\
+$\epsilon$: Zufälliger Fehler. Gibt den Anteil der Varianz von $Y$ an, der \underline{nicht} durch $f(X)$ erklärt werden kann. \\
+$\Rightarrow$ Statistische Modelle zerlegen die Zielvariable in einen systematischen ($f(X)$) und in einen zufälligen Teil ($\epsilon$). \\
+
+\subsection{Anwendungen von statistischen Modellen}
+Inferenz: Ziel ist es die Art des Zusammenhanges zwischen $Y$ und $X$ zu verstehen. Genauer: Wie ändert sich $Y$ als Funktion von $X$?\\
+Vorhersage: Ziel ist es, den Wert von $Y$ so genau wie möglich vorherzusagen. Es ist nicht von primären Interesse die (exakte) Form von $f(X)$ zu kennen. \\
+
+\subsection{Schätzen der Funktion $f(X)$}
+$f(X)$ wird mittels einer statischen Lernmethode von einer Menge von Trainingsdaten geschätzt. Die geschätzte Funktion wird mit $\hat{f}(X)$ angegeben.
+\[ Y = \hat{f}(X) + \epsilon \]
+für Trainingsdaten $(X,Y) = \{(x_1,y_1),...,(x_n,y_n)\}\, n$ Beobachtungen.
+
+\subsection{Klassifikation statistischer Lernmethoden}
+\underline{Parametrische Methoden}: Für die Funktion $f(X)$ wird eine bestimmte Form angenommen.
+\begin{enumerate}
+	\item Anzahl der Kovariablen wird vorab festegelegt oder mittels Verfahren der Modellselektion ausgewählt.
+	\item Es werden die Gewichte für die Kovariablen geschätzt
+\end{enumerate}
+Nachteil: 
+\begin{enumerate}
+	\item weniger flexibel
+	\item Gewähltes Modell entspricht oft nicht der wahren Form des Zusammenhanges
+\end{enumerate}
+Vorteil:
+\begin{enumerate}
+	\item Da nur Gewichte für Kovariablen gelernt werden müssen, reicht eine geringe Stichprobengröße aus
+\end{enumerate}
+
+\underline{Nicht-parametrische Methoden}: Es wird keine bestimmte Form für $f(X)$ vorab angenommen.
+Es muß die Form und die Parameter für eine beliebig komplexe Funktion $f(X)$ anhand der Trainingsdaten geschätzt werden. \\
+Vorteil:
+\begin{enumerate}
+	\item Modelle sind sehr flexibel
+\end{enumerate}
+
+Nachteil:
+\begin{enumerate}
+	\item oft weniger gut interpretierbar
+	\item oft ein großer Stichprobenumfang notwendig
+\end{enumerate}
+
+\section{Lineare Regressionsmodelle}
+Als Form für $f(X)$ wird ein (annähernd) linearer Zusammenhang angenommen. Zufallsvariable $Y$ nimmt dabei quantitative Werte an. 
+Kovariablen $X_i$ können quantitative oder qualitative Werte annehmen.
+
+\subsection{Einfaches lineares Regressionsmodel}
+\underline{Def.} Statistisches Modell, was den Wert der Zielvariablen $Y$ auf Basis der Werte einer einzigen Kovariable $X$, unter der Annahme eines linearen Zusammenhangs modelliert.
+
+\[ Y = \underbrace{\beta_0 + \beta_1}_{Koeffizienten} X + \epsilon \]
+$\beta_0$: Mittelwert von $Y$, falls es keinen Zusammenhang gibt, sonst Schnittpunkt mit $y-Achse$. \\
+$\beta_1$: \underline{Effekt} der Kovariablen $X$ auf $Y$ an, also den Anstieg in $Y$, wenn $X$ sich um eine Einheit erhöht. (Regressionskoeffizient)\\
+$\epsilon$: Fehler $\epsilon \sim N(0,\sigma^2)$ Anteil von $Y$, der nicht durch $\beta_0 + \beta_1 X$ erklärt werden kann.
+
+\subsubsection{Annahmen für zufällige Störgrößen}
+\begin{enumerate}
+	\item Alle Störungen haben die gleiche Varianz (Homoskedastizität) $Var(\epsilon_i)= \sigma^2$
+	\item Alle Störungen sind um 0 verteilt \\ $E(\epsilon_i)=0$ \\ $\Rightarrow$ Einflüsse der Störgrößen heben sich im Mittel auf, d.h. haben keinen systematischen Einflus auf Y
+	\item Störgrößen sind unabhängig untereinander: \\ $Cor(\epsilon_i, \epsilon_j) = 0$
+\end{enumerate}
+
+\subsubsection{Varianzdekomposition (grafische Darstellung)}
+\begin{tikzpicture}
+\begin{axis}[%
+scatter/classes={%
+	a={mark=o,draw=gray},
+	b={mark=x, draw=gray}},
+xlabel={x},
+ylabel={y},
+xticklabels={,,},
+yticklabels={,,}
+]
+\addplot[scatter,only marks,%
+scatter src=explicit symbolic]%
+table[meta=label] {
+	x y label
+	10 12 a
+	11 9 a
+	12 11 a
+	12.3 17 a
+	13 14 a
+	14 13 a
+	14.3 8 a
+	15 16 a
+	16 17 a
+	16.5 19 a
+	17 16 a
+	18 16 a
+	18.2 23 a
+	18.4 13 a
+	19 21 a
+	20 21 a
+	21 20 a
+	22 24 a
+	22.3 30 a
+	23 23 a
+	24 24 a
+	24.2 17 a
+	25 26 a
+	25 26 b
+	25.4 31 a
+	26 26.8 a
+	27 26 a
+	27.8 33 a
+	28 27 a
+	29 31 a
+	30 30 a
+	30 31 a
+};
+\addplot [thick] coordinates { (9,12) (31,27.5) };
+\addplot [thick, red] coordinates { (9,20.83) (31,20.83) };
+
+\addplot [gray] coordinates { (25,20.83) (25,26) };
+\end{axis}
+
+\node[red] at (rel axis cs:1.4,0.6){$\bar{y}$ (Mittelwert von $y$)};
+
+\node[] at (rel axis cs:0.85,0.63){$(\hat{y_i},x_i)$};
+\node[] at (rel axis cs:0.8,0.72){$\epsilon_i$};
+\node[gray] at (rel axis cs:0.684,0.78){$(y_i,x_i)$};
+
+\end{tikzpicture}
+
+
+\[ \underbrace{\sum\limits_{i=1}^n (y_i - \bar{y})^2}_{\text{TSS (total sum of squares)}} = \underbrace{\sum\limits_{i=1}^n (\hat{y}_i - \bar{y})^2}_{\text{erklärbare Varianz}} + \underbrace{\sum\limits_{i=1}^n (\hat{y}_i - y)^2}_{\text{nicht erklärbare Varianz (RSS)} \epsilon_i = \hat{y}_i -y_i} \]
+
+\subsubsection{Schätzung der Parameter $\beta_0$ und $\beta_1$}
+Methode der kleinsten Quadrate: Reduziere Differenz zwischen Werten der Zielvariablen $y_i$ und den vorhergesagten Werten $\hat{y}_i$ für alle Beobachtungen $n$
+
+\[ RSS = \sum\limits_{i=1}^n (y_i -\hat{y}_i)^2 \rightarrow min \]
+\[ = \sum\limits_{i=1}^n (y_i -\hat{\beta_0} - \hat{\beta_1} x_i)^2 \rightarrow min \]
+\[ \hat{\beta_1} = \frac{\sum\limits_{i=1}^n(x_i - \bar{x})(y_i - \bar{y})}{\sum\limits_{i=1}^n(x_i - \bar{x})} = 
+\frac{Cov(X,Y)}{Var(X)} \]
+\[ \hat{\beta_0} = \hat{y_i} - \hat{\beta_1}\bar{x} \]
+	
+%Vorlesung8 14.11.17
+\subsubsection{Güte der Schätzungen für $\beta_0$ und $\beta_1$}
+Beachten Sie, der wahre Zusammenhang zwischen Y und X ist unbekannt d.h. die wahre Regressionsgerade ist unbekannt. \\
+\textbf{Grund:} 
+\begin{itemize}
+	\item Schätzungen für $\hat{\beta_0}$ und$ \hat{\beta_1}$ hängen von der gewählten Trainingsmenge ab\\
+\end{itemize}
+\textbf{Daraus Folgt:} 
+\begin{itemize}
+	\item Die geschätzten Regressionsgeraden schwanken um die wahre Regressionsgerade.
+	\item Koeffizienten $\beta_0$ und $\beta_1$ sind Zufallsvariablen, welche auf Basis der gezogengen Beobachtungen $(x_i,y_i)$ geschätzt werden.
+\end{itemize}
+
+
+\begin{tikzpicture}
+\begin{axis}[%
+scatter/classes={%
+	a={mark=o,draw=gray},
+	b={mark=x,draw=gray}},
+xlabel={x},
+ylabel={y},
+xticklabels={,,},
+yticklabels={,,}
+]
+\addplot[scatter,only marks,%
+scatter src=explicit symbolic]%
+table[meta=label] {
+	x y label
+	10 12 a
+	11 9 a
+	12 11 a
+	12.3 17 b
+	13 14 a
+	14 13 a
+	14.3 8 a
+	15 16 a
+	16 17 b
+	16.5 19 a
+	17 16 a
+	18 16 b
+	18.2 23 a
+	18.4 13 a
+	19 21 a
+	20 21 b
+	21 20 a
+	22 24 a
+	22.3 30 a
+	23 23 b
+	24 24 a
+	24.2 17 a
+	25 26 a
+	25.4 31 a
+	26 26.8 a
+	27 26 a
+	27.8 33 b
+	28 27 a
+	29 31 a
+	30 30 b
+	30 31 a
+};
+\addplot [thick] coordinates { (9,12) (31,27.5) };
+\addplot [dashed] coordinates { (9,12) (31,30.5) };
+\end{axis}
+\end{tikzpicture}
+
+
+
+
+Varianz für $\beta_1$:
+\[ 
+	Var(\beta_1)= \frac{\sigma_{\epsilon}^2}{\sum\limits_{i=1}^n (x_i-\bar{x})^2} 
+\]
+mit $\sigma_{\epsilon}^2$ ist die Varianz der Fehler $\epsilon$
+\[\sigma_{\epsilon}^2 = \frac{RSS}{n-2} \]
+
+\[\widehat{Var}(\beta_1)=\frac{RSS/(n-2)}{\sum\limits_{i=1}^n (x_i-\bar{x})^2} \]
+Varianz von $\beta_1$ ist klein, wenn:
+\begin{enumerate}
+	\item Varianz der Störgrößen klein ist
+	\item Stichprobengrößen n groß ist
+\end{enumerate}
+\[Var(\beta_0) = \frac{\sigma_\epsilon^2  \sum x_i^{2}}{n Var(X)}\]
+
+\subsubsection{Das Bestimmtheitsmaß $R^2$}
+Wie gut ist die Schätzung der Daten anhand der gefitteten Geraden. \\
+$\Rightarrow$ Schätzung ist dann besonders gut, wenn der Anteil von RSS an Gesamtvarianz(TSS) klein ist und somit die erklärte Varianz möglichst groß ist.
+
+\[ R^2= \frac{\text{erklärbare Varianz}}{\text{Gesamtvarianz}}
+= \frac{TSS-RSS}{TSS} = 1 - \frac{RSS}{TSS}\]
+wobei $TSS=\sum(\hat{y}-\bar{y})^2 + RSS$
+
+\[ 0 \leq R^2 \leq 1\]
+$R^2 \approx 1$: Ein großer Anteil der Variabilität in der Zielvariablen durch gelernte Regressionsgerade erklärt. \\
+$R^2 \approx 0$: \underline{Kein} großer Anteil der Variabilität in der Zielvariablen durch gelernte Regressionsgerade erklärt.
+
+\subsubsection{Testen ob es einen signifikanten Zusammenhang zwischen Y und X gibt}
+Frage Existiert irgendein Zusammenhang zwischen X und Y, also $\beta_1 \neq 0$\\
+$H_0:$ Es existiert kein Zusammenhang $ \Leftrightarrow $ $ \beta_1 = 0$\\
+$H_1:$ Es existiert ein Zusammenhang $ \Leftrightarrow $ $\beta_1 \neq 1$\\
+
+Teststatistik: t-Statistik, welche t-Verteilung folgt $t= \frac{\hat{\beta_1}}{s.d.(\hat{\beta_1})} = \frac{\hat{\beta_1}}{\sqrt{Var(\hat{\beta_1})}} \approx t_{1-\alpha/2, n-2}$
+
+$|t| \leq  t_{1-\alpha/2, n-2} \rightarrow H_0$ wird beibehalten
+
+$|t| >  t_{1-\alpha/2, n-2} \rightarrow H_0$ wird abgelehnt, wir können annehmen das $\beta_1 \neq 0$
+
+\subsection{Multilinerare lineare Regression}
+\begin{itemize}
+	\item Erweiterung der einfachen linearen Regression auf mehreren Kovariablen $X=\{{X_1, \ldots, X_p}\}$
+	\item Identifiziere ein verbessertes Modell als es auf Basis einer einzelnen Kovariable möglich ist 
+	\item Individuelle Effekte der Kovariablen $X_I$ können durch partielle Regressionsgeraden modelliert werden.
+	\item Jede partielle Regressionsgerade entspricht(modelliert) den Effekt von $X_i$ während alle anderen Kovariablen $X_{j \neq i}$ ihren Mittelwert annehmen
+\end{itemize}
+
+\subsubsection{Additives multivariables lineares Regressionsmodell}
+Annahme: Effekt einer Kovariablen $X_i$ auf Y ist unabhängig von allen anderen Kovariablen 
+\[Y = \beta_0 + \beta_1X_1 + \beta_2X_2 + \ldots + \beta_p X_p + \epsilon\]
+$ \beta_1,\ldots,\beta_p$ geben Effekte der Kovariablen $X_1, \ldots, X_p$ auf Y an.\\
+p: Anzahl der Kovariablen\\ 
+$ \beta_0 $ Mittelwert von Y , falls alle Koeffizienten $ \beta_j = 0 $\\
+$\epsilon$ ist der Fehler $\epsilon \sim N(0, \sigma^2)$
+
+
+\begin{tikzpicture}
+\begin{axis}[%
+scatter/classes={%
+	a={mark=o,draw=gray},
+	b={mark=x,draw=gray}},
+ylabel={Gen Y},
+xlabel={Behandlung(Dosis)},
+xticklabels={,,},
+yticklabels={,,}
+]
+\addplot[scatter,only marks,%
+scatter src=explicit symbolic]%
+table[meta=label] {
+	x y label
+	10 20 a
+	11 18 a
+	12 21 a
+	13 23 a
+	14 26 a
+	15 22 a
+	16 23 a
+	17 24 a
+	18 27 a
+	19 29 a
+	20 31 a
+	21 33 a
+	22 29 a
+	23 35 a
+	24 33 a
+	25 31 a
+	10 7 b
+	11 5 b
+	12 10 b
+	13 9 b
+	14 12 b
+	15 11 b
+	16 9 b
+	17 13 b
+	18 13 b
+	19 19 b
+	20 17 b
+	21 22 b
+	22 18 b
+	23 22 b
+	24 20 b
+	25 18 b
+};
+\addplot [thick] coordinates { (9,7) (31,25) };
+\addplot [thick] coordinates { (9,18) (31,36) };
+\addplot [dashed] coordinates { (9,13) (31,31) };
+\end{axis}
+\node[] at (rel axis cs:1.23,0.63){x=women};
+\node[] at (rel axis cs:1.2,0.72){o=men};
+\end{tikzpicture}
+\todo{Hoher Fehler mit einfacher Regression (gestrichelt), also additiv nutzen}
+
+
+
+\subsubsection{Multiplikatives Modell}
+\begin{itemize}
+	\item Interaktionen zwischen den Kovariablen sind möglich
+	\item D.h. partieller Effekt einer Kovariablen $X_i$ kann vom partiellen Effekt von $X_j$ abhängig sein
+\end{itemize}
+\[Y = \beta_0+ \beta_1X_1 + \beta_2X_2 + \beta_3 X_1X_2 + \beta_4 X_3 +\ldots \beta_{p+1}X_p + \epsilon\]
+
+$\beta_3:$ Gibt an, inwieweit der Effekt von $X_1$ von den Werten von $X_2$ abhängt
+
+\begin{tikzpicture}
+\begin{axis}[%
+scatter/classes={%
+	a={mark=o,draw=gray},
+	b={mark=x,draw=gray}},
+ylabel={Gen Y},
+xlabel={Behandlung(Dosis)},
+xticklabels={,,},
+yticklabels={,,}
+]
+\addplot[scatter,only marks,%
+scatter src=explicit symbolic]%
+table[meta=label] {
+	x y label
+	10 20 a
+	11 18 a
+	12 21 a
+	13 23 a
+	14 26 a
+	15 22 a
+	16 23 a
+	17 24 a
+	18 27 a
+	19 29 a
+	20 31 a
+	21 33 a
+	22 29 a
+	23 35 a
+	24 33 a
+	25 31 a
+	10 9 b
+	11 7 b
+	12 10 b
+	13 8 b
+	14 10 b
+	15 9 b
+	16 7 b
+	17 6 b
+	18 7 b
+	19 4 b
+	20 6 b
+	21 5 b
+	22 7 b
+	23 2 b
+	24 7 b
+	25 3 b
+};
+\addplot [thick] coordinates { (9,9) (31,5) };
+\addplot [thick] coordinates { (9,18) (31,37) };
+\end{axis}
+\end{tikzpicture}
+
+
+\subsubsection{Schätzung der Koeffizienten $\beta_1 ... \beta_p$}
+Methode der kleinsten Quadrate
+\[\hat{Y} = \hat{\beta_0} + \hat{\beta_1} X_1 + ... + \hat{\beta_p} X_p \]
+
+\[ RSS = Var(\epsilon)= \sum\limits_{i=1}^n (y_i - \hat{y_i} )^2 \]
+\[ \sum (y_i - \hat{\beta_0} - \hat{\beta_1} X_1 - ... - \hat{\beta_p} X_p )^2 \rightarrow min \]
+Über partielle Ableitungen werden die Koeffizienten $\beta_i$ geschätzt
+
+
+%Vorlesung vom 14.12.17
+%\section{Fortsetzung lineare Regressionsmodelle}
+\section{Wichtige Fragen}
+\textbf{1.Frage}: Ob es einen Zusammenhang zwischen $X_i$ und $Y$ gibt? \\
+\textbf{2.Frage}: Welche Kovariablen haben einen Effekt auf $Y$? \\
+\textbf{3.Frage}: Wie gut repräsentiert das multivariate Regressionsmodell die beobachtete Varianz von $Y$?\\
+
+\subsection{Gibt es einen Zusammenhang} F-Test\\
+Beantwortet: Hat mindestens eine der Kovariablen einen Effekt.
+\[ H_0: \beta_1=\beta_2=\dots=\beta_p=0 \]
+\[ H_1: \beta_j \neq 0 \]
+\[F= \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}} = \frac{\frac{TSS - RSS}{p}}{\frac{RSS}{n-p-1}} \]
+\begin{itemize}
+	\item $H_0$ kann nicht abgelehnt werden, wenn $F \sim 1$
+	\item $H_1$ kann abgelehnt werden, wenn $F > 1$
+\end{itemize}
+
+\subsection{Welche der Kovariablen haben einen Effekt}
+Jede einzelne Koeffizient $\beta_1,\dots,\beta_p$ kann mittels einen t-Tests getestet werden:
+\[ H_0: \beta_j = 0 \]
+\[H_1: \beta_j \neq 0 \]
+\[ t= \frac{\hat{\beta_j}}{sd(\beta_j)} \]
+adjustierte p-Werte: \\
+$\Rightarrow$ Bonferroni-Korrektur
+$\Rightarrow$ Benjamin-Hochberg
+
+\subsection{Güte des Fits}
+\[ R^{2} = \frac{\text{erklärte Varianz}}{\text{unerklärte Varianz}} = \frac{TSS -RSS}{TSS} \]
+\[ \text{adjustiertes} R_{adj}^{2} = 1 - \frac{\frac{TSS - RSS}{p}}{\frac{RSS}{n-p-1}} \]
+
+\section{Qualitative Kovariablen}
+In Genexpressionsanalysen ist man oft daran interessiert, den Effekt von kategorialen Variablen zu untersuchen.\\
+$\Rightarrow$ Kategoriale und quantitative Variablen können im selben Modell aufgenommen werden \\
+$\Rightarrow$ Kategoriale Variablen werden mittels sog. Dummy-Variablen kodiert:
+	\begin{itemize}
+		\item \#Kategorien = 2 $\Rightarrow$ als binäre Variable kodiert
+		\item \#Kategorien $>$ 2 $\Rightarrow$ meherere binäre Variablen
+	\end{itemize}
+
+\subsection{Treatment-Contrast Parametrisierung}
+\[ X_i = \begin{cases}
+		1, i \hat{=} \text{ level 1 (female)} \\
+		0, i \hat{=} \text{ level 2 (male)}
+\end{cases} \]
+
+\[ Y = \begin{cases}
+		\beta_0 + \beta_1 + \epsilon, \text{ falls } i = \text{ level 1 } \\
+		\beta_0 + \epsilon, \text{ falls } i = \text{ level 2 } \\
+\end{cases} \]
+
+$\beta_0:$ Mittlerer Effekt von level 2\\
+$\beta_1:$ Mittlere Differenz zwischen level 1 und level 2\\
+
+\subsection{Group-Means-Parametrisierung}
+\[ X_i = \begin{cases}
+		1, i \hat{=} \text{ level 1 (female)} \\
+		-1, i \hat{=} \text{ level 2 (male)}
+\end{cases} \]
+
+\[ Y = \begin{cases}
+		\beta_0 + \beta_1 + \epsilon, \text{ falls } i = \text{ level 1 } \\
+		\beta_0 - \beta_1 + \epsilon, \text{ falls } i = \text{ level 2 } \\
+\end{cases} \]
+$\beta_0:$ Mittlerer Effekt (unabhängig vom gewählten Level)\\
+$\beta_1:$ Anteil den Level 1 größer als der mitlere Effekt ist bzw. den Anteil von Level 2, der kleiner als der mittlere Effekt ist\\
+
+\section{Annahmen für lineare Regressionsmodelle}
+\begin{enumerate}
+	\item Zusammenhang ist (annähernd linear)
+	\item Kovariablen sind unabhängig (keine Kolinearität)
+	\item Fehlerterme haben eine konstante Varianz $\epsilon_i \sim N(0, \sigma^{2} )$ (Homoskedastizität)
+\end{enumerate}
+$\Rightarrow$ Diagnostik für lineare Modelle
+
+\subsection{Test auf Nonlinearität}
+$\Rightarrow$ Residualplot
+$\Rightarrow$ Dieser sollte keine Muster in der Punktwolke erkennen lassen. Denn bei linearem Zusammenhang sollten die Residuen zufällig um vorhergesagten Werte $\hat{y_i}$ streuen
+
+\includegraphics[scale=0.4]{VorlesungenTexDateien/images/residual}
+\todo{Kein Muster erkennbar}
+       
+\includegraphics[scale=0.5]{VorlesungenTexDateien/images/Nonlinear-residual-11}
+\todo{Nonlinearer Zusammenhang erkennbar}
+
+\subsection{Test auf Kollinearität}
+Kollinearität wird beobachtet, falls 2 oder meherere Variablen linear abhängig voneinander sind.
+
+\[ X_i = \lambda_0 + \lambda_1 X_i \]
+
+Variance Inflation Faktor (VIF):
+\[ VIF(\hat{\beta_j})= \frac{1}{1- R_{X_j|X_{p \neq j}}^{2}} \]
+\[ R_{X_j|X_{p \neq j}}^{2} \sim 1 \Rightarrow VIF >> 1 \]
+
+\paragraph{Probleme bei Kollinearität}
+\begin{enumerate}
+	\item Es ist nicht möglich den Effekt den die abhängigen Kovariablen auf  haben voneinander zu trennen
+	\item $sd(\hat{\beta_i})$ ist erhöht, denn: 
+		\begin{itemize}
+			\item Annahme für $\beta_i$: gibt den Effekt von $X_i$ auf $Y$ an $\Leftrightarrow$ alle anderen Kovariablen konstant sind
+			\item Falls aber $X_i$ und $X_j$ linear abhängig sind, dann gibt es viele Wertepaare von $\beta_i$ und $\beta_j$, die nun einen ähnlichen Fehler (RSS) haben
+		\end{itemize}
+		$\Rightarrow$ Schätzer $\hat{\beta_i}$ und $\hat{\beta_j}$ sind ungenauer \\
+		$\Rightarrow$ geringere Power für t-Test
+\end{enumerate}
+
+\paragraph{Wie kann mit Kollinearität umgegangen werden?}
+\begin{enumerate}
+	\item Entferne alle bis auf eine der linear abhängigen Kovariablen
+	\item Fasse linear abhängige Kovariablen in einer neuen Kovariablen zusammen z.B. durch Bildung des Mittelwertes \\
+		Beachte: Es kann notwendig sein, diese Kovariablen vorher zu standardisieren
+\end{enumerate}
+
+\subsection{Test auf Heteroskedastizität}
+Homoskedastizität ist gegeben, falls Fehlerterme $\epsilon_i$ eine konstante Varianz
+\[ Var(\epsilon_i) = \sigma_{\epsilon}^{2} \text{ für alle  Beobachtungen } (x_i, y_i) \] 
+\includegraphics[scale=0.5]{VorlesungenTexDateien/images/Heteroscadicity}
+\todo{Trichterform $\Rightarrow$ Heteroskedastizität}
+
+\paragraph{Wie wird mit Heteroskedastizität umgegangen}
+\begin{enumerate}
+	\item Stabilisieren der Varianz der Fehler:\\
+		Werte für $Y$ so transformiert werden, dass größere Werte kleinere Werte annehmen:
+		\begin{enumerate}
+			\item $log(Y)$
+			\item $glog(Y) = log_{2}(\frac{1}{2} y + \frac{1}{2}\sqrt{y^{2} + a^{2}} ) $ \\
+				$\Rightarrow$ Interpoliert $y$-Werte zwischen $log_2(Y)$ für große Werte von $Y$ und für kleine $\frac{y}{a} + log_2(\frac{a}{2})$
+		\end{enumerate}
+	\item Schätzen der Koeffizienten \(\beta\); mittels gewichteter Methode der kleinsten Quadrate
+		\[ RSS := \sum_{i=1}^{n}(y_i - \hat{y}_i)^2 \rightarrow \min \]
+		Bei klassischen Methode der kleinsten Quadrate erhält jede Beobachtung das gleiche Gewicht.
+		Gewichtete Methode der kleinsten Quadrate:
+
+		\[ RSS = \sum_{i = 1}^{n}\omega_i (y_i - \widehat{y_i})^2 \]
+		\[ \omega_i = \dfrac{1}{\hat{Var}(y_i)} \]
+		das bedeutet Alle Beobachtungen \(y_i\) mit einer höheren Varianz erhalten ein geringeres Gewicht \(\omega_i\) als Beobachtungen mit einer geringeren Varianz.  
+	\item Verwendung von Generalisierten linearen Modellen
+\end{enumerate}
+
+\section{Generalisierte lineare Modelle (GLM)}
+Verallgemeinerung der Theorie für lineare Modelle
+
+Herleitung anhand linearer Regressionsmodelle
+unter der Annahme, dass bei linearen Regressionsmodellen der Fehler \( \epsilon_i\) normalverteilt sind \((\epsilon_i \approx N(0, \sigma^2))\) kann die lineare Regression für
+
+\[ Y = \beta_0 + \beta_1 X + \epsilon \]
+auch wie folgt dargestellt werden
+
+\begin{align*}
+E(Y|X) &= E(\beta_0 + \beta_1 X + \epsilon)\\
+&=  E(\beta_0) + E(\beta_1) X + E(\epsilon)\\
+&= \beta_0 + \beta_1 X + 0\\
+E(Y|X) &= g^{-1} (\beta_o + \beta_1 + X)
+\end{align*}
+
+Die beliebige Funktion \(g^{-1}\) modelliert die Streuung der Beobachtungen \( y_i\) um die geschätzten Werte \(\hat{y_i}\). \\
+Daher muss für GLMs keine Konstante Varianz für Fehler \(\epsilon_i\) vorausgesetzt werden
+\[
+g(E(y|X)) = \beta_0 + \beta_1 X
+\]
+\(g(E(y|X))\) wird als Link-Funktion bezeichnet.
+Die Link-Funktion definiert die Bezeichnung zwischen dem linearen Term \(\beta_0+ \beta_1 X\) und der bedingten Erwartung von \(Y\) gegeben \(X E(Y|X)\)
+
+\subsubsection*{Definition für GLMs}
+Sie bestehe aus 3 Komponenten 
+\begin{enumerate}
+	\item Zufallskomponente: Definiert die Verteilung von Y. 
+	Die Verteilung kommt aus der Familie der Exponentialverteilungen	
+	\[
+	\underbrace{f(y | \theta, \phi)}_{g()} = \exp\{\frac{y\theta- b\theta}{a(\phi)} + c(y, \phi)\}
+	\]
+	\begin{itemize}
+		\item [] \(\theta\) bzw. g(): Transformation des Erwartungswertes für Y
+		\item [] \(\phi\): Streuungsparamter, Dispersion
+		\item [] \(a(),b(), c()\): Spezifische Funktion je nach Typ der gewählten Exponentialverteilung
+		
+	\end{itemize}
+
+	\item linearer Term Y:
+	Linearer Term, welcher die Kovariablen im GLM definiert
+	\begin{align*}
+		&\beta_0 +\beta_1 X \\
+		&\beta_0 + \beta_1 X_1 + \ldots + \beta_p X_p
+	\end{align*}
+	
+	\item Link Funktion:
+	Die Link-Funktion \(\theta\)(oder g()) definiert die Beziehung zwischen dem linearen Term und der bedingten Erwartung E(Y|X)
+\end{enumerate}
+
+Beispiel:
+\begin{tabbing}
+	\hspace{0.25\linewidth}\=\hspace{0.25\linewidth}\=\hspace{0.25\linewidth}\=\kill
+	\textbf{Modell}	\>  \textbf{abhängige Variable}\>  \textbf{Vert. d. Residuen}\> \textbf{Link Funktion}\\ 
+	lineare Regression\>  qualitativ, stetig\>  normal verteilt\> \(g(E(Y|X)) = E(Y)\)\\ 
+	logistische Regression\>  binär\>  binomial verteilt\> \(g(E(Y|X)) = \log(\frac{E(Y)}{1-E(Y)}) \)\\ 
+	log.-lin. Regression\>  diskret \>  poisson verteilt\> \(g(E(Y|X)) = \log(E(Y))\)\\
+\end{tabbing} 
+
+Dichtefunktion der Normalverteilung in die generalisierte Form der Exponentialverteilungen übertragbar\\
+
+generalisierte Form für Exponentialverteilungen :
+\[
+f(y| \theta, \phi) = \exp(\frac{y\theta - b(\theta)}{a(\phi)} + c(y,\phi))
+\]
+Dichtefunktion für die Normalverteilung
+
+\begin{align*}
+	f(y| \mu , \sigma^2) &= \frac{1}{\sqrt{2\pi \sigma^2}} \exp(- \frac{(y-\mu)^2}{2\sigma^2}) = \frac{1}{a} e^b = a^{-1} e^b = e^{-ln a} e^b = e^{-\ln a + b}\\
+	&= \exp (-ln \sqrt{2\pi \sigma^2} - \frac{(y-\mu)^2}{1\sigma^2})\\
+	&= \exp (-\frac{y^2 - 2y\mu + \mu^2}{2 \sigma^2})
+	- \ln(\sqrt{2\pi \sigma^2}) \\
+	&= \exp\frac{- y^2 + 2y\mu - \mu^2}{2 \sigma^2} - ln(\sqrt{2\pi \sigma^2})\\
+	&= \exp\frac{ 2y\mu - \mu^2}{2 \sigma^2}- \frac{y^2}{2\sigma^2} - ln(\sqrt{2\pi \sigma^2})\\
+	&= \exp \underbrace{\frac{ y \mu - \frac{\mu^2}{2}}{\sigma^2}}_{c(\phi)} - 
+	\underbrace{\frac{y^2}{2\sigma^2} - ln(\sqrt{2\pi \sigma^2})}_{c(y, \phi)}
+\end{align*}
+
+mit \\
+\tab  $\theta= g() = \mu = E(Y|X)$\\
+\tab $b(\theta) = \frac{\mu^2}{2}$\\
+\tab $a(\phi) = \sigma^2$ = Streuungsparamter für Normalverteilung \\
+
+
+
+
+\subsection{Schätzen der Parameter für GLMs}
+Neben den Koeffizienten $\beta_i$ der linearen Link Funktion muss auch der Dispensionsparameter $\phi$ geschätzt werden. 
+Dafür werden oft Maximum likelihood Methoden verwendet
+
+\subsubsection*{Maximum likelihood Methoden (MLE)}
+Schätzwert $\hat{\theta}$ für einen beliebigen Parameter $\theta$ wird so gewählt, dass die  likelihood Funktion $L(\theta|x_1, \ldots, x_n)$ für $ n $ Beobachtungen ihr Maximum erreicht.
+Sind die Beobachtungen $x_i$ unabhängig, wird die Likelihoodfunktion wie folgt definiert:
+
+\[
+L(\theta|x_1, \ldots, x_n)  = \prod_{i=1}^{n} f(x_i|\theta)
+\]
+$f(x_i|\theta)$: Dichtefunktion für Zufallsvariable X mit Beobachtungen $x_1$, $\ldots$ , $x_n$\\
+
+Daher ist die likelihood Funktion  $L(\theta|x_1, \ldots, x_n)$ eine Funktion des unbekannten Parameter $\theta$ gegeben der Beobachtungen $x_1, \ldots, x_n$. Sie gibt die Werte für den Parameter $\theta$ an, die gegeben der Beobachtungen $x_1,\ldots, x_n$ am wahrscheinlichsten sind.
+
+\[
+\log (L(\theta|x_1, \ldots, x_n))  = \sum_{i=1}^{n} \log(f(x_i|\theta))
+\]
+Als Schätzer für $\theta$ rechnet man den sogenannten Maximun Likelihood Schätzer aus: $\hat{\theta}_{ML}$
+
+$\hat{\theta}_{ML}$ ist der Wert unter dem die Likelihoodfunktion ihr Maximum erreicht.
+\[
+\frac{\partial L}{\partial \theta} = 0 \text{\tab z.B durch Newton-Verfahren}
+\]
+
+
+\begin{itemize}
+	\item[$\rightarrow$] Methode der kleinsten Quadrate ist eine Sonderform für ML-Methoden
+	\item[$\rightarrow$] ML Schätzer für Parameter der Normalverteilung sind 
+\end{itemize}
+
+
+\[\mu = \frac{1}{n} \sum_{i = 1}^{n} x_i \]
+\[\sigma^2 = \frac{1}{n} \sum_{i = 1}^{n}(x_i - \bar{x})^2\]
+
+%Vorlesung vom 04.01.18
+\subsection{Schätzen der Kovariablen mittels MLE (GLMs)}
+Die log-likelihood für n unabhängige Beobachtungen $y_1,\cdots,y_n$ direkt aus der generalisierenden Form der Exponentioalverteilung erstellen:
+\[ l(y|\theta, \phi) = \exp \left( \frac{y \theta - b(\theta)}{a(\phi)} + c(y,\phi) \right) \]
+\[ log l (\theta, \phi, y) = \sum\limits_{i=1}^{n} log l (y_i | \theta, \phi) = \sum\limits_{i=1}^{n} \left( \frac{y \theta - b(\theta)}{a(\phi)} + c(y,\phi) \right) \]
+\[\theta_i = g(\mu_i)=\beta_0 + \beta_1 X_1,\dots,\beta_n X_n \]
+$\Rightarrow$ Partielle Ableitungen der likelihood Funktion für einzelnen Regressionskoeffizienten berechnet
+
+\section{Test auf signifikanten Effekt}
+\begin{enumerate}
+	\item Wald-Test
+	\item Likelihood-Ratio-Test
+\end{enumerate}
+
+\subsection{Wald-Test}
+Der Wald-Test ist eine generalisierte Form des t-tests. Hier ist der Wert der Teststatistik standardnormalverteilt $(\sim N(0,1))$.
+\[Z_n = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} \]
+Ein Maximum-likelihood-Schätzer kann als Mittelwert aus einer Summe einer großen Anzahl von Zufallsvariablen interpretiert werden.
+Bei großen n die Summe von identisch verteilten und unabhängigen Zufallsvariablen asymptotisch normalverteilt ist (zentraler Grenzwertsatz).
+\[\sum\limits_{i=1}^{n} X_i \sim N(n \cdot \mu, n \cdot \sigma^{2}) \]
+Aus dem zentralen Grenzwertsatz folgt, dass die Mittelwerte von beliebig verteilten Zufallsvariablen standardnormalverteilt sind. \\
+$\Rightarrow$ Kann für einen Ml-Schätzer der Wald-Test genommen werde, um den Wert des Schätzers mit dem Wert aus einer Grundgesamtheit abzugleichen
+
+\[ H_0: \beta_i = 0 \]
+\[ H_1: \beta_i \neq 0 \]
+\[ w = \frac{\hat{\beta}_{iML}-0}{\sigma / \sqrt{n}} \sim N(0,1) \]
+\[ w = \frac{\hat{\beta}_{iML}^{2}-0}{Var(\sigma / \sqrt{n})} \sim \chi_{df,1-\alpha}^{2} \]
+\todo{ML im Index heißt der Koeffizient wurde mit Maximum Likelihood geschätzt. df im Index heißt degrees of freedom}
+$\Rightarrow$ Da ML-Schätzer nur bei großen n standardnormalverteilt sind, ist der Wald-Test nur bei großen n zulässig \\
+$\Rightarrow$ Wald-Test approximiert einen Likelihood-Ratio Test \\
+$\Rightarrow$ Im Vergleich zum LR-Test muß nur ein Modell (mit allen Koeffizienten) gefittet werden \\
+\subsection{LR-Test}
+Vergleicht die likelihood des gesamten Modells mit der Likelihood des reduzierten Modells. Das reduzierte enthält den Koeffizienten, der getestet werden soll nicht.
+\[ H_0 : \beta_i = 0 \Leftrightarrow g(\mu) = \beta_0 \]
+\[ H_0 : \beta_i \neq 0 \Leftrightarrow g(\mu) = \beta_0 + \beta_1 X \]
+
+\[LR = \frac{l(H_0 | x_1,\cdots,x_n}{l(H_1 | x_1,\cdots,x_n}\]
+\[ -2 ln LR \sim  \chi_{df,1-\alpha}^{2} \]
+$\Rightarrow$ LR-Test erfordert, dass beide Modelle $g(\mu)=\beta_0$ und $g(\mu)=\beta_0 + \beta_1 X$ gefittet werden müssen.
+$\Rightarrow$ LR-Test st allerdings auch für geringe Stichprobengrößen geeignet. (Im Vergleich zum Wald-Test)
+
+
+
 %Vorlesung 9 16.11.2017
 \section{Nichtlineare Regression}
-\subsection{Rückblick: Lineare Regression}
-\[ Y= \beta_0 + \beta_1 x_1^{(1)} + ... + \beta_k x_i^{(k)} + \epsilon_i, \; i \in \{1,...,n\} \]
-\begin{itemize}
- \item $n$: Anzahl Messungen 
- \item $k$: Anzahl Kovariablen 
- \item $x_i^{(j)}$: Wert der Kovariablen $j$ von Individuum $i$
- \item $\epsilon_i$: zufällige Störungshäufigkeit $\epsilon_i \sim N(0, \sigma^2), \sigma^2 > 0$, unabh.
- \item $\beta_j$: unbekannter, wahrer, zu schätzender Parameter
-\end{itemize}
-$\rightarrow$ Kleinste Quadrate Methode:
-\[ \sum\limits_{i=1}^n \left(y_i - (\beta_0 + \beta_1 x_1^{(1)} + ... + \beta_k x_i^{(k)} \right)^2 \rightarrow min \]
+%\subsection{Rückblick: Lineare Regression}
+%\[ Y= \beta_0 + \beta_1 x_1^{(1)} + ... + \beta_k x_i^{(k)} + \epsilon_i, \; i \in \{1,...,n\} \]
+%\begin{itemize}
+% \item $n$: Anzahl Messungen 
+% \item $k$: Anzahl Kovariablen 
+% \item $x_i^{(j)}$: Wert der Kovariablen $j$ von Individuum $i$
+% \item $\epsilon_i$: zufällige Störungshäufigkeit $\epsilon_i \sim N(0, \sigma^2), \sigma^2 > 0$, unabh.
+% \item $\beta_j$: unbekannter, wahrer, zu schätzender Parameter
+%\end{itemize}
+%$\rightarrow$ Kleinste Quadrate Methode:
+%\[ \sum\limits_{i=1}^n \left(y_i - (\beta_0 + \beta_1 x_1^{(1)} + ... + \beta_k x_i^{(k)} \right)^2 \rightarrow min \]
 
-\subsection{Nichtlineare Regression}
 \begin{itemize}
- \item häufig nichtlneare Zusammenhänge zwischen abhängiger und unabhängigen Variablen 
+ \item häufig nichtlineare Zusammenhänge zwischen abhängiger und unabhängigen Variablen 
 	\begin{sloppypar}
 	 $\rightarrow$ manchmal aus dem theoretischen Wissen/empirischen Beobachtungen bekannt
 	\end{sloppypar}
@@ -62,7 +832,7 @@ table[meta=label] {
 \end{axis}
 \end{tikzpicture}
 \todo{Man sieht Lineare Regression ist hier schlecht}
-\subsubsection{Modell}
+\subsection{Modell}
 \[Y_i = \underbrace{h}_{\text{Funktion i.A. nichtlinear}} \left(\underbrace{x_i^{(1)},...,x_i^{(k)}}_{\text{Kovariablen}};
 \underbrace{\theta_1,...,\theta_p}_{\text{(unbekannte Parameter)}} \right) + \epsilon_i, \; i \in \{1,...,n\} \]
 
@@ -89,18 +859,18 @@ $\rightarrow$ lineare Regression \\
 \[ h(x; \theta_1, \theta_2) = \theta_1 x^{\theta_2} \]
 
 \[ \Rightarrow \underbrace{\log h}_{=:  \tilde{h}}(x; \theta_1, \theta_2) = \log \theta_1 + \log x^{\theta_2} \]
-\[= \underbrace{\log \theta_1}_{=: \tilde{\theta_1}} + \underbrace{\theta_2}_{=: \tilde{\theta_2}} \underbrace{ \log x }_{=: \tilde{x}} \]
-\[ \rightarrow \tilde{h}(\tilde{x};\tilde{\theta_1} \tilde{ \theta_2} ) = \tilde{\theta_1} \tilde{\theta_2} \tilde{x} \]
+\[= \underbrace{\log \theta_1}_{=: \tilde{\theta}_1} + \underbrace{\theta_2}_{=: \tilde{\theta}_2} \underbrace{ \log x }_{=: \tilde{x}} \]
+\[ \rightarrow \tilde{h}(\tilde{x};\tilde{\theta}_1 \tilde{\theta}_2 ) = \tilde{\theta}_1 \tilde{\theta}_2 \tilde{x} \]
 Lineare Regression
 \[ Y_i=\log y_i \]
-\[ \rightarrow \tilde{Y_i} = \log y_i = \tilde{h}(\tilde{x_i} \tilde{\theta_1} \tilde{ \theta_2}) + \epsilon_i \]
-\[ \tilde{\theta_1} + \tilde{\theta_2} \tilde{x_i} + \epsilon_i, \; i \in \{1,...,n\} \]
-$\rightarrow$ Schätzung von $\tilde{\theta_1}$ und $\tilde{\theta_2}$ \\
+\[ \rightarrow \tilde{Y_i} = \log y_i = \tilde{h}(\tilde{x}_i \tilde{\theta}_1 \tilde{\theta}_2) + \epsilon_i \]
+\[ \tilde{\theta}_1 + \tilde{\theta}_2 \tilde{x}_i + \epsilon_i, \; i \in \{1,...,n\} \]
+$\rightarrow$ Schätzung von $\tilde{\theta}_1$ und $\tilde{\theta}_2$ \\
 Aber: $\epsilon_i \sim N(0,\sigma^2), \sigma^2 > 0$, unabh.\\
 Rücktransformation:
-\[ Y_i = \exp(\tilde{\theta_1} + \tilde{\theta_2} \tilde{x_i} + \epsilon_i ) \]
-\[ = \underbrace{\exp(\tilde{\theta_1})}_{=\theta_1} \underbrace{\exp(\tilde{\theta_2}\tilde{x_i})}_{
-\substack{= \exp(\theta_2 x_i) \\ = \exp ( \exp ( \tilde{x_i} ))^{\theta_2} \\ = x_i^{\theta_2} }}
+\[ Y_i = \exp(\tilde{\theta}_1 + \tilde{\theta}_2 \tilde{x}_i + \epsilon_i ) \]
+\[ = \underbrace{\exp(\tilde{\theta}_1)}_{=\theta_1} \underbrace{\exp(\tilde{\theta}_2\tilde{x}_i)}_{
+	\substack{= \exp(\theta_2 x_i) \\ = \exp ( \exp ( \tilde{x}_i ))^{\theta_2} \\ = x_i^{\theta_2} }}
 \exp(\epsilon_i) \]
 \[= \theta_1 x_i^{\theta_2} \exp (\epsilon_i) \]
 
@@ -138,7 +908,6 @@ _{\mathrel{\widehat{=}}  h (x_i^{(1)},...,x_i^{(k)}; \theta_1,..., \theta_p) }
 
 \subsubsection{Polynomiale Regression (Hier:k=1)}
 \[Y_i = \theta_0 + \theta_1 x_i^1 +  \theta_2 x_i^2 + ... +  \theta_p x_i^p + \epsilon_i, \; i \in \{1,...,n\} \]
-\todo{Oszi bild}
 
 \begin{tikzpicture}
 \begin{axis}[%
@@ -546,7 +1315,6 @@ p groß:
 \subsubsection{Stückweise Regression (Hier:k=1)}
 \[Y_i= \sum\limits_{j=1}^{p} \mathbbm{1}_{[\alpha_j,\alpha_{j+1})} (x_i) + \epsilon_i  \; i \in \{1,...,n\} \]
 stückweise Approximation mit konstanten Funktionen
-\todo{Stufen Bild}
 
 \begin{tikzpicture}
 \begin{axis}[%
@@ -1358,6 +2126,35 @@ table[meta=label] {
  \item (asymptotische) Verhalten an den Intervallgrenzen kann (insbesondere bei Polynomen höherer Ordnung) sehr unpassend sein
 \end{itemize}
 
+%Vorlesung vom 21.11.17
 
+	\textbf{Wünsche: } \begin{itemize}
+		\item stetige Übergänge an den Intervallgrenzen
+		\item keine Knicke an den Intervallgrenzen
+		\item [$\rightarrow$] glatter Übergang
+	\end{itemize}
 
-\end{document}
+\subsection{Splines (polynome der Ordnung M)}
+''Spline'' $\approxeq$ Polynomzug
+\todo{Glätten Sprünge der Regressionsfunktionen s.o.}
+
+\begin{itemize}
+	\item $ \alpha_1 < \ldots < \alpha_r $
+	\item[$\rightarrow$] $(r+1) \text{ Intervalle }  (-\infty, \alpha_1),[\alpha_1, \alpha_2) , \ldots, [\alpha_{r-1} , \alpha_r), [\alpha_r, \infty)$
+	\item $Y_i  = \sum_{j=1}^{r} \theta_j h_j (x_i) + \epsilon_i$ , $i \in {1,\ldots,n}$
+	\item [] 
+	\begin{itemize}
+		\item mit $h_1(x):=x^0$
+		\item $h_2(x) := x^1$
+		\item $h_{M+1}(x) := x^{M}$
+		\item $h_{M+2}(x) := (x- \alpha_1)^{M}_{+}$
+		\item $h_{M+r+1}(x) := (x- \alpha_r)^{M}_{+}$
+	\end{itemize} 
+
+\item[$\rightarrow$] Ableitungen bis zur Ordnung (M-1) in den Knoten stetig
+\end{itemize}
+\underline{Üblich:} 
+\begin{itemize}
+	\item Knoten wählt man äquidistant oder gemäß der Quantile
+	\item $M \in \{0,1,3\}$
+\end{itemize}
