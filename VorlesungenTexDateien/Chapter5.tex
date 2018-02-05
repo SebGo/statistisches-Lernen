@@ -28,17 +28,17 @@ $\rightarrow$
 $\rightarrow$ ``je kleiner desto besser''
 
 %Vorlesung vom 30.11.17
-\paragraph{Mallow's Cp}
-\[ \text{Cp}= \frac{1}{n}(\text{RSS} + 2k \hat{\sigma}^{2} \]
+\paragraph{Mallow's $C_p$}
+\[ C_p = \frac{1}{n}(\text{RSS} + 2k \hat{\sigma}^{2} \]
 mit $\hat{\sigma}^{2}$ als Varianzschätzer für $\epsilon_i , i \in \{1,\dots,n\}$ \\
 (Voraussetzung ``Homoskedastizität'')\\
 $\Rightarrow$ ``Je kleiner desto besser''
-\paragraph{Akarkas Informationskriterium (AIC) }
-\[ \text{AIC} := n \log (\hat{b}^2) + 2k \]
+\paragraph{Akaikes Informationskriterium (AIC) }
+\[ AIC := n \cdot \log (\hat{\sigma^2}) + 2k \]
 $\Rightarrow$ ``Je kleiner desto besser''
 
 \paragraph{Bayes'sche Informationskriterium (BIC)}
-\[ \text{BIC} := n \log (\hat{b}^2) + k \cdot \log(n) \]
+\[ BIC := n \cdot \log (\hat{\sigma^2}) + k \cdot log(n) \]
 $\Rightarrow$ ``Je kleiner desto besser''
 
 \paragraph{Bestimmtheitsmaß ($R^2$)}
@@ -60,7 +60,7 @@ $\Rightarrow$ RSS und $R^{2}$ nur zum Vergleich von Modellen mit gleicher Anzahl
 \section{Modellwahlverfahren}
 \subsection{Best Subset Selection}
 vergleiche alle möglichen (Sub-)Modelle miteinander
-\[ \{ x^{(j_1)},\dots, x^{(j_l)}\} \subseteq \{x^{(1)}, \dots, x^{k} \} \]
+\[ \{ x^{(j_1)},\dots, x^{(j_l)}\} \subseteq \{x^{(1)}, \dots, x^{(k)} \} \]
 mit 
 $l \in \{1, \dots, k \} $
 \[ \Rightarrow Y_i = \beta_0 + \beta_1 x_i^{(j_1)} + \dots + \beta_l x_i^{(j_l)} + \epsilon_i , i \in \{1,..n\} \]
@@ -72,11 +72,11 @@ $\Rightarrow 2^{k} $ Möglichkeiten der Modellbildung
 	\item Für $l=1,\dots,k$:
 		\begin{enumerate}
 			\item Berechne alle $\binom{k}{l}$ Modell mit (genau) $l$ Einflussgrößen
-			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_0)$
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_l)$
 		\end{enumerate}
 	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß
 		\begin{itemize}
-			\item kreuzvalidierter Vorhersagefehle (später)
+			\item kreuzvalidierter Vorhersagefehler (später)
 			\item AIC
 			\item BIC
 			\item $R^2$
@@ -115,7 +115,7 @@ Beispiel: $k=20 \Rightarrow 211$ Modelle müssen berechnet werden \\ \\
 	\item Für $l=k,\dots,1:$
 		\begin{enumerate}
 			\item Berechne alle $l$ Modelle, welche alle Einflussgrößen aus $\mathcal{M}_l$ außer einem enthalten
-			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l+1})$
+			\item Wähle unter allen diesen Modellen das mit dem größten $R^{2} (\mathcal{M}_{l-1})$
 		\end{enumerate}
 	\item Wähle unter $\mathcal{M}_0,\dots,\mathcal{M}_k$ das beste Modell gemäß:
 		\begin{itemize}
@@ -214,10 +214,10 @@ $\Rightarrow$ Reduktion der Varianz der Schätzer (``Glättung'')
 	\item $(x_i, y_i)_i \in I_T$ - Trainingsdaten
 	\item $(x_i,y_i)_i \in I_V$ -Validierungsdaten
 \end{itemize}
-mit $ I_T $, $ I_V $   $\{1,\ldots,n\}$   und $I_T \cap I_V = \emptyset$
+mit $ I_T, I_V \subseteq$   $\{1,\ldots,n\}$   und $I_T \cap I_V = \emptyset$
 	
 \begin{itemize}
-	\item $ \hat{\beta_0}^T $, $ \hat{\beta_1}^T $ - Schätzer für $\beta_0$ und  $\beta_1$ unter Verwendung von $ (x_i $, $ Y_i $$ )_{i \in I_T} $
+	\item $ \hat{\beta_0}^T $, $ \hat{\beta_1}^T $ - Schätzer für $\beta_0$ und  $\beta_1$ unter Verwendung von $ (x_i $, $ y_i $$ )_{i \in I_T} $
 	\item mittlerer quadratischer Fehler über Validierungsdaten
 \end{itemize}
 
@@ -237,11 +237,11 @@ $\rightarrow$ Aufteilung jeweils möglichst zufällig wählen
 	\item m mal in trainings und Validierungsdaten aufteilen
 	\item $ (x_i, y_i)_{i \in I_T^{(1)}} , (x_i,y_i)_{i \in I_V^{(1)}} $ $ \ldots $
 	\item $ (x_i, y_i)_{i \in I_T^{(m)} }, (x_i,y_i)_{i \in I_V^{(m)}} $
-	\item bestimmen jeweils  $\hat{\beta_0}^{T,L}$, $\hat{\beta_1}^{T,L}$ und 
+	\item bestimmen jeweils  $\hat{\beta_0}^{T,l}$, $\hat{\beta_1}^{T,l}$ und 
 	\[ MSE_V^{(l)} := \frac{1}{|I_V^{(l)}|} \sum_{i \in I_V^{(1)}}(y_i - (\hat{\beta_0}^{(T,l)} + \hat{\beta_1}^{(T,l)} x_i))^2  \]
 	\item für $l = 1, \ldots, m$
 	\item bestimme den gemittelten MSE
-	\[MSE_V^m := \frac{1}{m} \sum_{1}^{m} MSE_V^{(l)}\]
+	\[MSE_V^m := \frac{1}{m} \sum_{k=1}^{m} MSE_V^{(k)}\]
 \end{itemize}
 
 \subsection{Mögliche Aufteilungen}
@@ -260,13 +260,13 @@ $\rightarrow$ Aufteilung jeweils möglichst zufällig wählen
 
 Aufteilung in K Blöcke:
 \[(x_i, y_i)_{i \in I^{(k)}} \text{ für }  k = 1, .., K \] 
-\[\text{mit } I^{(k_1)} \cup I^{(k_2)} = \emptyset \text{ für } k_1, k_2 \in {1, \ldots ,K} \text{ mit } k_1 \neq k_2 \]
+\[\text{mit } I^{(k_1)} \cap I^{(k_2)} = \emptyset \text{ für } k_1, k_2 \in {1, \ldots ,K} \text{ mit } k_1 \neq k_2 \]
 \[ \text{und } |I^{(K)}| = \begin{cases}
-\frac{n}{m} &, n \mod K= 0\\
+\frac{n}{K} &, n \mod K= 0\\
 n \mod K &, n \mod K \neq 0
 \end{cases}
 \]
-\[\text{und } |I^{(k)}| = \frac{n - |I^{(k)}|}{K-1} \text{ für } k = \{1, \ldots ,K\} \]
+\[\text{und } |I^{(k)}| = \frac{n - |I^{(k)}|}{K-1} \text{ für } k = \{1, \ldots ,K - 1\} \]
 
 möglichst \(|I^{(K)}| \approx |I^{(k)}|\)für \(k = \{1, \ldots ,K-1\}\)\\
 

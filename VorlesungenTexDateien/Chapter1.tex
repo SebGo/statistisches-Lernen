@@ -129,7 +129,7 @@ So bezeichnet man:
 
 \section{Zufallsvariablen und Verteilungsfunktionen}
 Qualitative Beschreibung aus Gedenko: ``Eine \underline{Zufallsgröße}(-variable) ist eine Größe, deren Werte vom Zufall abhängen und für die eine Wahrscheinlichkeitsfunktion existiert''\\
-Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega = \mathbb{R}$ und $F_x(t):=O(X<t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton nicht fallend, linksseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
+Jedem Elementarereignis $\omega \in \Omega$ (unzerteilbar) wird eine reelle Zahl zugeordnet $X=X(\omega) : \Omega \rightarrow \mathbb{R}$ und $F_x(t):=P(X \leq t)$ wird als Verteilungsfunktion der Zufallsgröße $X$ definiert. Sie ist monoton steigend, rechtsseitig stetig und gehorcht den Bedingungen $F(-\infty)=0,F(\infty)=1$ \\
 $\rightarrow$ Umkehrung: jede solcher Funktionen lässt sich als Verteilungsfunktion deuten
 
 \section{Wichtige Verteilungsfunktionen}
@@ -151,9 +151,7 @@ wobei \[ \binom{n}{m}:=\frac{n!}{m!(n-m)!}, q:= 1-p \]
 \[ F_{\lambda}(t)=\sum_{k=0}^t \frac{\lambda^k}{k!}e^{-\lambda} \]
 
 \textbf{Normalverteilung}
-\[ F(x)=\phi(x)=\frac{1}{\sigma\sqrt{2\pi}} \]
-
-\[ \int_{-\infty}^x e^{\frac{-(z-a)^2}{2\sigma^2}} dz , \sigma > 0 \]
+\[ F(x)=\Phi(x)=\frac{1}{\sigma\sqrt{2\pi}} \int_{-\infty}^x e^{\frac{-(z-\mu)^2}{2\sigma^2}} dz , \sigma > 0\]
 
 \section{Erwartungswert, Varianz, weitere Momente}
 \subsection{Erwartungswert} Sei $E(X)$ eine Zufallsgröße:
@@ -174,7 +172,7 @@ $E(X)=\sum_i x_i p_i$ wobei $x_i$: mögl. Werte, $p_i$: Wahrscheinlichkeiten \\
 	\[ \rightarrow E(X)=np \underbrace{\sum_{k=0}^{n'} \binom{n'}{k'} p^{k'}(1-p)^{n'-k'}}_{=1} = np \]
 	
 \subsubsection{stetig} 
-	\[ E(X)=\int x - p(x) dx , \quad p(x): \text{Wahrscheinlichkeitsdichte} \]
+	\[ E(X)=\int x \cdot p(x) dx , \quad p(x): \text{Wahrscheinlichkeitsdichte} \]
 \end{exmp} 
 
 \begin{exmp}
@@ -193,7 +191,7 @@ ungerade Funktion ergibt 0
 \end{exmp}
 
 \subsection{Varianz} (oder Dispersion)
-\[ V(X) := E \big[ (X-E(X)^2) \big] \]
+\[ V(X) := E \big[ (X-E(X))^2 \big] \]
 \underline{diskret}: 
 \[ V(X) = \sum\limits_{i} \big[ x_i - E(x) \big] ^2 * p_i \]
 \underline{stetig}: 
